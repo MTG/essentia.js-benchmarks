@@ -7,22 +7,32 @@
 		<link rel="stylesheet" href="dist/main.css">
     </head>
     <body>
-        <section class="section">
+        <header>
             <div class="container center padding_20">
                 <h1 class="title">Algorithms time Benchmarking</h1>
                 <h2 class="subtitle">
                     Audio comparison between  <strong>Meyda.js</strong> and <strong>essentia.js</strong>
                 </h2>
+                <a class="button is-large" href="https://github.com/MTG/essentia.js-benchmarks" target="_blank">
+                    <i class="fab fa-github" style="margin-right: 5px"></i>
+                    GitHub
+                </a>
             </div>
-        	<div class="container padding_20">
+        </header>
+        <section class="section">
+            <div class="container padding_20">
                 <div class="container">
                 	<h3 class="title">
                    		Options
                 	</h3>
                 	<div class="field">
                     	<div class="control">
-                        	Repetitions:
-                        	<input class="input" type="tel" placeholder="Repetitions" id="repetitions" maxlength="4">
+                            <p>Repetitions:</p>
+                            <input class="input" type="tel" placeholder="Amount" id="repetitions" maxlength="4">
+                            <button id="audio5s" class="button audioButton is-primary">5 seconds</button>
+                            <button id="audio10s" class="button audioButton is-primary">10 seconds</button>
+                            <button id="audio20s" class="button audioButton  is-primary">20 seconds</button>
+                            <button id="audio30s" class="button audioButton is-primary">30 seconds</button>
                       	</div>
                     </div>
              	</div>

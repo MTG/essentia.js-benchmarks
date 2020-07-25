@@ -61,14 +61,17 @@ const Ebur128Button = document.querySelector('#ebur128 #start_offline');
 const PYINButton = document.querySelector('#pyin #start_offline');
 const YINButton = document.querySelector('#yin #start_offline');
 const YINFFTButton = document.querySelector('#yin_fft #start_offline');
+const Button5s = document.querySelector('.button#audio5s');
+const Button10s = document.querySelector('.button#audio10s');
+const Button20s = document.querySelector('.button#audio20s');
+const Button30s = document.querySelector('.button#audio30s');
 
 //Custom Variables
 let essentia;
 loadEssentia();
 
-let audioURL = 'https://docs.google.com/uc?export=download&id=1NRi0D4DTmxBcEkPfexfyrtRe9kPuj-Zp';
-
-
+window.audioURL = 'https://sonosuite-pid-dev.s3.amazonaws.com/audio/benchmark/mozart_c_major_30sec.wav';
+Button30s.classList.add("is-active");
 
 var AudioContext = window.AudioContext // Default
 || window.webkitAudioContext // Safari and old versions of Chrome
@@ -114,8 +117,33 @@ Ebur128Button.addEventListener('click', () => ebur128(essentia, Meyda, audioURL,
 PYINButton.addEventListener('click', () => pyin(essentia, Meyda, audioURL, ctx));
 YINButton.addEventListener('click', () => yin(essentia, Meyda, audioURL, ctx));
 YINFFTButton.addEventListener('click', () => yin_fft(essentia, Meyda, audioURL, ctx));
+Button5s.addEventListener('click', (e) => selectAudio(e, audioURL));
+Button10s.addEventListener('click', (e) => selectAudio(e, audioURL));
+Button20s.addEventListener('click', (e) => selectAudio(e, audioURL));
+Button30s.addEventListener('click', (e) => selectAudio(e, audioURL));
 
+function selectAudio(e, audioURL) {
+    console.log("selectAudio");
+    console.log(e);
+    const buttonsAudio = document.getElementsByClassName("audioButton");
+    [].forEach.call(buttonsAudio, (item)=>{item.classList.remove("is-active")});
+    e.target.classList.add("is-active");
 
+    switch (e.target.id) {
+        case "audio5s":
+            window.audioURL = 'https://sonosuite-pid-dev.s3.amazonaws.com/audio/benchmark/mozart_c_major_5sec.wav';
+            break;
+        case "audio10s":
+            window.audioURL = 'https://sonosuite-pid-dev.s3.amazonaws.com/audio/benchmark/mozart_c_major_10sec.wav';
+            break;
+        case "audio20s":
+            window.audioURL = 'https://sonosuite-pid-dev.s3.amazonaws.com/audio/benchmark/mozart_c_major_20sec.wav';
+            break;
+        case "audio30s":
+            window.audioURL = 'https://sonosuite-pid-dev.s3.amazonaws.com/audio/benchmark/mozart_c_major_30sec.wav';
+            break;
+    }
+}
 
 
 function loadEssentia() {
