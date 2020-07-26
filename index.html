@@ -27,13 +27,24 @@
                 	</h3>
                 	<div class="field">
                     	<div class="control">
-                            <p>Repetitions:</p>
+                            <p>Repetitions</p>
                             <input class="input" type="tel" placeholder="Amount" id="repetitions" maxlength="4">
+                            <p class="has-text-grey-light">This field is optional. If not filled in the system reproduces the minimun repetions needed to obtain a significant value.</p>
+                            </br>
+                            <p>Audio Duration</p>
                             <button id="audio5s" class="button audioButton is-primary">5 seconds</button>
                             <button id="audio10s" class="button audioButton is-primary">10 seconds</button>
                             <button id="audio20s" class="button audioButton  is-primary">20 seconds</button>
                             <button id="audio30s" class="button audioButton is-primary">30 seconds</button>
-                      	</div>
+                            </br>
+                            </br>
+                            <p>Download Results</p>
+                            <label class="checkbox"><input id="downloadResults" type="checkbox">json</label>
+                            </br>
+                            </br>
+                            <p>Use essentia's FrameCutter for essentia algorithms</p>
+                            <label class="checkbox"><input id="frameMode" type="checkbox">FrameCutter Algorithm</label>
+                        </div>
                     </div>
              	</div>
                 <div class="container" id="main-container">

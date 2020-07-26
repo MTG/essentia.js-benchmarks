@@ -36,9 +36,8 @@ export default function all_time_freq(essentia, Meyda, audioURL, audioContext) {
             for (let i = 0; i < audioBuffer.length/HOP_SIZE; i++) {
                 Meyda.bufferSize = FRAME_SIZE;
                 let frame = audioBuffer.getChannelData(0).slice(HOP_SIZE*i, HOP_SIZE*i + FRAME_SIZE);
-                let lastFrame;
                 if (frame.length !== FRAME_SIZE) {
-                    lastFrame = new Float32Array(FRAME_SIZE);
+                    let lastFrame = new Float32Array(FRAME_SIZE);
                     audioBuffer.copyFromChannel(lastFrame, 0, HOP_SIZE*i);
                     frame = lastFrame;
                 }
@@ -63,22 +62,50 @@ export default function all_time_freq(essentia, Meyda, audioURL, audioContext) {
             }
         }, options)
         .add('Essentia#ALL_TIME_FREQ', () => {
-            const frames = essentia.FrameGenerator(audioBuffer.getChannelData(0), FRAME_SIZE, HOP_SIZE);
-            for (var i = 0; i < frames.size(); i++){
-                essentia.Energy(frames.get(i));
-                essentia.RMS(frames.get(i));
-                essentia.ZeroCrossingRate(frames.get(i));
-                var frame_windowed = essentia.Windowing(frames.get(i),true, FRAME_SIZE)['frame'];
-                var spectrum = essentia.Spectrum(frame_windowed)['spectrum'];
-                essentia.PowerSpectrum(frame_windowed);
-                essentia.Centroid(spectrum);
-                essentia.Flatness(spectrum);
-                // essentia.Flux(spectrum);
-                essentia.RollOff(spectrum);
-                essentia.DistributionShape(essentia.CentralMoments(spectrum)["centralMoments"]);
-                essentia.MFCC(spectrum);
-                var bands = essentia.BarkBands(spectrum, 24)['bands'];
-                essentia.Variance(bands);
+            switch(frameMode){
+                case "vanilla":
+                    for (let i = 0; i < audioBuffer.length/HOP_SIZE; i++) {
+                        let frame = audioBuffer.getChannelData(0).slice(HOP_SIZE*i, HOP_SIZE*i + FRAME_SIZE);
+                        if (frame.length !== FRAME_SIZE) {
+                            let lastFrame = new Float32Array(FRAME_SIZE);
+                            audioBuffer.copyFromChannel(lastFrame, 0, HOP_SIZE*i);
+                            frame = lastFrame;
+                        }
+                        essentia.Energy(essentia.arrayToVector(frame));
+                        essentia.RMS(essentia.arrayToVector(frame));
+                        essentia.ZeroCrossingRate(essentia.arrayToVector(frame));
+                        let frame_windowed = essentia.Windowing(essentia.arrayToVector(frame),true, FRAME_SIZE)['frame'];
+                        let spectrum = essentia.Spectrum(frame_windowed)['spectrum'];
+                        essentia.PowerSpectrum(frame_windowed);
+                        essentia.Centroid(spectrum);
+                        essentia.Flatness(spectrum);
+                        // essentia.Flux(spectrum);
+                        essentia.RollOff(spectrum);
+                        essentia.DistributionShape(essentia.CentralMoments(spectrum)["centralMoments"]);
+                        essentia.MFCC(spectrum);
+                        let bands = essentia.BarkBands(spectrum, 24)['bands'];
+                        essentia.Variance(bands);
+                    }
+                    break;
+                case "essentia":
+                    const frames = essentia.FrameGenerator(audioBuffer.getChannelData(0), FRAME_SIZE, HOP_SIZE);
+                    for (let i = 0; i < frames.size(); i++){
+                        essentia.Energy(frames.get(i));
+                        essentia.RMS(frames.get(i));
+                        essentia.ZeroCrossingRate(frames.get(i));
+                        let frame_windowed = essentia.Windowing(frames.get(i),true, FRAME_SIZE)['frame'];
+                        let spectrum = essentia.Spectrum(frame_windowed)['spectrum'];
+                        essentia.PowerSpectrum(frame_windowed);
+                        essentia.Centroid(spectrum);
+                        essentia.Flatness(spectrum);
+                        // essentia.Flux(spectrum);
+                        essentia.RollOff(spectrum);
+                        essentia.DistributionShape(essentia.CentralMoments(spectrum)["centralMoments"]);
+                        essentia.MFCC(spectrum);
+                        let bands = essentia.BarkBands(spectrum, 24)['bands'];
+                        essentia.Variance(bands);
+                    }
+                    break;
             }
         }, options)
         // add listeners
@@ -140,7 +167,9 @@ export default function all_time_freq(essentia, Meyda, audioURL, audioContext) {
                     "hz": this[1].hz
                 }
             }
-            downloadJson(resultsObj, "all_time_freq.json", down_elem);
+            if(window.downloadResults){
+                downloadJson(resultsObj, "energy.json", down_elem);
+            }
         })
         // run async
         .run({ 'async': true });

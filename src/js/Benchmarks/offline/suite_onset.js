@@ -69,7 +69,9 @@ export default function onset(essentia, Meyda, audioURL, audioContext) {
                     "hz": this[0].hz
                 }
             }
-            downloadJson(resultsObj, "onset.json", down_elem);
+            if(window.downloadResults){
+                downloadJson(resultsObj, "energy.json", down_elem);
+            }
         })
         // run async
         .run({ 'async': true });       

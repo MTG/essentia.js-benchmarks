@@ -69,7 +69,9 @@ export default function tuning_frequency(essentia, Meyda, audioURL, audioContext
                     "hz": this[0].hz
                 }
             }
-            downloadJson(resultsObj, "tuning_frequency_extractor.json", down_elem);
+            if(window.downloadResults){
+                downloadJson(resultsObj, "energy.json", down_elem);
+            }
         })
         // run async
         .run({ 'async': true });       

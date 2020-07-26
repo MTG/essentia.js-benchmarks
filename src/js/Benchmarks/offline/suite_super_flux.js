@@ -69,7 +69,9 @@ export default function key(essentia, Meyda, audioURL, audioContext) {
                     "hz": this[0].hz
                 }
             }
-            downloadJson(resultsObj, "super_flux.json", down_elem);
+            if(window.downloadResults){
+                downloadJson(resultsObj, "energy.json", down_elem);
+            }
         })
         // run async
         .run({ 'async': true });       

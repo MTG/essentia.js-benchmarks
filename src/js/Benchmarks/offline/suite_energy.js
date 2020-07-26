@@ -46,9 +46,24 @@ export default function energy(essentia, Meyda, audioURL, audioContext) {
             }
         }, options)
         .add('Essentia#ENERGY', () => {
-            const frames = essentia.FrameGenerator(audioBuffer.getChannelData(0), FRAME_SIZE, HOP_SIZE);
-            for (var i = 0; i < frames.size(); i++){
-                essentia.Energy(frames.get(i));
+            switch(frameMode){
+                case "vanilla":
+                    for (let i = 0; i < audioBuffer.length/HOP_SIZE; i++) {
+                        let frame = audioBuffer.getChannelData(0).slice(HOP_SIZE*i, HOP_SIZE*i + FRAME_SIZE);
+                        if (frame.length !== FRAME_SIZE) {
+                            let lastFrame = new Float32Array(FRAME_SIZE);
+                            audioBuffer.copyFromChannel(lastFrame, 0, HOP_SIZE*i);
+                            frame = lastFrame;
+                        }
+                        essentia.Energy(essentia.arrayToVector(frame));
+                    }
+                    break;
+                case "essentia":
+                    const frames = essentia.FrameGenerator(audioBuffer.getChannelData(0), FRAME_SIZE, HOP_SIZE);
+                    for (var i = 0; i < frames.size(); i++){
+                        essentia.Energy(frames.get(i));
+                    }
+                    break;
             }
         }, options)
         // add listeners
@@ -110,7 +125,9 @@ export default function energy(essentia, Meyda, audioURL, audioContext) {
                     "hz": this[1].hz
                 }
             }
-            downloadJson(resultsObj, "energy.json", down_elem);
+            if(window.downloadResults){
+                downloadJson(resultsObj, "energy.json", down_elem);
+            }
         })
         // run async
         .run({ 'async': true });       

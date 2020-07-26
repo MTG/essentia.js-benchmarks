@@ -35,20 +35,35 @@ export default function distribution_shape(essentia, Meyda, audioURL, audioConte
             for (let i = 0; i < audioBuffer.length/HOP_SIZE; i++) {
                 Meyda.bufferSize = FRAME_SIZE;
                 let frame = audioBuffer.getChannelData(0).slice(HOP_SIZE*i, HOP_SIZE*i + FRAME_SIZE);
-                let lastFrame;
                 if (frame.length !== FRAME_SIZE) {
-                    lastFrame = new Float32Array(FRAME_SIZE);
+                    let lastFrame = new Float32Array(FRAME_SIZE);
                     audioBuffer.copyFromChannel(lastFrame, 0, HOP_SIZE*i);
                     frame = lastFrame;
                 }
                 Meyda.extract(['spectralSpread', 'spectralSkewness', 'spectralKurtosis'], frame);
             }
         }, options)
-        .add('Essentia#DIST_SHAPE', () => {        
-            const frames = essentia.FrameGenerator(audioBuffer.getChannelData(0), FRAME_SIZE, HOP_SIZE);
-            for (var i = 0; i < frames.size(); i++){
-                var frame_windowed = essentia.Windowing(frames.get(i),true, FRAME_SIZE);
-                essentia.DistributionShape(essentia.CentralMoments(essentia.Spectrum(frame_windowed['frame'])['spectrum'])["centralMoments"]);
+        .add('Essentia#DIST_SHAPE', () => {
+            switch(frameMode){
+                case "vanilla":
+                    for (let i = 0; i < audioBuffer.length/HOP_SIZE; i++) {
+                        let frame = audioBuffer.getChannelData(0).slice(HOP_SIZE*i, HOP_SIZE*i + FRAME_SIZE);
+                        if (frame.length !== FRAME_SIZE) {
+                            let lastFrame = new Float32Array(FRAME_SIZE);
+                            audioBuffer.copyFromChannel(lastFrame, 0, HOP_SIZE*i);
+                            frame = lastFrame;
+                        }
+                        let frame_windowed = essentia.Windowing(essentia.arrayToVector(frame), true, FRAME_SIZE);
+                        essentia.DistributionShape(essentia.CentralMoments(essentia.Spectrum(frame_windowed['frame'])['spectrum'])["centralMoments"]);
+                    }
+                    break;
+                case "essentia":
+                    const frames = essentia.FrameGenerator(audioBuffer.getChannelData(0), FRAME_SIZE, HOP_SIZE);
+                    for (let i = 0; i < frames.size(); i++){
+                        let frame_windowed = essentia.Windowing(frames.get(i),true, FRAME_SIZE);
+                        essentia.DistributionShape(essentia.CentralMoments(essentia.Spectrum(frame_windowed['frame'])['spectrum'])["centralMoments"]);
+                    }
+                    break;
             }
         }, options)
         // add listeners
@@ -110,7 +125,9 @@ export default function distribution_shape(essentia, Meyda, audioURL, audioConte
                     "hz": this[1].hz
                 }
             }
-            downloadJson(resultsObj, "distribution_shape.json", down_elem);
+            if(window.downloadResults){
+                downloadJson(resultsObj, "energy.json", down_elem);
+            }
         })
         // run async
         .run({ 'async': true });       

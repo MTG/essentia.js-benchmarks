@@ -36,9 +36,8 @@ export default function perceptual_spread(essentia, Meyda, audioURL, audioContex
             for (let i = 0; i < audioBuffer.length/HOP_SIZE; i++) {
                 Meyda.bufferSize = FRAME_SIZE;
                 let frame = audioBuffer.getChannelData(0).slice(HOP_SIZE*i, HOP_SIZE*i + FRAME_SIZE);
-                let lastFrame;
                 if (frame.length !== FRAME_SIZE) {
-                    lastFrame = new Float32Array(FRAME_SIZE);
+                    let lastFrame = new Float32Array(FRAME_SIZE);
                     audioBuffer.copyFromChannel(lastFrame, 0, HOP_SIZE*i);
                     frame = lastFrame;
                 }
@@ -46,10 +45,26 @@ export default function perceptual_spread(essentia, Meyda, audioURL, audioContex
             }
         }, options)
         .add('Essentia#PERCEPTUAL_SPREAD', () => {
-            const frames = essentia.FrameGenerator(audioBuffer.getChannelData(0), FRAME_SIZE, HOP_SIZE);
-            for (var i = 0; i < frames.size(); i++){
-                var frame_windowed = essentia.Windowing(frames.get(i),true, FRAME_SIZE);
-                essentia.Variance(essentia.BarkBands(essentia.Spectrum(frame_windowed['frame'])['spectrum'], 24)['bands']);
+            switch(frameMode){
+                case "vanilla":
+                    for (let i = 0; i < audioBuffer.length/HOP_SIZE; i++) {
+                        let frame = audioBuffer.getChannelData(0).slice(HOP_SIZE*i, HOP_SIZE*i + FRAME_SIZE);
+                        if (frame.length !== FRAME_SIZE) {
+                            let lastFrame = new Float32Array(FRAME_SIZE);
+                            audioBuffer.copyFromChannel(lastFrame, 0, HOP_SIZE*i);
+                            frame = lastFrame;
+                        }
+                        let frame_windowed = essentia.Windowing(essentia.arrayToVector(frame), true, FRAME_SIZE);
+                        essentia.Variance(essentia.BarkBands(essentia.Spectrum(frame_windowed['frame'])['spectrum'], 24)['bands']);
+                    }
+                    break;
+                case "essentia":
+                    const frames = essentia.FrameGenerator(audioBuffer.getChannelData(0), FRAME_SIZE, HOP_SIZE);
+                    for (let i = 0; i < frames.size(); i++){
+                        let frame_windowed = essentia.Windowing(frames.get(i),true, FRAME_SIZE);
+                        essentia.Variance(essentia.BarkBands(essentia.Spectrum(frame_windowed['frame'])['spectrum'], 24)['bands']);
+                    }
+                    break;
             }
         }, options)
         // add listeners
@@ -111,7 +126,9 @@ export default function perceptual_spread(essentia, Meyda, audioURL, audioContex
                     "hz": this[1].hz
                 }
             }
-            downloadJson(resultsObj, "perceptual_spread.json", down_elem);
+            if(window.downloadResults){
+                downloadJson(resultsObj, "energy.json", down_elem);
+            }
         })
         // run async
         .run({ 'async': true });

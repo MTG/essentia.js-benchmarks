@@ -65,11 +65,15 @@ const Button5s = document.querySelector('.button#audio5s');
 const Button10s = document.querySelector('.button#audio10s');
 const Button20s = document.querySelector('.button#audio20s');
 const Button30s = document.querySelector('.button#audio30s');
+const DownloadResults = document.querySelector('#downloadResults');
+const FrameMode = document.querySelector('#frameMode');
 
 //Custom Variables
 let essentia;
 loadEssentia();
 
+window.downloadResults = false;
+window.frameMode = 'vanilla';
 window.audioURL = 'https://sonosuite-pid-dev.s3.amazonaws.com/audio/benchmark/mozart_c_major_30sec.wav';
 Button30s.classList.add("is-active");
 
@@ -121,10 +125,10 @@ Button5s.addEventListener('click', (e) => selectAudio(e, audioURL));
 Button10s.addEventListener('click', (e) => selectAudio(e, audioURL));
 Button20s.addEventListener('click', (e) => selectAudio(e, audioURL));
 Button30s.addEventListener('click', (e) => selectAudio(e, audioURL));
+DownloadResults.addEventListener('change', (e) => manageResults(e));
+FrameMode.addEventListener('change', (e) => manageFrameMode(e));
 
 function selectAudio(e, audioURL) {
-    console.log("selectAudio");
-    console.log(e);
     const buttonsAudio = document.getElementsByClassName("audioButton");
     [].forEach.call(buttonsAudio, (item)=>{item.classList.remove("is-active")});
     e.target.classList.add("is-active");
@@ -145,6 +149,13 @@ function selectAudio(e, audioURL) {
     }
 }
 
+function manageResults(e){
+    window.downloadResults = e.target.value === "on";
+}
+
+function manageFrameMode(e) {
+    window.frameMode = e.target.value === "on" ? "essentia" : "vanilla";
+}
 
 function loadEssentia() {
     EssentiaModule().then( (EssentiaWasmModule) => {

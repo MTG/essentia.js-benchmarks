@@ -69,7 +69,9 @@ export default function beats_degara(essentia, Meyda, audioURL, audioContext) {
                     "hz": this[0].hz
                 }
             }
-            downloadJson(resultsObj, "beats_degara.json", down_elem);
+            if(window.downloadResults){
+                downloadJson(resultsObj, "energy.json", down_elem);
+            }
         })
         // run async
         .run({ 'async': true });       

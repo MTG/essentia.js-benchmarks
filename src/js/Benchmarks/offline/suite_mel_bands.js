@@ -37,9 +37,8 @@ export default function mel_bands(essentia, Meyda, audioURL, audioContext) {
         //     for (let i = 0; i < audioBuffer.length/HOP_SIZE; i++) {
         //         Meyda.bufferSize = FRAME_SIZE;
         //         let frame = audioBuffer.getChannelData(0).slice(HOP_SIZE*i, HOP_SIZE*i + FRAME_SIZE);
-        //         let lastFrame;
         //         if (frame.length !== FRAME_SIZE) {
-        //             lastFrame = new Float32Array(FRAME_SIZE);
+        //             let lastFrame = new Float32Array(FRAME_SIZE);
         //             audioBuffer.copyFromChannel(lastFrame, 0, HOP_SIZE*i);
         //             frame = lastFrame;
         //         }
@@ -47,10 +46,26 @@ export default function mel_bands(essentia, Meyda, audioURL, audioContext) {
         //     }
         // }, options)
         .add('Essentia#MelBands', () => {
-            const frames = essentia.FrameGenerator(audioBuffer.getChannelData(0), FRAME_SIZE, HOP_SIZE);
-            for (var i = 0; i < frames.size(); i++){
-                var frame_windowed = essentia.Windowing(frames.get(i),true, FRAME_SIZE);
-                essentia.MelBands(essentia.Spectrum(frame_windowed['frame'])['spectrum'], 22050, 1025, false, 0, 'unit_sum', 128);
+            switch(frameMode){
+                case "vanilla":
+                    for (let i = 0; i < audioBuffer.length/HOP_SIZE; i++) {
+                        let frame = audioBuffer.getChannelData(0).slice(HOP_SIZE*i, HOP_SIZE*i + FRAME_SIZE);
+                        if (frame.length !== FRAME_SIZE) {
+                            let lastFrame = new Float32Array(FRAME_SIZE);
+                            audioBuffer.copyFromChannel(lastFrame, 0, HOP_SIZE*i);
+                            frame = lastFrame;
+                        }
+                        let frame_windowed = essentia.Windowing(essentia.arrayToVector(frame), true, FRAME_SIZE);
+                        essentia.MelBands(essentia.Spectrum(frame_windowed['frame'])['spectrum'], 22050, 1025, false, 0, 'unit_sum', 128);
+                    }
+                    break;
+                case "essentia":
+                    const frames = essentia.FrameGenerator(audioBuffer.getChannelData(0), FRAME_SIZE, HOP_SIZE);
+                    for (let i = 0; i < frames.size(); i++){
+                        let frame_windowed = essentia.Windowing(frames.get(i),true, FRAME_SIZE);
+                        essentia.MelBands(essentia.Spectrum(frame_windowed['frame'])['spectrum'], 22050, 1025, false, 0, 'unit_sum', 128);
+                    }
+                    break;
             }
         }, options)
         // add listeners
@@ -112,8 +127,9 @@ export default function mel_bands(essentia, Meyda, audioURL, audioContext) {
                     "hz": this[0].hz
                 }
             }
-            downloadJson(resultsObj, "mel_bands.json", down_elem);
-
+            if(window.downloadResults){
+                downloadJson(resultsObj, "energy.json", down_elem);
+            }
         })
         // run async
         .run({ 'async': true });       

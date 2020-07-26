@@ -30,10 +30,26 @@ export default function yin_fft(essentia, Meyda, audioURL, audioContext) {
 
         // add tests
         suite.add('Essentia#PYINFFT', () => {
-           const frames = essentia.FrameGenerator(audioBuffer.getChannelData(0), FRAME_SIZE, HOP_SIZE);
-            for (var i = 0; i < frames.size(); i++){
-                const frame_windowed = essentia.Windowing(frames.get(i),true, FRAME_SIZE);
-                essentia.PitchYinFFT(essentia.Spectrum(frame_windowed['frame'])['spectrum']);
+            switch(frameMode){
+                case "vanilla":
+                    for (let i = 0; i < audioBuffer.length/HOP_SIZE; i++) {
+                        let frame = audioBuffer.getChannelData(0).slice(HOP_SIZE*i, HOP_SIZE*i + FRAME_SIZE);
+                        if (frame.length !== FRAME_SIZE) {
+                            let lastFrame = new Float32Array(FRAME_SIZE);
+                            audioBuffer.copyFromChannel(lastFrame, 0, HOP_SIZE*i);
+                            frame = lastFrame;
+                        }
+                        let frame_windowed = essentia.Windowing(essentia.arrayToVector(frame), true, FRAME_SIZE);
+                        essentia.PitchYinFFT(essentia.Spectrum(frame_windowed['frame'])['spectrum']);
+                    }
+                    break;
+                case "essentia":
+                    const frames = essentia.FrameGenerator(audioBuffer.getChannelData(0), FRAME_SIZE, HOP_SIZE);
+                    for (var i = 0; i < frames.size(); i++){
+                        const frame_windowed = essentia.Windowing(frames.get(i),true, FRAME_SIZE);
+                        essentia.PitchYinFFT(essentia.Spectrum(frame_windowed['frame'])['spectrum']);
+                    }
+                    break;
             }
         }, options)
         // add listeners
