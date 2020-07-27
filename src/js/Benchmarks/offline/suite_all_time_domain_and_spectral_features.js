@@ -168,7 +168,7 @@ export default function all_time_freq(essentia, Meyda, audioURL, audioContext) {
                 }
             }
             if(window.downloadResults){
-                downloadJson(resultsObj, "energy.json", down_elem);
+                downloadJson(resultsObj, "all_time_domain_and_spectrum.json", down_elem);
             }
         })
         // run async

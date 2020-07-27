@@ -89,7 +89,9 @@ export default function yin_fft(essentia, Meyda, audioURL, audioContext) {
                     "hz": this[0].hz
                 }
             }
-            downloadJson(resultsObj, "pyin_fft.json", down_elem);
+            if(window.downloadResults) {
+                downloadJson(resultsObj, "pyin_fft.json", down_elem);
+            }
         })
         // run async
         .run({ 'async': true });       

@@ -127,7 +127,7 @@ export default function spectralCentroid(essentia, Meyda, audioURL, audioContext
                 }
             }
             if(window.downloadResults){
-                downloadJson(resultsObj, "energy.json", down_elem);
+                downloadJson(resultsObj, "spectral_centroid.json", down_elem);
             }
         })
         // run async

@@ -127,7 +127,7 @@ export default function spectralFlatness(essentia, Meyda, audioURL, audioContext
                 }
             }
             if(window.downloadResults){
-                downloadJson(resultsObj, "energy.json", down_elem);
+                downloadJson(resultsObj, "spectral_flatness.json", down_elem);
             }
         })
         // run async

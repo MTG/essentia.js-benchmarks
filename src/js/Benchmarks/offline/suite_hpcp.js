@@ -129,8 +129,9 @@ export default function hpcp(essentia, Meyda, audioURL, audioContext) {
                     "hz": this[1].hz
                 }
             }
-            downloadJson(resultsObj, "hpcp.json", down_elem);
-
+            if(window.downloadResults) {
+                downloadJson(resultsObj, "hpcp.json", down_elem);
+            }
         })
         // run async
         .run({ 'async': true });       

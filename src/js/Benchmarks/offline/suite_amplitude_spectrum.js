@@ -127,7 +127,7 @@ export default function amplitude_spectrum(essentia, Meyda, audioURL, audioConte
                 }
             }
             if(window.downloadResults){
-                downloadJson(resultsObj, "energy.json", down_elem);
+                downloadJson(resultsObj, "amplitude_spectrum.json", down_elem);
             }
         })
         // run async

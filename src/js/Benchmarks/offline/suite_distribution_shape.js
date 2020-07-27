@@ -126,7 +126,7 @@ export default function distribution_shape(essentia, Meyda, audioURL, audioConte
                 }
             }
             if(window.downloadResults){
-                downloadJson(resultsObj, "energy.json", down_elem);
+                downloadJson(resultsObj, "distribution_shape.json", down_elem);
             }
         })
         // run async

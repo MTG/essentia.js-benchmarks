@@ -127,7 +127,7 @@ export default function perceptual_spread(essentia, Meyda, audioURL, audioContex
                 }
             }
             if(window.downloadResults){
-                downloadJson(resultsObj, "energy.json", down_elem);
+                downloadJson(resultsObj, "perceptual_spread.json", down_elem);
             }
         })
         // run async

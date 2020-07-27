@@ -126,7 +126,7 @@ export default function zcr(essentia, Meyda, audioURL, audioContext) {
                 }
             }
             if(window.downloadResults){
-                downloadJson(resultsObj, "energy.json", down_elem);
+                downloadJson(resultsObj, "zcr.json", down_elem);
             }
         })
         // run async

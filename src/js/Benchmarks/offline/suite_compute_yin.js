@@ -87,7 +87,7 @@ export default function yin(essentia, Meyda, audioURL, audioContext) {
                 }
             }
             if(window.downloadResults){
-                downloadJson(resultsObj, "energy.json", down_elem);
+                downloadJson(resultsObj, "yin.json", down_elem);
             }
         })
         // run async

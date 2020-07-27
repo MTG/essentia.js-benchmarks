@@ -128,7 +128,7 @@ export default function mel_bands(essentia, Meyda, audioURL, audioContext) {
                 }
             }
             if(window.downloadResults){
-                downloadJson(resultsObj, "energy.json", down_elem);
+                downloadJson(resultsObj, "mel_bands.json", down_elem);
             }
         })
         // run async

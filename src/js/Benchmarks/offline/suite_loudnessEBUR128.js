@@ -76,7 +76,7 @@ export default function ebur128(essentia, Meyda, audioURL, audioContext) {
                 }
             }
             if(window.downloadResults){
-                downloadJson(resultsObj, "energy.json", down_elem);
+                downloadJson(resultsObj, "loudnessEBUR128.json", down_elem);
             }
         })
         // run async

@@ -70,7 +70,7 @@ export default function melody(essentia, Meyda, audioURL, audioContext) {
                 }
             }
             if(window.downloadResults){
-                downloadJson(resultsObj, "energy.json", down_elem);
+                downloadJson(resultsObj, "melody.json", down_elem);
             }
         })
         // run async

@@ -70,7 +70,7 @@ export default function beats_zapata(essentia, Meyda, audioURL, audioContext) {
                 }
             }
             if(window.downloadResults){
-                downloadJson(resultsObj, "energy.json", down_elem);
+                downloadJson(resultsObj, "beats_zapata.json", down_elem);
             }
         })
         // run async

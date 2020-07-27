@@ -70,7 +70,7 @@ export default function beats_degara(essentia, Meyda, audioURL, audioContext) {
                 }
             }
             if(window.downloadResults){
-                downloadJson(resultsObj, "energy.json", down_elem);
+                downloadJson(resultsObj, "beats_degara.json", down_elem);
             }
         })
         // run async

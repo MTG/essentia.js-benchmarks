@@ -126,7 +126,7 @@ export default function rms(essentia, Meyda, audioURL, audioContext) {
                 }
             }
             if(window.downloadResults){
-                downloadJson(resultsObj, "energy.json", down_elem);
+                downloadJson(resultsObj, "rms.json", down_elem);
             }
         })
         // run async
