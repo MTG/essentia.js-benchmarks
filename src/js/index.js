@@ -121,10 +121,10 @@ Ebur128Button.addEventListener('click', () => ebur128(essentia, Meyda, audioURL,
 PYINButton.addEventListener('click', () => pyin(essentia, Meyda, audioURL, ctx));
 YINButton.addEventListener('click', () => yin(essentia, Meyda, audioURL, ctx));
 YINFFTButton.addEventListener('click', () => yin_fft(essentia, Meyda, audioURL, ctx));
-Button5s.addEventListener('click', (e) => selectAudio(e, audioURL));
-Button10s.addEventListener('click', (e) => selectAudio(e, audioURL));
-Button20s.addEventListener('click', (e) => selectAudio(e, audioURL));
-Button30s.addEventListener('click', (e) => selectAudio(e, audioURL));
+Button5s.addEventListener('click', (e) => selectAudio(e));
+Button10s.addEventListener('click', (e) => selectAudio(e));
+Button20s.addEventListener('click', (e) => selectAudio(e));
+Button30s.addEventListener('click', (e) => selectAudio(e));
 DownloadResults.addEventListener('change', (e) => manageResults(e));
 FrameMode.addEventListener('change', (e) => manageFrameMode(e));
 
@@ -158,7 +158,7 @@ function manageFrameMode(e) {
 }
 
 function loadEssentia() {
-    EssentiaModule().then( (EssentiaWasmModule) => {
+    EssentiaWASM().then((EssentiaWasmModule) => {
         essentia = new Essentia(EssentiaWasmModule);
     });
 }
