@@ -132,7 +132,7 @@ function selectAudio(e, audioURL) {
     const buttonsAudio = document.getElementsByClassName("audioButton");
     [].forEach.call(buttonsAudio, (item)=>{item.classList.remove("is-active")});
     e.target.classList.add("is-active");
-
+    console.log(e.target.id);
     switch (e.target.id) {
         case "audio5s":
             window.audioURL = 'https://sonosuite-pid-dev.s3.amazonaws.com/audio/benchmark/mozart_c_major_5sec.wav';
