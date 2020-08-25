@@ -1,5 +1,6 @@
 // IMPORTS
 const Meyda = require('meyda');
+import {AudioContext} from "standardized-audio-context";
 import energy from './Benchmarks/offline/suite_energy';
 import rms from './Benchmarks/offline/suite_rms';
 import zcr from './Benchmarks/offline/suite_zcr';
@@ -77,9 +78,9 @@ window.frameMode = 'vanilla';
 window.audioURL = 'https://sonosuite-pid-dev.s3.amazonaws.com/audio/benchmark/mozart_c_major_30sec.wav';
 Button30s.classList.add("is-active");
 
-var AudioContext = window.AudioContext // Default
-|| window.webkitAudioContext // Safari and old versions of Chrome
-|| false;
+// var AudioContext = window.AudioContext // Default
+// || window.webkitAudioContext // Safari and old versions of Chrome
+// || false;
 
 if (AudioContext) {
     // Do whatever you want using the Web Audio API
