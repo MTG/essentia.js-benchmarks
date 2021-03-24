@@ -75,7 +75,7 @@ loadEssentia();
 
 window.downloadResults = false;
 window.frameMode = 'vanilla';
-window.audioURL = 'https://sonosuite-pid-dev.s3.amazonaws.com/audio/benchmark/mozart_c_major_30sec.wav';
+window.audioURL = 'https://sonosuite-benchmark-audios.s3.amazonaws.com/mozart_c_major_30sec.wav';
 Button30s.classList.add("is-active");
 
 // var AudioContext = window.AudioContext // Default
@@ -136,16 +136,16 @@ function selectAudio(e, audioURL) {
     console.log(e.target.id);
     switch (e.target.id) {
         case "audio5s":
-            window.audioURL = 'https://sonosuite-pid-dev.s3.amazonaws.com/audio/benchmark/mozart_c_major_5sec.wav';
+            window.audioURL = 'https://sonosuite-benchmark-audios.s3.amazonaws.com/mozart_c_major_5sec.wav';
             break;
         case "audio10s":
-            window.audioURL = 'https://sonosuite-pid-dev.s3.amazonaws.com/audio/benchmark/mozart_c_major_10sec.wav';
+            window.audioURL = 'https://sonosuite-benchmark-audios.s3.amazonaws.com/mozart_c_major_10sec.wav';
             break;
         case "audio20s":
-            window.audioURL = 'https://sonosuite-pid-dev.s3.amazonaws.com/audio/benchmark/mozart_c_major_20sec.wav';
+            window.audioURL = 'https://sonosuite-benchmark-audios.s3.amazonaws.com/mozart_c_major_20sec.wav';
             break;
         case "audio30s":
-            window.audioURL = 'https://sonosuite-pid-dev.s3.amazonaws.com/audio/benchmark/mozart_c_major_30sec.wav';
+            window.audioURL = 'https://sonosuite-benchmark-audios.s3.amazonaws.com/mozart_c_major_30sec.wav';
             break;
     }
 }
