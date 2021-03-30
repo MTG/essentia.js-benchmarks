@@ -1,5 +1,8 @@
-var Essentia = (function () {
-    'use strict';
+(function (global, factory) {
+    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+    typeof define === 'function' && define.amd ? define(factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.EssentiaExtractor = factory());
+}(this, (function () { 'use strict';
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -15,6 +18,20 @@ var Essentia = (function () {
     See the Apache Version 2.0 License for specific language governing permissions
     and limitations under the License.
     ***************************************************************************** */
+    /* global Reflect, Promise */
+
+    var extendStatics = function(d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+
+    function __extends(d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    }
 
     function __awaiter(thisArg, _arguments, P, generator) {
         return new (P || (P = Promise))(function (resolve, reject) {
@@ -4045,6 +4062,195 @@ var Essentia = (function () {
         return Essentia;
     }());
 
-    return Essentia;
+    /**
+     * @license
+     * Copyright (C) 2006-2020  Music Technology Group - Universitat Pompeu Fabra
+     *
+     * This file is part of Essentia
+     *
+     * Essentia is free software: you can redistribute it and/or modify it under
+     * the terms of the GNU Affero General Public License as published by the Free
+     * Software Foundation (FSF), either version 3 of the License, or (at your
+     * option) any later version.
+     *
+     * This program is distributed in the hope that it will be useful, but WITHOUT
+     * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+     * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+     * details.
+     *
+     * You should have received a copy of the Affero GNU General Public License
+     * version 3 along with this program.  If not, see http://www.gnu.org/licenses/
+     */
+    /**
+     * EssentiaExtractor
+     * This class provides one-liner methods which implements the whole chain of algorithms
+     * required for computing features such as log-scaled mel spectrogram, HPCP chroma features etc.
+     * This can be extended according to your needs.
+     * @class
+     * @extends {Essentia}
+     */
+    var EssentiaExtractor = /** @class */ (function (_super) {
+        __extends(EssentiaExtractor, _super);
+        /**
+         *Creates an instance of EssentiaExtractor.
+        * @param {*} EssentiaWASM
+        * @param {boolean} [isDebug=false]
+        * @constructs
+        */
+        function EssentiaExtractor(EssentiaWASM, isDebug) {
+            if (isDebug === void 0) { isDebug = false; }
+            var _this = _super.call(this, EssentiaWASM, isDebug) || this;
+            _this.EssentiaWASM = EssentiaWASM;
+            _this.isDebug = isDebug;
+            _this.sampleRate = 44100;
+            _this.frameSize = 2048;
+            _this.profile = {
+                Windowing: {
+                    normalized: false,
+                    size: 1024,
+                    type: "hann",
+                    zeroPadding: 0,
+                    zeroPhase: true
+                },
+                Spectrum: {
+                    size: _this.frameSize
+                },
+                MelBands: {
+                    highFrequencyBound: Math.floor(_this.sampleRate / 2),
+                    inputSize: Math.floor(_this.frameSize / (2 + 1)),
+                    log: false,
+                    lowFrequencyBound: 0,
+                    normalize: 'unit_tri',
+                    numberBands: 96,
+                    sampleRate: _this.sampleRate,
+                    type: 'power',
+                    warpingFormula: 'slaneyMel',
+                    weighting: 'linear'
+                },
+                SpectralPeaks: {
+                    magnitudeThreshold: 0,
+                    maxFrequency: 4500,
+                    maxPeaks: 100,
+                    minFrequency: 80,
+                    orderBy: 'frequency',
+                    sampleRate: _this.sampleRate,
+                },
+                SpectralWhitening: {
+                    maxFrequency: 4500,
+                    sampleRate: _this.sampleRate
+                },
+                HPCP: {
+                    bandPreset: true,
+                    bandSplitFrequency: 500,
+                    harmonics: 0,
+                    maxFrequency: 4500,
+                    maxShifted: false,
+                    minFrequency: 80,
+                    nonLinear: false,
+                    normalized: 'unitMax',
+                    referenceFrequency: 440,
+                    sampleRate: _this.sampleRate,
+                    size: 12,
+                    weightType: 'squaredCosine',
+                    windowSize: 1
+                },
+            };
+            return _this;
+        }
+        /**
+         * Compute log-scaled mel spectrogram for a given audio signal frame along with an optional extractor profile configuration
+         * @method
+         * @param {Float32Array} audioFrame a frame of decoded audio signal as Float32 typed array.
+         * @param {number} sampleRate Sample rate of the input audio signal.
+         * @param {boolean} [asVector=false] whether to output the spectrogram as a vector float type for chaining with other essentia algorithms.
+         * @param {*} [config=this.profile]
+         * @returns {Array} Log-scaled Mel Spectrum
+         * @memberof EssentiaExtractor
+         */
+        EssentiaExtractor.prototype.melSpectrumExtractor = function (audioFrame, sampleRate, asVector, config) {
+            if (sampleRate === void 0) { sampleRate = this.sampleRate; }
+            if (asVector === void 0) { asVector = false; }
+            if (config === void 0) { config = this.profile; }
+            var signalFrame = this.arrayToVector(audioFrame);
+            var _frameSize = audioFrame.length;
+            // we need to compute the following signal process chain 
+            // audio frame => windowing => spectrum => mel bands => log scale
+            var windowOut = this.Windowing(signalFrame, config.Windowing.normalized, config.Windowing.size, config.Windowing.type, config.Windowing.zeroPadding, config.Windowing.zeroPhase);
+            var spectrumOut = this.Spectrum(windowOut.frame, _frameSize);
+            var melOut = this.MelBands(spectrumOut.spectrum, config.MelBands.highFrequencyBound, Math.floor(_frameSize / (2 + 1)), config.MelBands.log, config.MelBands.lowFrequencyBound, config.MelBands.normalize, config.MelBands.numberBands, sampleRate, config.MelBands.type, config.MelBands.warpingFormula, config.MelBands.weighting);
+            // shift operation of mel-spectrograms
+            var shift = this.UnaryOperator(melOut.bands, 10000, 1);
+            // logarithmic compression of mel-spectrograms
+            var logComp = this.UnaryOperator(shift.array, 1, 0, "log10");
+            // return the output of the feature extractor either as VectorFloat type or as JavaScript Float32 typed array
+            if (asVector) {
+                // fallback to free the std vectors
+                //delete windowOut.frame;
+                delete spectrumOut.spectrum;
+                delete melOut.bands;
+                delete shift.array;
+                return logComp.array;
+            }
+            else {
+                // convert type to JS array
+                var logMelBands = this.vectorToArray(logComp.array);
+                // fallback to free the std vectors
+                //delete windowOut.frame;
+                delete spectrumOut.spectrum;
+                delete melOut.bands;
+                delete shift.array;
+                delete logComp.array;
+                return logMelBands;
+            }
+        };
+        /**
+         * Compute HPCP chroma feature for a given audio signal frame along with an optional extractor profile configuration
+         * @method
+         * @param {Float32Array} audioFrame a decoded audio signal frame as Float32 typed array.
+         * @param {number} sampleRate Sample rate of the input audio signal.
+         * @param {boolean} [asVector=false] whether to output the hpcpgram as a vector float type for chaining with other essentia algorithms.
+         * @param {*} [config=this.profile]
+         * @returns {Array} Frame-wise HPCP
+         * @memberof EssentiaExtractor
+         */
+        EssentiaExtractor.prototype.hpcpExtractor = function (audioFrame, sampleRate, asVector, config) {
+            if (sampleRate === void 0) { sampleRate = this.sampleRate; }
+            if (asVector === void 0) { asVector = false; }
+            if (config === void 0) { config = this.profile; }
+            var signalFrame = this.arrayToVector(audioFrame);
+            var _frameSize = audioFrame.length;
+            // we need to compute the following signal process chain 
+            // audio frame => windowing => spectrum => spectral peak => spectral whitening => HPCP
+            var windowOut = this.Windowing(signalFrame, config.Windowing.normalized, config.Windowing.size, config.Windowing.type, config.Windowing.zeroPadding, config.Windowing.zeroPhase);
+            var spectrumOut = this.Spectrum(windowOut.frame, _frameSize);
+            var peaksOut = this.SpectralPeaks(spectrumOut.spectrum, config.SpectralPeaks.magnitudeThreshold, config.SpectralPeaks.maxFrequency, config.SpectralPeaks.maxPeaks, config.SpectralPeaks.minFrequency, config.SpectralPeaks.orderBy, sampleRate);
+            var whiteningOut = this.SpectralWhitening(spectrumOut.spectrum, peaksOut.frequencies, peaksOut.magnitudes, config.SpectralWhitening.maxFrequency, sampleRate);
+            var hpcpOut = this.HPCP(peaksOut.frequencies, whiteningOut.magnitudes, config.HPCP.bandPreset, config.HPCP.bandSplitFrequency, config.HPCP.harmonics, config.HPCP.maxFrequency, config.HPCP.maxShifted, config.HPCP.minFrequency, config.HPCP.nonLinear, config.HPCP.normalized, config.HPCP.referenceFrequency, sampleRate, config.HPCP.size, config.HPCP.weightType, config.HPCP.windowSize);
+            // return the output of the feature extractor either as VectorFloat type or as JavaScript Float32 typed array
+            if (asVector) {
+                // fallback to free the std vectors
+                delete windowOut.frame;
+                delete spectrumOut.spectrum;
+                delete peaksOut.frequencies;
+                delete peaksOut.magnitudes;
+                delete whiteningOut.magnitudes;
+                return hpcpOut.hpcp;
+            }
+            else {
+                // convert type to JS array
+                var hpcpFrame = this.vectorToArray(hpcpOut.hpcp);
+                delete windowOut.frame;
+                delete spectrumOut.spectrum;
+                delete peaksOut.frequencies;
+                delete peaksOut.magnitudes;
+                delete whiteningOut.magnitudes;
+                delete hpcpOut.hpcp;
+                return hpcpFrame;
+            }
+        };
+        return EssentiaExtractor;
+    }(Essentia));
 
-}());
+    return EssentiaExtractor;
+
+})));

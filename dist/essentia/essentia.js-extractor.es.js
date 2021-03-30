@@ -1,3 +1,69 @@
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation. All rights reserved.
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+this file except in compliance with the License. You may obtain a copy of the
+License at http://www.apache.org/licenses/LICENSE-2.0
+
+THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
+WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
+MERCHANTABLITY OR NON-INFRINGEMENT.
+
+See the Apache Version 2.0 License for specific language governing permissions
+and limitations under the License.
+***************************************************************************** */
+/* global Reflect, Promise */
+
+var extendStatics = function(d, b) {
+    extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return extendStatics(d, b);
+};
+
+function __extends(d, b) {
+    extendStatics(d, b);
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+}
+
+function __awaiter(thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+}
+
+function __generator(thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+}
+
 /**
  * @license
  * Copyright (C) 2006-2020  Music Technology Group - Universitat Pompeu Fabra
@@ -17,30 +83,28 @@
  * You should have received a copy of the Affero GNU General Public License
  * version 3 along with this program.  If not, see http://www.gnu.org/licenses/
  */
+// NOTE: The following code snippets are machine generated. Do not edit.
 /**
  * essentia.js-core JS API
  * @class
  * @example
  * const essentia = new Essentia(EssentiaWASM);
  */
-declare class Essentia {
-    EssentiaWASM: any;
-    isDebug: boolean;
-    /**
-    * @property {EssentiaEmscriptenModule} this.module Essentia WASM emcripten global module object
-    * @property {string} this.version Essentia WASM backend version
-    * @property {string} this.algorithmNames List of available Essentia alogrithms from the WASM backend
-    */
-    private algorithms;
-    module: any;
-    version: string;
-    algorithmNames: string;
+var Essentia = /** @class */ (function () {
     /**
     * @constructs
     * @param {EssentiaWASM} Essentia WASM backend (emcripten global module object) which is loaded from 'essentia-wasm.*.js file'
     * @param {boolean} [isDebug=false]
     */
-    constructor(EssentiaWASM: any, isDebug?: boolean);
+    function Essentia(EssentiaWASM, isDebug) {
+        if (isDebug === void 0) { isDebug = false; }
+        this.EssentiaWASM = EssentiaWASM;
+        this.isDebug = isDebug;
+        this.algorithms = new EssentiaWASM.EssentiaJS(isDebug);
+        this.module = EssentiaWASM;
+        this.version = this.algorithms.version;
+        this.algorithmNames = this.algorithms.algorithmNames;
+    }
     /**
      * Decode and returns the audio buffer of a given audio url or blob uri using Web Audio API. (NOTE: This doesn't work on Safari browser)
      * @async
@@ -50,7 +114,25 @@ declare class Essentia {
      * @returns {AudioBuffer} decoded audio buffer object
      * @memberof Essentia
      */
-    getAudioBufferFromURL(audioURL: string, webAudioCtx: AudioContext): Promise<AudioBuffer>;
+    Essentia.prototype.getAudioBufferFromURL = function (audioURL, webAudioCtx) {
+        return __awaiter(this, void 0, void 0, function () {
+            var response, arrayBuffer, audioBuffer;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, fetch(audioURL)];
+                    case 1:
+                        response = _a.sent();
+                        return [4 /*yield*/, response.arrayBuffer()];
+                    case 2:
+                        arrayBuffer = _a.sent();
+                        return [4 /*yield*/, webAudioCtx.decodeAudioData(arrayBuffer)];
+                    case 3:
+                        audioBuffer = _a.sent();
+                        return [2 /*return*/, audioBuffer];
+                }
+            });
+        });
+    };
     /**
      * Decode and returns the audio channel data from an given audio url or blob uri using Web Audio API. (NOTE: This doesn't work on Safari browser)
      * @async
@@ -61,25 +143,50 @@ declare class Essentia {
      * @returns {Float32Array} decode and returns the audio data as Float32 array for the given channel
      * @memberof Essentia
      */
-    getAudioChannelDataFromURL(audioURL: string, webAudioCtx: AudioContext, channel?: number): Promise<Float32Array>;
+    Essentia.prototype.getAudioChannelDataFromURL = function (audioURL, webAudioCtx, channel) {
+        if (channel === void 0) { channel = 0; }
+        return __awaiter(this, void 0, void 0, function () {
+            var response, arrayBuffer, audioBuffer;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, fetch(audioURL)];
+                    case 1:
+                        response = _a.sent();
+                        return [4 /*yield*/, response.arrayBuffer()];
+                    case 2:
+                        arrayBuffer = _a.sent();
+                        return [4 /*yield*/, webAudioCtx.decodeAudioData(arrayBuffer)];
+                    case 3:
+                        audioBuffer = _a.sent();
+                        return [2 /*return*/, audioBuffer.getChannelData(channel)];
+                }
+            });
+        });
+    };
     /**
      * Method to shutdown essentia algorithm instance after it's use
      * @method
      * @memberof Essentia
      */
-    shutdown(): void;
+    Essentia.prototype.shutdown = function () {
+        this.algorithms.shutdown();
+    };
     /**
      * Method for re-instantiating essentia algorithms instance after using the shutdown method
      * @method
      * @memberof Essentia
      */
-    reinstantiate(): void;
+    Essentia.prototype.reinstantiate = function () {
+        this.algorithms = new this.module.EssentiaJS(this.isDebug);
+    };
     /**
      * Delete essentiajs class instance
      * @method
      * @memberof Essentia
      */
-    delete(): void;
+    Essentia.prototype.delete = function () {
+        this.algorithms.delete();
+    };
     /**
      * Convert an input JS array into VectorFloat type
      * @method
@@ -87,7 +194,9 @@ declare class Essentia {
      * @returns {VectorFloat} returns vector float
      * @memberof Essentia
      */
-    arrayToVector(inputArray: any): any;
+    Essentia.prototype.arrayToVector = function (inputArray) {
+        return this.module.arrayToVector(inputArray);
+    };
     /**
      * Convert an input VectorFloat array into typed JS Float32Array
      * @method
@@ -95,7 +204,9 @@ declare class Essentia {
      * @returns {Float32Array} returns converted JS typed array
      * @memberof Essentia
      */
-    vectorToArray(inputVector: any): Float32Array;
+    Essentia.prototype.vectorToArray = function (inputVector) {
+        return this.module.vectorToArray(inputVector);
+    };
     /**
      * Generates overlapping frames (chunks) of array with given frame size and hop size from an input array.
      * @method
@@ -105,7 +216,17 @@ declare class Essentia {
      * @returns {Array<Float32Array>} generated frames as array of array of Float32 type.
      * @memberof EssentiaTensorflowInputExtractor
      */
-    FrameGeneratorArray(inputArray: any[], frameSize: number, hopSize: number): any[];
+    Essentia.prototype.FrameGeneratorArray = function (inputArray, frameSize, hopSize) {
+        if (frameSize > inputArray.length)
+            throw Error("`frameSize` shouldn't be greater than the length of input array!");
+        if (hopSize > frameSize)
+            throw Error("`hopSize` shouldn't be greater than `frameSize`!");
+        var frames = [];
+        for (var i = 0; i < inputArray.length - (frameSize - 1); i + hopSize) {
+            frames.push(inputArray.slice(i, i + frameSize));
+        }
+        return frames;
+    };
     /**
      * Cuts an audio signal data into overlapping frames given frame size and hop size
      * @method
@@ -115,7 +236,11 @@ declare class Essentia {
      * @returns {VectorVectorFloat} Returns a 2D vector float of sliced audio frames
      * @memberof Essentia
      */
-    FrameGenerator(inputAudioData: Float32Array, frameSize?: number, hopSize?: number): any;
+    Essentia.prototype.FrameGenerator = function (inputAudioData, frameSize, hopSize) {
+        if (frameSize === void 0) { frameSize = 2048; }
+        if (hopSize === void 0) { hopSize = 1024; }
+        return this.algorithms.FrameGenerator(inputAudioData, frameSize, hopSize);
+    };
     /**
     * This algorithm downmixes the signal into a single channel given a stereo signal. It is a wrapper around https://essentia.upf.edu/reference/std_MonoMixer.html.
     * @method
@@ -124,7 +249,9 @@ declare class Essentia {
     * @returns {object} {audio: 'the downmixed mono signal'}
     * @memberof Essentia
     */
-    MonoMixer(leftSignal: any, rightSignal: any): any;
+    Essentia.prototype.MonoMixer = function (leftSignal, rightSignal) {
+        return this.algorithms.MonoMixer(leftSignal, rightSignal);
+    };
     /**
     * This algorithm computes the EBUR128 loudness descriptors of an audio signal. It is a wrapper around https://essentia.upf.edu/reference/std_LoudnessEBUR128.html.
     * @method
@@ -136,7 +263,13 @@ declare class Essentia {
     * @returns {object} {momentaryLoudness: 'momentary loudness (over 400ms) (LUFS)', shortTermLoudness: 'short-term loudness (over 3 seconds) (LUFS)', integratedLoudness: 'integrated loudness (overall) (LUFS)', loudnessRange: 'loudness range over an arbitrary long time interval [3] (dB, LU)'}
     * @memberof Essentia
     */
-    LoudnessEBUR128(leftSignal: any, rightSignal: any, hopSize?: number, sampleRate?: number, startAtZero?: boolean): any;
+    Essentia.prototype.LoudnessEBUR128 = function (leftSignal, rightSignal, hopSize, sampleRate, startAtZero) {
+        if (hopSize === void 0) { hopSize = 0.1; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        if (startAtZero === void 0) { startAtZero = false; }
+        return this.algorithms.LoudnessEBUR128(leftSignal, rightSignal, hopSize, sampleRate, startAtZero);
+    };
+    // NOTE: The following code snippets are machine generated. Do not edit.
     /**
     * This algorithm computes the ratio between the pitch energy after the pitch maximum and the pitch energy before the pitch maximum. Sounds having an monotonically ascending pitch or one unique pitch will show a value of (0,1], while sounds having a monotonically descending pitch will show a value of [1,inf). In case there is no energy before the max pitch, the algorithm will return the energy after the maximum pitch. Check https://essentia.upf.edu/reference/std_AfterMaxToBeforeMaxEnergyRatio.html for more details.
     * @method
@@ -144,7 +277,9 @@ declare class Essentia {
     * @returns {object} {afterMaxToBeforeMaxEnergyRatio: 'the ratio between the pitch energy after the pitch maximum to the pitch energy before the pitch maximum'}
     * @memberof Essentia
     */
-    AfterMaxToBeforeMaxEnergyRatio(pitch: any): any;
+    Essentia.prototype.AfterMaxToBeforeMaxEnergyRatio = function (pitch) {
+        return this.algorithms.AfterMaxToBeforeMaxEnergyRatio(pitch);
+    };
     /**
     * This algorithm implements a IIR all-pass filter of order 1 or 2. Because of its dependence on IIR, IIR's requirements are inherited. Check https://essentia.upf.edu/reference/std_AllPass.html for more details.
     * @method
@@ -156,7 +291,13 @@ declare class Essentia {
     * @returns {object} {signal: 'the filtered signal'}
     * @memberof Essentia
     */
-    AllPass(signal: any, bandwidth?: number, cutoffFrequency?: number, order?: number, sampleRate?: number): any;
+    Essentia.prototype.AllPass = function (signal, bandwidth, cutoffFrequency, order, sampleRate) {
+        if (bandwidth === void 0) { bandwidth = 500; }
+        if (cutoffFrequency === void 0) { cutoffFrequency = 1500; }
+        if (order === void 0) { order = 1; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        return this.algorithms.AllPass(signal, bandwidth, cutoffFrequency, order, sampleRate);
+    };
     /**
     * This algorithm creates a wave file in which a given audio signal is mixed with a series of time onsets. The sonification of the onsets can be heard as beeps, or as short white noise pulses if configured to do so. Check https://essentia.upf.edu/reference/std_AudioOnsetsMarker.html for more details.
     * @method
@@ -167,7 +308,16 @@ declare class Essentia {
     * @returns {object} {signal: 'the input signal mixed with bursts at onset locations'}
     * @memberof Essentia
     */
-    AudioOnsetsMarker(signal: any, onsets?: any[], sampleRate?: number, type?: string): any;
+    Essentia.prototype.AudioOnsetsMarker = function (signal, onsets, sampleRate, type) {
+        if (onsets === void 0) { onsets = []; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        if (type === void 0) { type = 'beep'; }
+        var veconsets = new this.module.VectorFloat();
+        for (var i = 0; i < veconsets.size(); i++) {
+            veconsets.push_back(onsets[i]);
+        }
+        return this.algorithms.AudioOnsetsMarker(signal, veconsets, sampleRate, type);
+    };
     /**
     * This algorithm computes the autocorrelation vector of a signal.
     It uses the version most commonly used in signal processing, which doesn't remove the mean from the observations.
@@ -180,7 +330,12 @@ declare class Essentia {
     * @returns {object} {autoCorrelation: 'the autocorrelation vector'}
     * @memberof Essentia
     */
-    AutoCorrelation(array: any, frequencyDomainCompression?: number, generalized?: boolean, normalization?: string): any;
+    Essentia.prototype.AutoCorrelation = function (array, frequencyDomainCompression, generalized, normalization) {
+        if (frequencyDomainCompression === void 0) { frequencyDomainCompression = 0.5; }
+        if (generalized === void 0) { generalized = false; }
+        if (normalization === void 0) { normalization = 'standard'; }
+        return this.algorithms.AutoCorrelation(array, frequencyDomainCompression, generalized, normalization);
+    };
     /**
     * This algorithm computes the bark-frequency cepstrum coefficients of a spectrum. Bark bands and their subsequent usage in cepstral analysis have shown to be useful in percussive content [1, 2]
     This algorithm is implemented using the Bark scaling approach in the Rastamat version of the MFCC algorithm and in a similar manner to the MFCC-FB40 default specs: Check https://essentia.upf.edu/reference/std_BFCC.html for more details.
@@ -201,7 +356,21 @@ declare class Essentia {
     * @returns {object} {bands: 'the energies in bark bands', bfcc: 'the bark frequency cepstrum coefficients'}
     * @memberof Essentia
     */
-    BFCC(spectrum: any, dctType?: number, highFrequencyBound?: number, inputSize?: number, liftering?: number, logType?: string, lowFrequencyBound?: number, normalize?: string, numberBands?: number, numberCoefficients?: number, sampleRate?: number, type?: string, weighting?: string): any;
+    Essentia.prototype.BFCC = function (spectrum, dctType, highFrequencyBound, inputSize, liftering, logType, lowFrequencyBound, normalize, numberBands, numberCoefficients, sampleRate, type, weighting) {
+        if (dctType === void 0) { dctType = 2; }
+        if (highFrequencyBound === void 0) { highFrequencyBound = 11000; }
+        if (inputSize === void 0) { inputSize = 1025; }
+        if (liftering === void 0) { liftering = 0; }
+        if (logType === void 0) { logType = 'dbamp'; }
+        if (lowFrequencyBound === void 0) { lowFrequencyBound = 0; }
+        if (normalize === void 0) { normalize = 'unit_sum'; }
+        if (numberBands === void 0) { numberBands = 40; }
+        if (numberCoefficients === void 0) { numberCoefficients = 13; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        if (type === void 0) { type = 'power'; }
+        if (weighting === void 0) { weighting = 'warping'; }
+        return this.algorithms.BFCC(spectrum, dctType, highFrequencyBound, inputSize, liftering, logType, lowFrequencyBound, normalize, numberBands, numberCoefficients, sampleRate, type, weighting);
+    };
     /**
     * This algorithm implements a break point function which linearly interpolates between discrete xy-coordinates to construct a continuous function. Check https://essentia.upf.edu/reference/std_BPF.html for more details.
     * @method
@@ -211,7 +380,19 @@ declare class Essentia {
     * @returns {object} {y: 'the output coordinate (y-axis)'}
     * @memberof Essentia
     */
-    BPF(x: number, xPoints?: any[], yPoints?: any[]): any;
+    Essentia.prototype.BPF = function (x, xPoints, yPoints) {
+        if (xPoints === void 0) { xPoints = [0, 1]; }
+        if (yPoints === void 0) { yPoints = [0, 1]; }
+        var vecxPoints = new this.module.VectorFloat();
+        for (var i = 0; i < vecxPoints.size(); i++) {
+            vecxPoints.push_back(xPoints[i]);
+        }
+        var vecyPoints = new this.module.VectorFloat();
+        for (var i = 0; i < vecyPoints.size(); i++) {
+            vecyPoints.push_back(yPoints[i]);
+        }
+        return this.algorithms.BPF(x, vecxPoints, vecyPoints);
+    };
     /**
     * This algorithm implements a 2nd order IIR band-pass filter. Because of its dependence on IIR, IIR's requirements are inherited. Check https://essentia.upf.edu/reference/std_BandPass.html for more details.
     * @method
@@ -222,7 +403,12 @@ declare class Essentia {
     * @returns {object} {signal: 'the filtered signal'}
     * @memberof Essentia
     */
-    BandPass(signal: any, bandwidth?: number, cutoffFrequency?: number, sampleRate?: number): any;
+    Essentia.prototype.BandPass = function (signal, bandwidth, cutoffFrequency, sampleRate) {
+        if (bandwidth === void 0) { bandwidth = 500; }
+        if (cutoffFrequency === void 0) { cutoffFrequency = 1500; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        return this.algorithms.BandPass(signal, bandwidth, cutoffFrequency, sampleRate);
+    };
     /**
     * This algorithm implements a 2nd order IIR band-reject filter. Because of its dependence on IIR, IIR's requirements are inherited. Check https://essentia.upf.edu/reference/std_BandReject.html for more details.
     * @method
@@ -233,7 +419,12 @@ declare class Essentia {
     * @returns {object} {signal: 'the filtered signal'}
     * @memberof Essentia
     */
-    BandReject(signal: any, bandwidth?: number, cutoffFrequency?: number, sampleRate?: number): any;
+    Essentia.prototype.BandReject = function (signal, bandwidth, cutoffFrequency, sampleRate) {
+        if (bandwidth === void 0) { bandwidth = 500; }
+        if (cutoffFrequency === void 0) { cutoffFrequency = 1500; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        return this.algorithms.BandReject(signal, bandwidth, cutoffFrequency, sampleRate);
+    };
     /**
     * This algorithm computes energy in Bark bands of a spectrum. The band frequencies are: [0.0, 50.0, 100.0, 150.0, 200.0, 300.0, 400.0, 510.0, 630.0, 770.0, 920.0, 1080.0, 1270.0, 1480.0, 1720.0, 2000.0, 2320.0, 2700.0, 3150.0, 3700.0, 4400.0, 5300.0, 6400.0, 7700.0, 9500.0, 12000.0, 15500.0, 20500.0, 27000.0]. The first two Bark bands [0,100] and [100,200] have been split in half for better resolution (because of an observed better performance in beat detection). For each bark band the power-spectrum (mag-squared) is summed. Check https://essentia.upf.edu/reference/std_BarkBands.html for more details.
     * @method
@@ -243,7 +434,11 @@ declare class Essentia {
     * @returns {object} {bands: 'the energy of the bark bands'}
     * @memberof Essentia
     */
-    BarkBands(spectrum: any, numberBands?: number, sampleRate?: number): any;
+    Essentia.prototype.BarkBands = function (spectrum, numberBands, sampleRate) {
+        if (numberBands === void 0) { numberBands = 27; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        return this.algorithms.BarkBands(spectrum, numberBands, sampleRate);
+    };
     /**
     * This algorithm estimates the beat positions given an input signal. It computes 'complex spectral difference' onset detection function and utilizes the beat tracking algorithm (TempoTapDegara) to extract beats [1]. The algorithm works with the optimized settings of 2048/1024 frame/hop size for the computation of the detection function, with its posterior x2 resampling.) While it has a lower accuracy than BeatTrackerMultifeature (see the evaluation results in [2]), its computational speed is significantly higher, which makes reasonable to apply this algorithm for batch processings of large amounts of audio signals. Check https://essentia.upf.edu/reference/std_BeatTrackerDegara.html for more details.
     * @method
@@ -253,7 +448,11 @@ declare class Essentia {
     * @returns {object} {ticks: ' the estimated tick locations [s]'}
     * @memberof Essentia
     */
-    BeatTrackerDegara(signal: any, maxTempo?: number, minTempo?: number): any;
+    Essentia.prototype.BeatTrackerDegara = function (signal, maxTempo, minTempo) {
+        if (maxTempo === void 0) { maxTempo = 208; }
+        if (minTempo === void 0) { minTempo = 40; }
+        return this.algorithms.BeatTrackerDegara(signal, maxTempo, minTempo);
+    };
     /**
     * This algorithm estimates the beat positions given an input signal. It computes a number of onset detection functions and estimates beat location candidates from them using TempoTapDegara algorithm. Thereafter the best candidates are selected using TempoTapMaxAgreement. The employed detection functions, and the optimal frame/hop sizes used for their computation are:
       - complex spectral difference (see 'complex' method in OnsetDetection algorithm, 2048/1024 with posterior x2 upsample or the detection function)
@@ -268,7 +467,11 @@ declare class Essentia {
     * @returns {object} {ticks: ' the estimated tick locations [s]', confidence: 'confidence of the beat tracker [0, 5.32]'}
     * @memberof Essentia
     */
-    BeatTrackerMultiFeature(signal: any, maxTempo?: number, minTempo?: number): any;
+    Essentia.prototype.BeatTrackerMultiFeature = function (signal, maxTempo, minTempo) {
+        if (maxTempo === void 0) { maxTempo = 208; }
+        if (minTempo === void 0) { minTempo = 40; }
+        return this.algorithms.BeatTrackerMultiFeature(signal, maxTempo, minTempo);
+    };
     /**
     * This algorithm filters the loudness matrix given by BeatsLoudness algorithm in order to keep only the most salient beat band representation.
     This algorithm has been found to be useful for estimating time signatures. Check https://essentia.upf.edu/reference/std_Beatogram.html for more details.
@@ -279,7 +482,10 @@ declare class Essentia {
     * @returns {object} {beatogram: 'filtered matrix loudness'}
     * @memberof Essentia
     */
-    Beatogram(loudness: any, loudnessBandRatio: any, size?: number): any;
+    Essentia.prototype.Beatogram = function (loudness, loudnessBandRatio, size) {
+        if (size === void 0) { size = 16; }
+        return this.algorithms.Beatogram(loudness, loudnessBandRatio, size);
+    };
     /**
     * This algorithm computes the spectrum energy of beats in an audio signal given their positions. The energy is computed both on the whole frequency range and for each of the specified frequency bands. See the SingleBeatLoudness algorithm for a more detailed explanation. Check https://essentia.upf.edu/reference/std_BeatsLoudness.html for more details.
     * @method
@@ -292,7 +498,22 @@ declare class Essentia {
     * @returns {object} {loudness: 'the beat's energy in the whole spectrum', loudnessBandRatio: 'the ratio of the beat's energy on each frequency band'}
     * @memberof Essentia
     */
-    BeatsLoudness(signal: any, beatDuration?: number, beatWindowDuration?: number, beats?: any[], frequencyBands?: any[], sampleRate?: number): any;
+    Essentia.prototype.BeatsLoudness = function (signal, beatDuration, beatWindowDuration, beats, frequencyBands, sampleRate) {
+        if (beatDuration === void 0) { beatDuration = 0.05; }
+        if (beatWindowDuration === void 0) { beatWindowDuration = 0.1; }
+        if (beats === void 0) { beats = []; }
+        if (frequencyBands === void 0) { frequencyBands = [20, 150, 400, 3200, 7000, 22000]; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        var vecbeats = new this.module.VectorFloat();
+        for (var i = 0; i < vecbeats.size(); i++) {
+            vecbeats.push_back(beats[i]);
+        }
+        var vecfrequencyBands = new this.module.VectorFloat();
+        for (var i = 0; i < vecfrequencyBands.size(); i++) {
+            vecfrequencyBands.push_back(frequencyBands[i]);
+        }
+        return this.algorithms.BeatsLoudness(signal, beatDuration, beatWindowDuration, vecbeats, vecfrequencyBands, sampleRate);
+    };
     /**
     * This algorithm performs basic arithmetical operations element by element given two arrays.
     Note:
@@ -305,7 +526,10 @@ declare class Essentia {
     * @returns {object} {array: 'the array containing the result of binary operation'}
     * @memberof Essentia
     */
-    BinaryOperator(array1: any, array2: any, type?: string): any;
+    Essentia.prototype.BinaryOperator = function (array1, array2, type) {
+        if (type === void 0) { type = 'add'; }
+        return this.algorithms.BinaryOperator(array1, array2, type);
+    };
     /**
     * This algorithm performs basic arithmetical operations element by element given two arrays.
     Note:
@@ -318,7 +542,10 @@ declare class Essentia {
     * @returns {object} {array: 'the array containing the result of binary operation'}
     * @memberof Essentia
     */
-    BinaryOperatorStream(array1: any, array2: any, type?: string): any;
+    Essentia.prototype.BinaryOperatorStream = function (array1, array2, type) {
+        if (type === void 0) { type = 'add'; }
+        return this.algorithms.BinaryOperatorStream(array1, array2, type);
+    };
     /**
     * This algorithm computes beats per minute histogram and its statistics for the highest and second highest peak.
     Note: histogram vector contains occurance frequency for each bpm value, 0-th element corresponds to 0 bpm value. Check https://essentia.upf.edu/reference/std_BpmHistogramDescriptors.html for more details.
@@ -327,7 +554,9 @@ declare class Essentia {
     * @returns {object} {firstPeakBPM: 'value for the highest peak [bpm]', firstPeakWeight: 'weight of the highest peak', firstPeakSpread: 'spread of the highest peak', secondPeakBPM: 'value for the second highest peak [bpm]', secondPeakWeight: 'weight of the second highest peak', secondPeakSpread: 'spread of the second highest peak', histogram: 'bpm histogram [bpm]'}
     * @memberof Essentia
     */
-    BpmHistogramDescriptors(bpmIntervals: any): any;
+    Essentia.prototype.BpmHistogramDescriptors = function (bpmIntervals) {
+        return this.algorithms.BpmHistogramDescriptors(bpmIntervals);
+    };
     /**
     * This algorithm extracts the locations of large tempo changes from a list of beat ticks. Check https://essentia.upf.edu/reference/std_BpmRubato.html for more details.
     * @method
@@ -338,7 +567,12 @@ declare class Essentia {
     * @returns {object} {rubatoStart: 'list of timestamps where the start of a rubato region was detected [s]', rubatoStop: 'list of timestamps where the end of a rubato region was detected [s]', rubatoNumber: 'number of detected rubato regions'}
     * @memberof Essentia
     */
-    BpmRubato(beats: any, longRegionsPruningTime?: number, shortRegionsMergingTime?: number, tolerance?: number): any;
+    Essentia.prototype.BpmRubato = function (beats, longRegionsPruningTime, shortRegionsMergingTime, tolerance) {
+        if (longRegionsPruningTime === void 0) { longRegionsPruningTime = 20; }
+        if (shortRegionsMergingTime === void 0) { shortRegionsMergingTime = 4; }
+        if (tolerance === void 0) { tolerance = 0.08; }
+        return this.algorithms.BpmRubato(beats, longRegionsPruningTime, shortRegionsMergingTime, tolerance);
+    };
     /**
     * This algorithm extracts the 0th, 1st, 2nd, 3rd and 4th central moments of an array. It returns a 5-tuple in which the index corresponds to the order of the moment. Check https://essentia.upf.edu/reference/std_CentralMoments.html for more details.
     * @method
@@ -348,7 +582,11 @@ declare class Essentia {
     * @returns {object} {centralMoments: 'the central moments of the input array'}
     * @memberof Essentia
     */
-    CentralMoments(array: any, mode?: string, range?: number): any;
+    Essentia.prototype.CentralMoments = function (array, mode, range) {
+        if (mode === void 0) { mode = 'pdf'; }
+        if (range === void 0) { range = 1; }
+        return this.algorithms.CentralMoments(array, mode, range);
+    };
     /**
     * This algorithm computes the centroid of an array. The centroid is normalized to a specified range. This algorithm can be used to compute spectral centroid or temporal centroid. Check https://essentia.upf.edu/reference/std_Centroid.html for more details.
     * @method
@@ -357,7 +595,10 @@ declare class Essentia {
     * @returns {object} {centroid: 'the centroid of the array'}
     * @memberof Essentia
     */
-    Centroid(array: any, range?: number): any;
+    Essentia.prototype.Centroid = function (array, range) {
+        if (range === void 0) { range = 1; }
+        return this.algorithms.Centroid(array, range);
+    };
     /**
     * Given a chord progression this algorithm describes it by means of key, scale, histogram, and rate of change.
     Note:
@@ -371,7 +612,9 @@ declare class Essentia {
     * @returns {object} {chordsHistogram: 'the normalized histogram of chords', chordsNumberRate: 'the ratio of different chords from the total number of chords in the progression', chordsChangesRate: 'the rate at which chords change in the progression', chordsKey: 'the most frequent chord of the progression', chordsScale: 'the scale of the most frequent chord of the progression (either 'major' or 'minor')'}
     * @memberof Essentia
     */
-    ChordsDescriptors(chords: any, key: string, scale: string): any;
+    Essentia.prototype.ChordsDescriptors = function (chords, key, scale) {
+        return this.algorithms.ChordsDescriptors(chords, key, scale);
+    };
     /**
     * This algorithm estimates chords given an input sequence of harmonic pitch class profiles (HPCPs). It finds the best matching major or minor triad and outputs the result as a string (e.g. A#, Bm, G#m, C). This algorithm uses the Sharp versions of each Flatted note (i.e. Bb -> A#). Check https://essentia.upf.edu/reference/std_ChordsDetection.html for more details.
     * @method
@@ -382,7 +625,12 @@ declare class Essentia {
     * @returns {object} {chords: 'the resulting chords, from A to G', strength: 'the strength of the chord'}
     * @memberof Essentia
     */
-    ChordsDetection(pcp: any, hopSize?: number, sampleRate?: number, windowSize?: number): any;
+    Essentia.prototype.ChordsDetection = function (pcp, hopSize, sampleRate, windowSize) {
+        if (hopSize === void 0) { hopSize = 2048; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        if (windowSize === void 0) { windowSize = 2; }
+        return this.algorithms.ChordsDetection(pcp, hopSize, sampleRate, windowSize);
+    };
     /**
     * This algorithm estimates chords using pitch profile classes on segments between beats. It is similar to ChordsDetection algorithm, but the chords are estimated on audio segments between each pair of consecutive beats. For each segment the estimation is done based on a chroma (HPCP) vector characterizing it, which can be computed by two methods:
       - 'interbeat_median', each resulting chroma vector component is a median of all the component values in the segment
@@ -396,7 +644,12 @@ declare class Essentia {
     * @returns {object} {chords: 'the resulting chords, from A to G', strength: 'the strength of the chords'}
     * @memberof Essentia
     */
-    ChordsDetectionBeats(pcp: any, ticks: any, chromaPick?: string, hopSize?: number, sampleRate?: number): any;
+    Essentia.prototype.ChordsDetectionBeats = function (pcp, ticks, chromaPick, hopSize, sampleRate) {
+        if (chromaPick === void 0) { chromaPick = 'interbeat_median'; }
+        if (hopSize === void 0) { hopSize = 2048; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        return this.algorithms.ChordsDetectionBeats(pcp, ticks, chromaPick, hopSize, sampleRate);
+    };
     /**
     * This algorithm computes a binary cross similarity matrix from two chromagam feature vectors of a query and reference song. Check https://essentia.upf.edu/reference/std_ChromaCrossSimilarity.html for more details.
     * @method
@@ -412,7 +665,16 @@ declare class Essentia {
     * @returns {object} {csm: '2D binary cross-similarity matrix of the query and reference features'}
     * @memberof Essentia
     */
-    ChromaCrossSimilarity(queryFeature: any, referenceFeature: any, binarizePercentile?: number, frameStackSize?: number, frameStackStride?: number, noti?: number, oti?: boolean, otiBinary?: boolean, streaming?: boolean): any;
+    Essentia.prototype.ChromaCrossSimilarity = function (queryFeature, referenceFeature, binarizePercentile, frameStackSize, frameStackStride, noti, oti, otiBinary, streaming) {
+        if (binarizePercentile === void 0) { binarizePercentile = 0.095; }
+        if (frameStackSize === void 0) { frameStackSize = 9; }
+        if (frameStackStride === void 0) { frameStackStride = 1; }
+        if (noti === void 0) { noti = 12; }
+        if (oti === void 0) { oti = true; }
+        if (otiBinary === void 0) { otiBinary = false; }
+        if (streaming === void 0) { streaming = false; }
+        return this.algorithms.ChromaCrossSimilarity(queryFeature, referenceFeature, binarizePercentile, frameStackSize, frameStackStride, noti, oti, otiBinary, streaming);
+    };
     /**
     * This algorithm computes the Constant-Q chromagram using FFT. See ConstantQ algorithm for more details.
      Check https://essentia.upf.edu/reference/std_Chromagram.html for more details.
@@ -431,7 +693,19 @@ declare class Essentia {
     * @returns {object} {chromagram: 'the magnitude constant-Q chromagram'}
     * @memberof Essentia
     */
-    Chromagram(frame: any, binsPerOctave?: number, minFrequency?: number, minimumKernelSize?: number, normalizeType?: string, numberBins?: number, sampleRate?: number, scale?: number, threshold?: number, windowType?: string, zeroPhase?: boolean): any;
+    Essentia.prototype.Chromagram = function (frame, binsPerOctave, minFrequency, minimumKernelSize, normalizeType, numberBins, sampleRate, scale, threshold, windowType, zeroPhase) {
+        if (binsPerOctave === void 0) { binsPerOctave = 12; }
+        if (minFrequency === void 0) { minFrequency = 32.7; }
+        if (minimumKernelSize === void 0) { minimumKernelSize = 4; }
+        if (normalizeType === void 0) { normalizeType = 'unit_max'; }
+        if (numberBins === void 0) { numberBins = 84; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        if (scale === void 0) { scale = 1; }
+        if (threshold === void 0) { threshold = 0.01; }
+        if (windowType === void 0) { windowType = 'hann'; }
+        if (zeroPhase === void 0) { zeroPhase = true; }
+        return this.algorithms.Chromagram(frame, binsPerOctave, minFrequency, minimumKernelSize, normalizeType, numberBins, sampleRate, scale, threshold, windowType, zeroPhase);
+    };
     /**
     * This algorithm detects the locations of impulsive noises (clicks and pops) on the input audio frame. It relies on LPC coefficients to inverse-filter the audio in order to attenuate the stationary part and enhance the prediction error (or excitation noise)[1]. After this, a matched filter is used to further enhance the impulsive peaks. The detection threshold is obtained from a robust estimate of the excitation noise power [2] plus a parametric gain value. Check https://essentia.upf.edu/reference/std_ClickDetector.html for more details.
     * @method
@@ -446,7 +720,16 @@ declare class Essentia {
     * @returns {object} {starts: 'starting indexes of the clicks', ends: 'ending indexes of the clicks'}
     * @memberof Essentia
     */
-    ClickDetector(frame: any, detectionThreshold?: number, frameSize?: number, hopSize?: number, order?: number, powerEstimationThreshold?: number, sampleRate?: number, silenceThreshold?: number): any;
+    Essentia.prototype.ClickDetector = function (frame, detectionThreshold, frameSize, hopSize, order, powerEstimationThreshold, sampleRate, silenceThreshold) {
+        if (detectionThreshold === void 0) { detectionThreshold = 30; }
+        if (frameSize === void 0) { frameSize = 512; }
+        if (hopSize === void 0) { hopSize = 256; }
+        if (order === void 0) { order = 12; }
+        if (powerEstimationThreshold === void 0) { powerEstimationThreshold = 10; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        if (silenceThreshold === void 0) { silenceThreshold = -50; }
+        return this.algorithms.ClickDetector(frame, detectionThreshold, frameSize, hopSize, order, powerEstimationThreshold, sampleRate, silenceThreshold);
+    };
     /**
     * This algorithm clips the input signal to fit its values into a specified interval. Check https://essentia.upf.edu/reference/std_Clipper.html for more details.
     * @method
@@ -456,7 +739,11 @@ declare class Essentia {
     * @returns {object} {signal: 'the output signal with the added noise'}
     * @memberof Essentia
     */
-    Clipper(signal: any, max?: number, min?: number): any;
+    Essentia.prototype.Clipper = function (signal, max, min) {
+        if (max === void 0) { max = 1; }
+        if (min === void 0) { min = -1; }
+        return this.algorithms.Clipper(signal, max, min);
+    };
     /**
     * This algorithm computes a cover song similiarity measure from a binary cross similarity matrix input between two chroma vectors of a query and reference song using various alignment constraints of smith-waterman local-alignment algorithm. Check https://essentia.upf.edu/reference/std_CoverSongSimilarity.html for more details.
     * @method
@@ -468,7 +755,13 @@ declare class Essentia {
     * @returns {object} {scoreMatrix: 'a 2D smith-waterman alignment score matrix from the input binary cross-similarity matrix', distance: 'cover song similarity distance between the query and reference song from the input similarity matrix. Either 'asymmetric' (as described in [2]) or 'symmetric' (maximum score in the alignment score matrix).'}
     * @memberof Essentia
     */
-    CoverSongSimilarity(inputArray: any, alignmentType?: string, disExtension?: number, disOnset?: number, distanceType?: string): any;
+    Essentia.prototype.CoverSongSimilarity = function (inputArray, alignmentType, disExtension, disOnset, distanceType) {
+        if (alignmentType === void 0) { alignmentType = 'serra09'; }
+        if (disExtension === void 0) { disExtension = 0.5; }
+        if (disOnset === void 0) { disOnset = 0.5; }
+        if (distanceType === void 0) { distanceType = 'asymmetric'; }
+        return this.algorithms.CoverSongSimilarity(inputArray, alignmentType, disExtension, disOnset, distanceType);
+    };
     /**
     * This algorithm computes the crest of an array. The crest is defined as the ratio between the maximum value and the arithmetic mean of an array. Typically it is used on the magnitude spectrum. Check https://essentia.upf.edu/reference/std_Crest.html for more details.
     * @method
@@ -476,7 +769,9 @@ declare class Essentia {
     * @returns {object} {crest: 'the crest of the input array'}
     * @memberof Essentia
     */
-    Crest(array: any): any;
+    Essentia.prototype.Crest = function (array) {
+        return this.algorithms.Crest(array);
+    };
     /**
     * This algorithm computes the cross-correlation vector of two signals. It accepts 2 parameters, minLag and maxLag which define the range of the computation of the innerproduct. Check https://essentia.upf.edu/reference/std_CrossCorrelation.html for more details.
     * @method
@@ -487,7 +782,11 @@ declare class Essentia {
     * @returns {object} {crossCorrelation: 'the cross-correlation vector between the two input arrays (its size is equal to maxLag - minLag + 1)'}
     * @memberof Essentia
     */
-    CrossCorrelation(arrayX: any, arrayY: any, maxLag?: number, minLag?: number): any;
+    Essentia.prototype.CrossCorrelation = function (arrayX, arrayY, maxLag, minLag) {
+        if (maxLag === void 0) { maxLag = 1; }
+        if (minLag === void 0) { minLag = 0; }
+        return this.algorithms.CrossCorrelation(arrayX, arrayY, maxLag, minLag);
+    };
     /**
     * This algorithm computes a euclidean cross-similarity matrix of two sequences of frame features. Similarity values can be optionally binarized Check https://essentia.upf.edu/reference/std_CrossSimilarityMatrix.html for more details.
     * @method
@@ -500,7 +799,13 @@ declare class Essentia {
     * @returns {object} {csm: '2D cross-similarity matrix of two input frame sequences (query vs reference)'}
     * @memberof Essentia
     */
-    CrossSimilarityMatrix(queryFeature: any, referenceFeature: any, binarize?: boolean, binarizePercentile?: number, frameStackSize?: number, frameStackStride?: number): any;
+    Essentia.prototype.CrossSimilarityMatrix = function (queryFeature, referenceFeature, binarize, binarizePercentile, frameStackSize, frameStackStride) {
+        if (binarize === void 0) { binarize = false; }
+        if (binarizePercentile === void 0) { binarizePercentile = 0.095; }
+        if (frameStackSize === void 0) { frameStackSize = 1; }
+        if (frameStackStride === void 0) { frameStackStride = 1; }
+        return this.algorithms.CrossSimilarityMatrix(queryFeature, referenceFeature, binarize, binarizePercentile, frameStackSize, frameStackStride);
+    };
     /**
     * Computes the second derivatives of a piecewise cubic spline.
     The input value, i.e. the point at which the spline is to be evaluated typically should be between xPoints[0] and xPoints[size-1]. If the value lies outside this range, extrapolation is used.
@@ -522,7 +827,23 @@ declare class Essentia {
     * @returns {object} {y: 'the value of the spline at x', dy: 'the first derivative of the spline at x', ddy: 'the second derivative of the spline at x'}
     * @memberof Essentia
     */
-    CubicSpline(x: number, leftBoundaryFlag?: number, leftBoundaryValue?: number, rightBoundaryFlag?: number, rightBoundaryValue?: number, xPoints?: any[], yPoints?: any[]): any;
+    Essentia.prototype.CubicSpline = function (x, leftBoundaryFlag, leftBoundaryValue, rightBoundaryFlag, rightBoundaryValue, xPoints, yPoints) {
+        if (leftBoundaryFlag === void 0) { leftBoundaryFlag = 0; }
+        if (leftBoundaryValue === void 0) { leftBoundaryValue = 0; }
+        if (rightBoundaryFlag === void 0) { rightBoundaryFlag = 0; }
+        if (rightBoundaryValue === void 0) { rightBoundaryValue = 0; }
+        if (xPoints === void 0) { xPoints = [0, 1]; }
+        if (yPoints === void 0) { yPoints = [0, 1]; }
+        var vecxPoints = new this.module.VectorFloat();
+        for (var i = 0; i < vecxPoints.size(); i++) {
+            vecxPoints.push_back(xPoints[i]);
+        }
+        var vecyPoints = new this.module.VectorFloat();
+        for (var i = 0; i < vecyPoints.size(); i++) {
+            vecyPoints.push_back(yPoints[i]);
+        }
+        return this.algorithms.CubicSpline(x, leftBoundaryFlag, leftBoundaryValue, rightBoundaryFlag, rightBoundaryValue, vecxPoints, vecyPoints);
+    };
     /**
     * This algorithm removes the DC offset from a signal using a 1st order IIR highpass filter. Because of its dependence on IIR, IIR's requirements are inherited. Check https://essentia.upf.edu/reference/std_DCRemoval.html for more details.
     * @method
@@ -532,7 +853,11 @@ declare class Essentia {
     * @returns {object} {signal: 'the filtered signal, with the DC component removed'}
     * @memberof Essentia
     */
-    DCRemoval(signal: any, cutoffFrequency?: number, sampleRate?: number): any;
+    Essentia.prototype.DCRemoval = function (signal, cutoffFrequency, sampleRate) {
+        if (cutoffFrequency === void 0) { cutoffFrequency = 40; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        return this.algorithms.DCRemoval(signal, cutoffFrequency, sampleRate);
+    };
     /**
     * This algorithm computes the Discrete Cosine Transform of an array.
     It uses the DCT-II form, with the 1/sqrt(2) scaling factor for the first coefficient. Check https://essentia.upf.edu/reference/std_DCT.html for more details.
@@ -545,7 +870,13 @@ declare class Essentia {
     * @returns {object} {dct: 'the discrete cosine transform of the input array'}
     * @memberof Essentia
     */
-    DCT(array: any, dctType?: number, inputSize?: number, liftering?: number, outputSize?: number): any;
+    Essentia.prototype.DCT = function (array, dctType, inputSize, liftering, outputSize) {
+        if (dctType === void 0) { dctType = 2; }
+        if (inputSize === void 0) { inputSize = 10; }
+        if (liftering === void 0) { liftering = 0; }
+        if (outputSize === void 0) { outputSize = 10; }
+        return this.algorithms.DCT(array, dctType, inputSize, liftering, outputSize);
+    };
     /**
     * This algorithm estimates danceability of a given audio signal. The algorithm is derived from Detrended Fluctuation Analysis (DFA) described in [1]. The parameters minTau and maxTau are used to define the range of time over which DFA will be performed. The output of this algorithm is the danceability of the audio signal. These values usually range from 0 to 3 (higher values meaning more danceable). Check https://essentia.upf.edu/reference/std_Danceability.html for more details.
     * @method
@@ -557,7 +888,13 @@ declare class Essentia {
     * @returns {object} {danceability: 'the danceability value. Normal values range from 0 to ~3. The higher, the more danceable.', dfa: 'the DFA exponent vector for considered segment length (tau) values'}
     * @memberof Essentia
     */
-    Danceability(signal: any, maxTau?: number, minTau?: number, sampleRate?: number, tauMultiplier?: number): any;
+    Essentia.prototype.Danceability = function (signal, maxTau, minTau, sampleRate, tauMultiplier) {
+        if (maxTau === void 0) { maxTau = 8800; }
+        if (minTau === void 0) { minTau = 310; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        if (tauMultiplier === void 0) { tauMultiplier = 1.1; }
+        return this.algorithms.Danceability(signal, maxTau, minTau, sampleRate, tauMultiplier);
+    };
     /**
     * This algorithm computes the decrease of an array defined as the linear regression coefficient. The range parameter is used to normalize the result. For a spectral centroid, the range should be equal to Nyquist and for an audio centroid the range should be equal to (audiosize - 1) / samplerate.
     The size of the input array must be at least two elements for "decrease" to be computed, otherwise an exception is thrown.
@@ -570,7 +907,10 @@ declare class Essentia {
     * @returns {object} {decrease: 'the decrease of the input array'}
     * @memberof Essentia
     */
-    Decrease(array: any, range?: number): any;
+    Essentia.prototype.Decrease = function (array, range) {
+        if (range === void 0) { range = 1; }
+        return this.algorithms.Decrease(array, range);
+    };
     /**
     * This algorithm returns the first-order derivative of an input signal. That is, for each input value it returns the value minus the previous one. Check https://essentia.upf.edu/reference/std_Derivative.html for more details.
     * @method
@@ -578,7 +918,9 @@ declare class Essentia {
     * @returns {object} {signal: 'the derivative of the input signal'}
     * @memberof Essentia
     */
-    Derivative(signal: any): any;
+    Essentia.prototype.Derivative = function (signal) {
+        return this.algorithms.Derivative(signal);
+    };
     /**
     * This algorithm computes two descriptors that are based on the derivative of a signal envelope. Check https://essentia.upf.edu/reference/std_DerivativeSFX.html for more details.
     * @method
@@ -586,7 +928,9 @@ declare class Essentia {
     * @returns {object} {derAvAfterMax: 'the weighted average of the derivative after the maximum amplitude', maxDerBeforeMax: 'the maximum derivative before the maximum amplitude'}
     * @memberof Essentia
     */
-    DerivativeSFX(envelope: any): any;
+    Essentia.prototype.DerivativeSFX = function (envelope) {
+        return this.algorithms.DerivativeSFX(envelope);
+    };
     /**
     * This algorithm uses LPC and some heuristics to detect discontinuities in an audio signal. [1]. Check https://essentia.upf.edu/reference/std_DiscontinuityDetector.html for more details.
     * @method
@@ -602,7 +946,17 @@ declare class Essentia {
     * @returns {object} {discontinuityLocations: 'the index of the detected discontinuities (if any)', discontinuityAmplitudes: 'the peak values of the prediction error for the discontinuities (if any)'}
     * @memberof Essentia
     */
-    DiscontinuityDetector(frame: any, detectionThreshold?: number, energyThreshold?: number, frameSize?: number, hopSize?: number, kernelSize?: number, order?: number, silenceThreshold?: number, subFrameSize?: number): any;
+    Essentia.prototype.DiscontinuityDetector = function (frame, detectionThreshold, energyThreshold, frameSize, hopSize, kernelSize, order, silenceThreshold, subFrameSize) {
+        if (detectionThreshold === void 0) { detectionThreshold = 8; }
+        if (energyThreshold === void 0) { energyThreshold = -60; }
+        if (frameSize === void 0) { frameSize = 512; }
+        if (hopSize === void 0) { hopSize = 256; }
+        if (kernelSize === void 0) { kernelSize = 7; }
+        if (order === void 0) { order = 3; }
+        if (silenceThreshold === void 0) { silenceThreshold = -50; }
+        if (subFrameSize === void 0) { subFrameSize = 32; }
+        return this.algorithms.DiscontinuityDetector(frame, detectionThreshold, energyThreshold, frameSize, hopSize, kernelSize, order, silenceThreshold, subFrameSize);
+    };
     /**
     * This algorithm computes the sensory dissonance of an audio signal given its spectral peaks. Sensory dissonance (to be distinguished from musical or theoretical dissonance) measures perceptual roughness of the sound and is based on the roughness of its spectral peaks. Given the spectral peaks, the algorithm estimates total dissonance by summing up the normalized dissonance values for each pair of peaks. These values are computed using dissonance curves, which define dissonace between two spectral peaks according to their frequency and amplitude relations. The dissonance curves are based on perceptual experiments conducted in [1].
     Exceptions are thrown when the size of the input vectors are not equal or if input frequencies are not ordered ascendantly
@@ -616,7 +970,9 @@ declare class Essentia {
     * @returns {object} {dissonance: 'the dissonance of the audio signal (0 meaning completely consonant, and 1 meaning completely dissonant)'}
     * @memberof Essentia
     */
-    Dissonance(frequencies: any, magnitudes: any): any;
+    Essentia.prototype.Dissonance = function (frequencies, magnitudes) {
+        return this.algorithms.Dissonance(frequencies, magnitudes);
+    };
     /**
     * This algorithm computes the spread (variance), skewness and kurtosis of an array given its central moments. The extracted features are good indicators of the shape of the distribution. For the required input see CentralMoments algorithm.
     The size of the input array must be at least 5. An exception will be thrown otherwise. Check https://essentia.upf.edu/reference/std_DistributionShape.html for more details.
@@ -625,7 +981,9 @@ declare class Essentia {
     * @returns {object} {spread: 'the spread (variance) of the distribution', skewness: 'the skewness of the distribution', kurtosis: 'the kurtosis of the distribution'}
     * @memberof Essentia
     */
-    DistributionShape(centralMoments: any): any;
+    Essentia.prototype.DistributionShape = function (centralMoments) {
+        return this.algorithms.DistributionShape(centralMoments);
+    };
     /**
     * This algorithm outputs the total duration of an audio signal. Check https://essentia.upf.edu/reference/std_Duration.html for more details.
     * @method
@@ -634,7 +992,10 @@ declare class Essentia {
     * @returns {object} {duration: 'the duration of the signal [s]'}
     * @memberof Essentia
     */
-    Duration(signal: any, sampleRate?: number): any;
+    Essentia.prototype.Duration = function (signal, sampleRate) {
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        return this.algorithms.Duration(signal, sampleRate);
+    };
     /**
     * This algorithm computes the dynamic complexity defined as the average absolute deviation from the global loudness level estimate on the dB scale. It is related to the dynamic range and to the amount of fluctuation in loudness present in a recording. Silence at the beginning and at the end of a track are ignored in the computation in order not to deteriorate the results. Check https://essentia.upf.edu/reference/std_DynamicComplexity.html for more details.
     * @method
@@ -644,7 +1005,11 @@ declare class Essentia {
     * @returns {object} {dynamicComplexity: 'the dynamic complexity coefficient', loudness: 'an estimate of the loudness [dB]'}
     * @memberof Essentia
     */
-    DynamicComplexity(signal: any, frameSize?: number, sampleRate?: number): any;
+    Essentia.prototype.DynamicComplexity = function (signal, frameSize, sampleRate) {
+        if (frameSize === void 0) { frameSize = 0.2; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        return this.algorithms.DynamicComplexity(signal, frameSize, sampleRate);
+    };
     /**
     * This algorithm computes energies/magnitudes in ERB bands of a spectrum. The Equivalent Rectangular Bandwidth (ERB) scale is used. The algorithm applies a frequency domain filterbank using gammatone filters. Adapted from matlab code in:  D. P. W. Ellis (2009). 'Gammatone-like spectrograms', web resource [1]. Check https://essentia.upf.edu/reference/std_ERBBands.html for more details.
     * @method
@@ -659,7 +1024,16 @@ declare class Essentia {
     * @returns {object} {bands: 'the energies/magnitudes of each band'}
     * @memberof Essentia
     */
-    ERBBands(spectrum: any, highFrequencyBound?: number, inputSize?: number, lowFrequencyBound?: number, numberBands?: number, sampleRate?: number, type?: string, width?: number): any;
+    Essentia.prototype.ERBBands = function (spectrum, highFrequencyBound, inputSize, lowFrequencyBound, numberBands, sampleRate, type, width) {
+        if (highFrequencyBound === void 0) { highFrequencyBound = 22050; }
+        if (inputSize === void 0) { inputSize = 1025; }
+        if (lowFrequencyBound === void 0) { lowFrequencyBound = 50; }
+        if (numberBands === void 0) { numberBands = 40; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        if (type === void 0) { type = 'power'; }
+        if (width === void 0) { width = 1; }
+        return this.algorithms.ERBBands(spectrum, highFrequencyBound, inputSize, lowFrequencyBound, numberBands, sampleRate, type, width);
+    };
     /**
     * This algorithm computes the effective duration of an envelope signal. The effective duration is a measure of the time the signal is perceptually meaningful. This is approximated by the time the envelope is above or equal to a given threshold and is above the -90db noise floor. This measure allows to distinguish percussive sounds from sustained sounds but depends on the signal length.
     By default, this algorithm uses 40% of the envelope maximum as the threshold which is suited for short sounds. Note, that the 0% thresold corresponds to the duration of signal above -90db noise floor, while the 100% thresold corresponds to the number of times the envelope takes its maximum value.
@@ -674,7 +1048,11 @@ declare class Essentia {
     * @returns {object} {effectiveDuration: 'the effective duration of the signal [s]'}
     * @memberof Essentia
     */
-    EffectiveDuration(signal: any, sampleRate?: number, thresholdRatio?: number): any;
+    Essentia.prototype.EffectiveDuration = function (signal, sampleRate, thresholdRatio) {
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        if (thresholdRatio === void 0) { thresholdRatio = 0.4; }
+        return this.algorithms.EffectiveDuration(signal, sampleRate, thresholdRatio);
+    };
     /**
     * This algorithm computes the energy of an array. Check https://essentia.upf.edu/reference/std_Energy.html for more details.
     * @method
@@ -682,7 +1060,9 @@ declare class Essentia {
     * @returns {object} {energy: 'the energy of the input array'}
     * @memberof Essentia
     */
-    Energy(array: any): any;
+    Essentia.prototype.Energy = function (array) {
+        return this.algorithms.Energy(array);
+    };
     /**
     * This algorithm computes energy in a given frequency band of a spectrum including both start and stop cutoff frequencies.
     Note that exceptions will be thrown when input spectrum is empty and if startCutoffFrequency is greater than stopCutoffFrequency. Check https://essentia.upf.edu/reference/std_EnergyBand.html for more details.
@@ -694,7 +1074,12 @@ declare class Essentia {
     * @returns {object} {energyBand: 'the energy in the frequency band'}
     * @memberof Essentia
     */
-    EnergyBand(spectrum: any, sampleRate?: number, startCutoffFrequency?: number, stopCutoffFrequency?: number): any;
+    Essentia.prototype.EnergyBand = function (spectrum, sampleRate, startCutoffFrequency, stopCutoffFrequency) {
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        if (startCutoffFrequency === void 0) { startCutoffFrequency = 0; }
+        if (stopCutoffFrequency === void 0) { stopCutoffFrequency = 100; }
+        return this.algorithms.EnergyBand(spectrum, sampleRate, startCutoffFrequency, stopCutoffFrequency);
+    };
     /**
     * This algorithm computes the ratio of the spectral energy in the range [startFrequency, stopFrequency] over the total energy. Check https://essentia.upf.edu/reference/std_EnergyBandRatio.html for more details.
     * @method
@@ -705,7 +1090,12 @@ declare class Essentia {
     * @returns {object} {energyBandRatio: 'the energy ratio of the specified band over the total energy'}
     * @memberof Essentia
     */
-    EnergyBandRatio(spectrum: any, sampleRate?: number, startFrequency?: number, stopFrequency?: number): any;
+    Essentia.prototype.EnergyBandRatio = function (spectrum, sampleRate, startFrequency, stopFrequency) {
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        if (startFrequency === void 0) { startFrequency = 0; }
+        if (stopFrequency === void 0) { stopFrequency = 100; }
+        return this.algorithms.EnergyBandRatio(spectrum, sampleRate, startFrequency, stopFrequency);
+    };
     /**
     * This algorithm computes the Shannon entropy of an array. Entropy can be used to quantify the peakiness of a distribution. This has been used for voiced/unvoiced decision in automatic speech recognition.  Check https://essentia.upf.edu/reference/std_Entropy.html for more details.
     * @method
@@ -713,7 +1103,9 @@ declare class Essentia {
     * @returns {object} {entropy: 'the entropy of the input array'}
     * @memberof Essentia
     */
-    Entropy(array: any): any;
+    Essentia.prototype.Entropy = function (array) {
+        return this.algorithms.Entropy(array);
+    };
     /**
     * This algorithm computes the envelope of a signal by applying a non-symmetric lowpass filter on a signal. By default it rectifies the signal, but that is optional. Check https://essentia.upf.edu/reference/std_Envelope.html for more details.
     * @method
@@ -725,7 +1117,13 @@ declare class Essentia {
     * @returns {object} {signal: 'the resulting envelope of the signal'}
     * @memberof Essentia
     */
-    Envelope(signal: any, applyRectification?: boolean, attackTime?: number, releaseTime?: number, sampleRate?: number): any;
+    Essentia.prototype.Envelope = function (signal, applyRectification, attackTime, releaseTime, sampleRate) {
+        if (applyRectification === void 0) { applyRectification = true; }
+        if (attackTime === void 0) { attackTime = 10; }
+        if (releaseTime === void 0) { releaseTime = 1500; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        return this.algorithms.Envelope(signal, applyRectification, attackTime, releaseTime, sampleRate);
+    };
     /**
     * This algorithm implements an equal-loudness filter. The human ear does not perceive sounds of all frequencies as having equal loudness, and to account for this, the signal is filtered by an inverted approximation of the equal-loudness curves. Technically, the filter is a cascade of a 10th order Yulewalk filter with a 2nd order Butterworth high pass filter. Check https://essentia.upf.edu/reference/std_EqualLoudness.html for more details.
     * @method
@@ -734,7 +1132,10 @@ declare class Essentia {
     * @returns {object} {signal: 'the filtered signal'}
     * @memberof Essentia
     */
-    EqualLoudness(signal: any, sampleRate?: number): any;
+    Essentia.prototype.EqualLoudness = function (signal, sampleRate) {
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        return this.algorithms.EqualLoudness(signal, sampleRate);
+    };
     /**
     * This algorithm computes the flatness of an array, which is defined as the ratio between the geometric mean and the arithmetic mean. Check https://essentia.upf.edu/reference/std_Flatness.html for more details.
     * @method
@@ -742,7 +1143,9 @@ declare class Essentia {
     * @returns {object} {flatness: 'the flatness (ratio between the geometric and the arithmetic mean of the input array)'}
     * @memberof Essentia
     */
-    Flatness(array: any): any;
+    Essentia.prototype.Flatness = function (array) {
+        return this.algorithms.Flatness(array);
+    };
     /**
     * This algorithm computes the flatness of an array, which is defined as the ratio between the geometric mean and the arithmetic mean converted to dB scale. Check https://essentia.upf.edu/reference/std_FlatnessDB.html for more details.
     * @method
@@ -750,7 +1153,9 @@ declare class Essentia {
     * @returns {object} {flatnessDB: 'the flatness dB'}
     * @memberof Essentia
     */
-    FlatnessDB(array: any): any;
+    Essentia.prototype.FlatnessDB = function (array) {
+        return this.algorithms.FlatnessDB(array);
+    };
     /**
     * This algorithm calculates the flatness coefficient of a signal envelope. Check https://essentia.upf.edu/reference/std_FlatnessSFX.html for more details.
     * @method
@@ -758,7 +1163,9 @@ declare class Essentia {
     * @returns {object} {flatness: 'the flatness coefficient'}
     * @memberof Essentia
     */
-    FlatnessSFX(envelope: any): any;
+    Essentia.prototype.FlatnessSFX = function (envelope) {
+        return this.algorithms.FlatnessSFX(envelope);
+    };
     /**
     * This algorithm computes the spectral flux of a spectrum. Flux is defined as the L2-norm [1] or L1-norm [2] of the difference between two consecutive frames of the magnitude spectrum. The frames have to be of the same size in order to yield a meaningful result. The default L2-norm is used more commonly. Check https://essentia.upf.edu/reference/std_Flux.html for more details.
     * @method
@@ -768,7 +1175,11 @@ declare class Essentia {
     * @returns {object} {flux: 'the spectral flux of the input spectrum'}
     * @memberof Essentia
     */
-    Flux(spectrum: any, halfRectify?: boolean, norm?: string): any;
+    Essentia.prototype.Flux = function (spectrum, halfRectify, norm) {
+        if (halfRectify === void 0) { halfRectify = false; }
+        if (norm === void 0) { norm = 'L2'; }
+        return this.algorithms.Flux(spectrum, halfRectify, norm);
+    };
     /**
     * This algorithm slices the input buffer into frames. It returns a frame of a constant size and jumps a constant amount of samples forward in the buffer on every compute() call until no more frames can be extracted; empty frame vectors are returned afterwards. Incomplete frames (frames starting before the beginning of the input buffer or going past its end) are zero-padded or dropped according to the "validFrameThresholdRatio" parameter. Check https://essentia.upf.edu/reference/std_FrameCutter.html for more details.
     * @method
@@ -781,7 +1192,14 @@ declare class Essentia {
     * @returns {object} {frame: 'the frame to write to'}
     * @memberof Essentia
     */
-    FrameCutter(signal: any, frameSize?: number, hopSize?: number, lastFrameToEndOfFile?: boolean, startFromZero?: boolean, validFrameThresholdRatio?: number): any;
+    Essentia.prototype.FrameCutter = function (signal, frameSize, hopSize, lastFrameToEndOfFile, startFromZero, validFrameThresholdRatio) {
+        if (frameSize === void 0) { frameSize = 1024; }
+        if (hopSize === void 0) { hopSize = 512; }
+        if (lastFrameToEndOfFile === void 0) { lastFrameToEndOfFile = false; }
+        if (startFromZero === void 0) { startFromZero = false; }
+        if (validFrameThresholdRatio === void 0) { validFrameThresholdRatio = 0; }
+        return this.algorithms.FrameCutter(signal, frameSize, hopSize, lastFrameToEndOfFile, startFromZero, validFrameThresholdRatio);
+    };
     /**
     * This algorithm converts a sequence of input audio signal frames into a sequence of audio samples. Check https://essentia.upf.edu/reference/std_FrameToReal.html for more details.
     * @method
@@ -791,7 +1209,11 @@ declare class Essentia {
     * @returns {object} {signal: 'the output audio samples'}
     * @memberof Essentia
     */
-    FrameToReal(signal: any, frameSize?: number, hopSize?: number): any;
+    Essentia.prototype.FrameToReal = function (signal, frameSize, hopSize) {
+        if (frameSize === void 0) { frameSize = 2048; }
+        if (hopSize === void 0) { hopSize = 128; }
+        return this.algorithms.FrameToReal(signal, frameSize, hopSize);
+    };
     /**
     * This algorithm computes energy in rectangular frequency bands of a spectrum. The bands are non-overlapping. For each band the power-spectrum (mag-squared) is summed. Check https://essentia.upf.edu/reference/std_FrequencyBands.html for more details.
     * @method
@@ -801,7 +1223,15 @@ declare class Essentia {
     * @returns {object} {bands: 'the energy in each band'}
     * @memberof Essentia
     */
-    FrequencyBands(spectrum: any, frequencyBands?: any[], sampleRate?: number): any;
+    Essentia.prototype.FrequencyBands = function (spectrum, frequencyBands, sampleRate) {
+        if (frequencyBands === void 0) { frequencyBands = [0, 50, 100, 150, 200, 300, 400, 510, 630, 770, 920, 1080, 1270, 1480, 1720, 2000, 2320, 2700, 3150, 3700, 4400, 5300, 6400, 7700, 9500, 12000, 15500, 20500, 27000]; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        var vecfrequencyBands = new this.module.VectorFloat();
+        for (var i = 0; i < vecfrequencyBands.size(); i++) {
+            vecfrequencyBands.push_back(frequencyBands[i]);
+        }
+        return this.algorithms.FrequencyBands(spectrum, vecfrequencyBands, sampleRate);
+    };
     /**
     * This algorithm computes the Gammatone-frequency cepstral coefficients of a spectrum. This is an equivalent of MFCCs, but using a gammatone filterbank (ERBBands) scaled on an Equivalent Rectangular Bandwidth (ERB) scale. Check https://essentia.upf.edu/reference/std_GFCC.html for more details.
     * @method
@@ -819,7 +1249,19 @@ declare class Essentia {
     * @returns {object} {bands: 'the energies in ERB bands', gfcc: 'the gammatone feature cepstrum coefficients'}
     * @memberof Essentia
     */
-    GFCC(spectrum: any, dctType?: number, highFrequencyBound?: number, inputSize?: number, logType?: string, lowFrequencyBound?: number, numberBands?: number, numberCoefficients?: number, sampleRate?: number, silenceThreshold?: number, type?: string): any;
+    Essentia.prototype.GFCC = function (spectrum, dctType, highFrequencyBound, inputSize, logType, lowFrequencyBound, numberBands, numberCoefficients, sampleRate, silenceThreshold, type) {
+        if (dctType === void 0) { dctType = 2; }
+        if (highFrequencyBound === void 0) { highFrequencyBound = 22050; }
+        if (inputSize === void 0) { inputSize = 1025; }
+        if (logType === void 0) { logType = 'dbamp'; }
+        if (lowFrequencyBound === void 0) { lowFrequencyBound = 40; }
+        if (numberBands === void 0) { numberBands = 40; }
+        if (numberCoefficients === void 0) { numberCoefficients = 13; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        if (silenceThreshold === void 0) { silenceThreshold = 1e-10; }
+        if (type === void 0) { type = 'power'; }
+        return this.algorithms.GFCC(spectrum, dctType, highFrequencyBound, inputSize, logType, lowFrequencyBound, numberBands, numberCoefficients, sampleRate, silenceThreshold, type);
+    };
     /**
     * This algorithm uses energy and time thresholds to detect gaps in the waveform. A median filter is used to remove spurious silent samples. The power of a small audio region before the detected gaps (prepower) is thresholded to detect intentional pauses as described in [1]. This technique isextended to the region after the gap.
     The algorithm was designed for a framewise use and returns the start and end timestamps related to the first frame processed. Call configure() or reset() in order to restart the count. Check https://essentia.upf.edu/reference/std_GapsDetector.html for more details.
@@ -840,7 +1282,21 @@ declare class Essentia {
     * @returns {object} {starts: 'the start indexes of the detected gaps (if any) in seconds', ends: 'the end indexes of the detected gaps (if any) in seconds'}
     * @memberof Essentia
     */
-    GapsDetector(frame: any, attackTime?: number, frameSize?: number, hopSize?: number, kernelSize?: number, maximumTime?: number, minimumTime?: number, postpowerTime?: number, prepowerThreshold?: number, prepowerTime?: number, releaseTime?: number, sampleRate?: number, silenceThreshold?: number): any;
+    Essentia.prototype.GapsDetector = function (frame, attackTime, frameSize, hopSize, kernelSize, maximumTime, minimumTime, postpowerTime, prepowerThreshold, prepowerTime, releaseTime, sampleRate, silenceThreshold) {
+        if (attackTime === void 0) { attackTime = 0.05; }
+        if (frameSize === void 0) { frameSize = 2048; }
+        if (hopSize === void 0) { hopSize = 1024; }
+        if (kernelSize === void 0) { kernelSize = 11; }
+        if (maximumTime === void 0) { maximumTime = 3500; }
+        if (minimumTime === void 0) { minimumTime = 10; }
+        if (postpowerTime === void 0) { postpowerTime = 40; }
+        if (prepowerThreshold === void 0) { prepowerThreshold = -30; }
+        if (prepowerTime === void 0) { prepowerTime = 40; }
+        if (releaseTime === void 0) { releaseTime = 0.05; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        if (silenceThreshold === void 0) { silenceThreshold = -50; }
+        return this.algorithms.GapsDetector(frame, attackTime, frameSize, hopSize, kernelSize, maximumTime, minimumTime, postpowerTime, prepowerThreshold, prepowerTime, releaseTime, sampleRate, silenceThreshold);
+    };
     /**
     * This algorithm computes the geometric mean of an array of positive values. Check https://essentia.upf.edu/reference/std_GeometricMean.html for more details.
     * @method
@@ -848,7 +1304,9 @@ declare class Essentia {
     * @returns {object} {geometricMean: 'the geometric mean of the input array'}
     * @memberof Essentia
     */
-    GeometricMean(array: any): any;
+    Essentia.prototype.GeometricMean = function (array) {
+        return this.algorithms.GeometricMean(array);
+    };
     /**
     * This algorithm computes the High Frequency Content of a spectrum. It can be computed according to the following techniques:
       - 'Masri' (default) which does: sum |X(n)|^2*k,
@@ -861,7 +1319,11 @@ declare class Essentia {
     * @returns {object} {hfc: 'the high-frequency coefficient'}
     * @memberof Essentia
     */
-    HFC(spectrum: any, sampleRate?: number, type?: string): any;
+    Essentia.prototype.HFC = function (spectrum, sampleRate, type) {
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        if (type === void 0) { type = 'Masri'; }
+        return this.algorithms.HFC(spectrum, sampleRate, type);
+    };
     /**
     * Computes a Harmonic Pitch Class Profile (HPCP) from the spectral peaks of a signal. HPCP is a k*12 dimensional vector which represents the intensities of the twelve (k==1) semitone pitch classes (corresponsing to notes from A to G#), or subdivisions of these (k>1). Check https://essentia.upf.edu/reference/std_HPCP.html for more details.
     * @method
@@ -883,7 +1345,22 @@ declare class Essentia {
     * @returns {object} {hpcp: 'the resulting harmonic pitch class profile'}
     * @memberof Essentia
     */
-    HPCP(frequencies: any, magnitudes: any, bandPreset?: boolean, bandSplitFrequency?: number, harmonics?: number, maxFrequency?: number, maxShifted?: boolean, minFrequency?: number, nonLinear?: boolean, normalized?: string, referenceFrequency?: number, sampleRate?: number, size?: number, weightType?: string, windowSize?: number): any;
+    Essentia.prototype.HPCP = function (frequencies, magnitudes, bandPreset, bandSplitFrequency, harmonics, maxFrequency, maxShifted, minFrequency, nonLinear, normalized, referenceFrequency, sampleRate, size, weightType, windowSize) {
+        if (bandPreset === void 0) { bandPreset = true; }
+        if (bandSplitFrequency === void 0) { bandSplitFrequency = 500; }
+        if (harmonics === void 0) { harmonics = 0; }
+        if (maxFrequency === void 0) { maxFrequency = 5000; }
+        if (maxShifted === void 0) { maxShifted = false; }
+        if (minFrequency === void 0) { minFrequency = 40; }
+        if (nonLinear === void 0) { nonLinear = false; }
+        if (normalized === void 0) { normalized = 'unitMax'; }
+        if (referenceFrequency === void 0) { referenceFrequency = 440; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        if (size === void 0) { size = 12; }
+        if (weightType === void 0) { weightType = 'squaredCosine'; }
+        if (windowSize === void 0) { windowSize = 1; }
+        return this.algorithms.HPCP(frequencies, magnitudes, bandPreset, bandSplitFrequency, harmonics, maxFrequency, maxShifted, minFrequency, nonLinear, normalized, referenceFrequency, sampleRate, size, weightType, windowSize);
+    };
     /**
     * This algorithm extracts bpms that are harmonically related to the tempo given by the 'bpm' parameter.
     The algorithm assumes a certain bpm is harmonically related to parameter bpm, when the greatest common divisor between both bpms is greater than threshold.
@@ -896,7 +1373,12 @@ declare class Essentia {
     * @returns {object} {harmonicBpms: 'a list of bpms which are harmonically related to the bpm parameter '}
     * @memberof Essentia
     */
-    HarmonicBpm(bpms: any, bpm?: number, threshold?: number, tolerance?: number): any;
+    Essentia.prototype.HarmonicBpm = function (bpms, bpm, threshold, tolerance) {
+        if (bpm === void 0) { bpm = 60; }
+        if (threshold === void 0) { threshold = 20; }
+        if (tolerance === void 0) { tolerance = 5; }
+        return this.algorithms.HarmonicBpm(bpms, bpm, threshold, tolerance);
+    };
     /**
     * This algorithm finds the harmonic peaks of a signal given its spectral peaks and its fundamental frequency.
     Note:
@@ -914,7 +1396,11 @@ declare class Essentia {
     * @returns {object} {harmonicFrequencies: 'the frequencies of harmonic peaks [Hz]', harmonicMagnitudes: 'the magnitudes of harmonic peaks'}
     * @memberof Essentia
     */
-    HarmonicPeaks(frequencies: any, magnitudes: any, pitch: number, maxHarmonics?: number, tolerance?: number): any;
+    Essentia.prototype.HarmonicPeaks = function (frequencies, magnitudes, pitch, maxHarmonics, tolerance) {
+        if (maxHarmonics === void 0) { maxHarmonics = 20; }
+        if (tolerance === void 0) { tolerance = 0.2; }
+        return this.algorithms.HarmonicPeaks(frequencies, magnitudes, pitch, maxHarmonics, tolerance);
+    };
     /**
     * This algorithm implements a 1st order IIR high-pass filter. Because of its dependence on IIR, IIR's requirements are inherited. Check https://essentia.upf.edu/reference/std_HighPass.html for more details.
     * @method
@@ -924,7 +1410,11 @@ declare class Essentia {
     * @returns {object} {signal: 'the filtered signal'}
     * @memberof Essentia
     */
-    HighPass(signal: any, cutoffFrequency?: number, sampleRate?: number): any;
+    Essentia.prototype.HighPass = function (signal, cutoffFrequency, sampleRate) {
+        if (cutoffFrequency === void 0) { cutoffFrequency = 1500; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        return this.algorithms.HighPass(signal, cutoffFrequency, sampleRate);
+    };
     /**
     * This algorithm computes high-resolution chroma features from an HPCP vector. The vector's size must be a multiple of 12 and it is recommended that it be larger than 120. In otherwords, the HPCP's resolution should be 10 Cents or more.
     The high-resolution features being computed are: Check https://essentia.upf.edu/reference/std_HighResolutionFeatures.html for more details.
@@ -934,7 +1424,10 @@ declare class Essentia {
     * @returns {object} {equalTemperedDeviation: 'measure of the deviation of HPCP local maxima with respect to equal-tempered bins', nonTemperedEnergyRatio: 'ratio between the energy on non-tempered bins and the total energy', nonTemperedPeaksEnergyRatio: 'ratio between the energy on non-tempered peaks and the total energy'}
     * @memberof Essentia
     */
-    HighResolutionFeatures(hpcp: any, maxPeaks?: number): any;
+    Essentia.prototype.HighResolutionFeatures = function (hpcp, maxPeaks) {
+        if (maxPeaks === void 0) { maxPeaks = 24; }
+        return this.algorithms.HighResolutionFeatures(hpcp, maxPeaks);
+    };
     /**
     * This algorithm computes a histogram. Values outside the range are ignored Check https://essentia.upf.edu/reference/std_Histogram.html for more details.
     * @method
@@ -946,7 +1439,13 @@ declare class Essentia {
     * @returns {object} {histogram: 'the values in the equally-spaced bins', binEdges: 'the edges of the equally-spaced bins. Size is _histogram.size() + 1'}
     * @memberof Essentia
     */
-    Histogram(array: any, maxValue?: number, minValue?: number, normalize?: string, numberBins?: number): any;
+    Essentia.prototype.Histogram = function (array, maxValue, minValue, normalize, numberBins) {
+        if (maxValue === void 0) { maxValue = 1; }
+        if (minValue === void 0) { minValue = 0; }
+        if (normalize === void 0) { normalize = 'none'; }
+        if (numberBins === void 0) { numberBins = 10; }
+        return this.algorithms.Histogram(array, maxValue, minValue, normalize, numberBins);
+    };
     /**
     * This algorithm computes the harmonic plus residual model analysis. Check https://essentia.upf.edu/reference/std_HprModelAnal.html for more details.
     * @method
@@ -969,7 +1468,23 @@ declare class Essentia {
     * @returns {object} {frequencies: 'the frequencies of the sinusoidal peaks [Hz]', magnitudes: 'the magnitudes of the sinusoidal peaks', phases: 'the phases of the sinusoidal peaks', res: 'output residual frame'}
     * @memberof Essentia
     */
-    HprModelAnal(frame: any, pitch: number, fftSize?: number, freqDevOffset?: number, freqDevSlope?: number, harmDevSlope?: number, hopSize?: number, magnitudeThreshold?: number, maxFrequency?: number, maxPeaks?: number, maxnSines?: number, minFrequency?: number, nHarmonics?: number, orderBy?: string, sampleRate?: number, stocf?: number): any;
+    Essentia.prototype.HprModelAnal = function (frame, pitch, fftSize, freqDevOffset, freqDevSlope, harmDevSlope, hopSize, magnitudeThreshold, maxFrequency, maxPeaks, maxnSines, minFrequency, nHarmonics, orderBy, sampleRate, stocf) {
+        if (fftSize === void 0) { fftSize = 2048; }
+        if (freqDevOffset === void 0) { freqDevOffset = 20; }
+        if (freqDevSlope === void 0) { freqDevSlope = 0.01; }
+        if (harmDevSlope === void 0) { harmDevSlope = 0.01; }
+        if (hopSize === void 0) { hopSize = 512; }
+        if (magnitudeThreshold === void 0) { magnitudeThreshold = 0; }
+        if (maxFrequency === void 0) { maxFrequency = 5000; }
+        if (maxPeaks === void 0) { maxPeaks = 100; }
+        if (maxnSines === void 0) { maxnSines = 100; }
+        if (minFrequency === void 0) { minFrequency = 20; }
+        if (nHarmonics === void 0) { nHarmonics = 100; }
+        if (orderBy === void 0) { orderBy = 'frequency'; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        if (stocf === void 0) { stocf = 0.2; }
+        return this.algorithms.HprModelAnal(frame, pitch, fftSize, freqDevOffset, freqDevSlope, harmDevSlope, hopSize, magnitudeThreshold, maxFrequency, maxPeaks, maxnSines, minFrequency, nHarmonics, orderBy, sampleRate, stocf);
+    };
     /**
     * This algorithm computes the harmonic plus stochastic model analysis.  Check https://essentia.upf.edu/reference/std_HpsModelAnal.html for more details.
     * @method
@@ -992,7 +1507,23 @@ declare class Essentia {
     * @returns {object} {frequencies: 'the frequencies of the sinusoidal peaks [Hz]', magnitudes: 'the magnitudes of the sinusoidal peaks', phases: 'the phases of the sinusoidal peaks', stocenv: 'the stochastic envelope'}
     * @memberof Essentia
     */
-    HpsModelAnal(frame: any, pitch: number, fftSize?: number, freqDevOffset?: number, freqDevSlope?: number, harmDevSlope?: number, hopSize?: number, magnitudeThreshold?: number, maxFrequency?: number, maxPeaks?: number, maxnSines?: number, minFrequency?: number, nHarmonics?: number, orderBy?: string, sampleRate?: number, stocf?: number): any;
+    Essentia.prototype.HpsModelAnal = function (frame, pitch, fftSize, freqDevOffset, freqDevSlope, harmDevSlope, hopSize, magnitudeThreshold, maxFrequency, maxPeaks, maxnSines, minFrequency, nHarmonics, orderBy, sampleRate, stocf) {
+        if (fftSize === void 0) { fftSize = 2048; }
+        if (freqDevOffset === void 0) { freqDevOffset = 20; }
+        if (freqDevSlope === void 0) { freqDevSlope = 0.01; }
+        if (harmDevSlope === void 0) { harmDevSlope = 0.01; }
+        if (hopSize === void 0) { hopSize = 512; }
+        if (magnitudeThreshold === void 0) { magnitudeThreshold = 0; }
+        if (maxFrequency === void 0) { maxFrequency = 5000; }
+        if (maxPeaks === void 0) { maxPeaks = 100; }
+        if (maxnSines === void 0) { maxnSines = 100; }
+        if (minFrequency === void 0) { minFrequency = 20; }
+        if (nHarmonics === void 0) { nHarmonics = 100; }
+        if (orderBy === void 0) { orderBy = 'frequency'; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        if (stocf === void 0) { stocf = 0.2; }
+        return this.algorithms.HpsModelAnal(frame, pitch, fftSize, freqDevOffset, freqDevSlope, harmDevSlope, hopSize, magnitudeThreshold, maxFrequency, maxPeaks, maxnSines, minFrequency, nHarmonics, orderBy, sampleRate, stocf);
+    };
     /**
     * This algorithm computes the Inverse Discrete Cosine Transform of an array.
     It can be configured to perform the inverse DCT-II form, with the 1/sqrt(2) scaling factor for the first coefficient or the inverse DCT-III form based on the HTK implementation. Check https://essentia.upf.edu/reference/std_IDCT.html for more details.
@@ -1005,7 +1536,13 @@ declare class Essentia {
     * @returns {object} {idct: 'the inverse cosine transform of the input array'}
     * @memberof Essentia
     */
-    IDCT(dct: any, dctType?: number, inputSize?: number, liftering?: number, outputSize?: number): any;
+    Essentia.prototype.IDCT = function (dct, dctType, inputSize, liftering, outputSize) {
+        if (dctType === void 0) { dctType = 2; }
+        if (inputSize === void 0) { inputSize = 10; }
+        if (liftering === void 0) { liftering = 0; }
+        if (outputSize === void 0) { outputSize = 10; }
+        return this.algorithms.IDCT(dct, dctType, inputSize, liftering, outputSize);
+    };
     /**
     * This algorithm implements a standard IIR filter. It filters the data in the input vector with the filter described by parameter vectors 'numerator' and 'denominator' to create the output filtered vector. In the litterature, the numerator is often referred to as the 'B' coefficients and the denominator as the 'A' coefficients. Check https://essentia.upf.edu/reference/std_IIR.html for more details.
     * @method
@@ -1015,7 +1552,19 @@ declare class Essentia {
     * @returns {object} {signal: 'the filtered signal'}
     * @memberof Essentia
     */
-    IIR(signal: any, denominator?: any[], numerator?: any[]): any;
+    Essentia.prototype.IIR = function (signal, denominator, numerator) {
+        if (denominator === void 0) { denominator = [1]; }
+        if (numerator === void 0) { numerator = [1]; }
+        var vecdenominator = new this.module.VectorFloat();
+        for (var i = 0; i < vecdenominator.size(); i++) {
+            vecdenominator.push_back(denominator[i]);
+        }
+        var vecnumerator = new this.module.VectorFloat();
+        for (var i = 0; i < vecnumerator.size(); i++) {
+            vecnumerator.push_back(numerator[i]);
+        }
+        return this.algorithms.IIR(signal, vecdenominator, vecnumerator);
+    };
     /**
     * This algorithm calculates the inharmonicity of a signal given its spectral peaks. The inharmonicity value is computed as an energy weighted divergence of the spectral components from their closest multiple of the fundamental frequency. The fundamental frequency is taken as the first spectral peak from the input. The inharmonicity value ranges from 0 (purely harmonic signal) to 1 (inharmonic signal). Check https://essentia.upf.edu/reference/std_Inharmonicity.html for more details.
     * @method
@@ -1024,7 +1573,9 @@ declare class Essentia {
     * @returns {object} {inharmonicity: 'the inharmonicity of the audio signal'}
     * @memberof Essentia
     */
-    Inharmonicity(frequencies: any, magnitudes: any): any;
+    Essentia.prototype.Inharmonicity = function (frequencies, magnitudes) {
+        return this.algorithms.Inharmonicity(frequencies, magnitudes);
+    };
     /**
     * This algorithm computes the instant power of an array. That is, the energy of the array over its size. Check https://essentia.upf.edu/reference/std_InstantPower.html for more details.
     * @method
@@ -1032,7 +1583,9 @@ declare class Essentia {
     * @returns {object} {power: 'the instant power of the input array'}
     * @memberof Essentia
     */
-    InstantPower(array: any): any;
+    Essentia.prototype.InstantPower = function (array) {
+        return this.algorithms.InstantPower(array);
+    };
     /**
     * This algorithm classifies the input audio signal as either relaxed (-1), moderate (0), or aggressive (1). Check https://essentia.upf.edu/reference/std_Intensity.html for more details.
     * @method
@@ -1041,7 +1594,10 @@ declare class Essentia {
     * @returns {object} {intensity: 'the intensity value'}
     * @memberof Essentia
     */
-    Intensity(signal: any, sampleRate?: number): any;
+    Essentia.prototype.Intensity = function (signal, sampleRate) {
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        return this.algorithms.Intensity(signal, sampleRate);
+    };
     /**
     * This algorithm computes key estimate given a pitch class profile (HPCP). The algorithm was severely adapted and changed from the original implementation for readability and speed. Check https://essentia.upf.edu/reference/std_Key.html for more details.
     * @method
@@ -1056,7 +1612,16 @@ declare class Essentia {
     * @returns {object} {key: 'the estimated key, from A to G', scale: 'the scale of the key (major or minor)', strength: 'the strength of the estimated key', firstToSecondRelativeStrength: 'the relative strength difference between the best estimate and second best estimate of the key'}
     * @memberof Essentia
     */
-    Key(pcp: any, numHarmonics?: number, pcpSize?: number, profileType?: string, slope?: number, useMajMin?: boolean, usePolyphony?: boolean, useThreeChords?: boolean): any;
+    Essentia.prototype.Key = function (pcp, numHarmonics, pcpSize, profileType, slope, useMajMin, usePolyphony, useThreeChords) {
+        if (numHarmonics === void 0) { numHarmonics = 4; }
+        if (pcpSize === void 0) { pcpSize = 36; }
+        if (profileType === void 0) { profileType = 'bgate'; }
+        if (slope === void 0) { slope = 0.6; }
+        if (useMajMin === void 0) { useMajMin = false; }
+        if (usePolyphony === void 0) { usePolyphony = true; }
+        if (useThreeChords === void 0) { useThreeChords = true; }
+        return this.algorithms.Key(pcp, numHarmonics, pcpSize, profileType, slope, useMajMin, usePolyphony, useThreeChords);
+    };
     /**
     * This algorithm extracts key/scale for an audio signal. It computes HPCP frames for the input signal and applies key estimation using the Key algorithm. Check https://essentia.upf.edu/reference/std_KeyExtractor.html for more details.
     * @method
@@ -1078,7 +1643,23 @@ declare class Essentia {
     * @returns {object} {key: 'See Key algorithm documentation', scale: 'See Key algorithm documentation', strength: 'See Key algorithm documentation'}
     * @memberof Essentia
     */
-    KeyExtractor(audio: any, averageDetuningCorrection?: boolean, frameSize?: number, hopSize?: number, hpcpSize?: number, maxFrequency?: number, maximumSpectralPeaks?: number, minFrequency?: number, pcpThreshold?: number, profileType?: string, sampleRate?: number, spectralPeaksThreshold?: number, tuningFrequency?: number, weightType?: string, windowType?: string): any;
+    Essentia.prototype.KeyExtractor = function (audio, averageDetuningCorrection, frameSize, hopSize, hpcpSize, maxFrequency, maximumSpectralPeaks, minFrequency, pcpThreshold, profileType, sampleRate, spectralPeaksThreshold, tuningFrequency, weightType, windowType) {
+        if (averageDetuningCorrection === void 0) { averageDetuningCorrection = true; }
+        if (frameSize === void 0) { frameSize = 4096; }
+        if (hopSize === void 0) { hopSize = 4096; }
+        if (hpcpSize === void 0) { hpcpSize = 12; }
+        if (maxFrequency === void 0) { maxFrequency = 3500; }
+        if (maximumSpectralPeaks === void 0) { maximumSpectralPeaks = 60; }
+        if (minFrequency === void 0) { minFrequency = 25; }
+        if (pcpThreshold === void 0) { pcpThreshold = 0.2; }
+        if (profileType === void 0) { profileType = 'bgate'; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        if (spectralPeaksThreshold === void 0) { spectralPeaksThreshold = 0.0001; }
+        if (tuningFrequency === void 0) { tuningFrequency = 440; }
+        if (weightType === void 0) { weightType = 'cosine'; }
+        if (windowType === void 0) { windowType = 'hann'; }
+        return this.algorithms.KeyExtractor(audio, averageDetuningCorrection, frameSize, hopSize, hpcpSize, maxFrequency, maximumSpectralPeaks, minFrequency, pcpThreshold, profileType, sampleRate, spectralPeaksThreshold, tuningFrequency, weightType, windowType);
+    };
     /**
     * This algorithm computes Linear Predictive Coefficients and associated reflection coefficients of a signal. Check https://essentia.upf.edu/reference/std_LPC.html for more details.
     * @method
@@ -1089,7 +1670,12 @@ declare class Essentia {
     * @returns {object} {lpc: 'the LPC coefficients', reflection: 'the reflection coefficients'}
     * @memberof Essentia
     */
-    LPC(frame: any, order?: number, sampleRate?: number, type?: string): any;
+    Essentia.prototype.LPC = function (frame, order, sampleRate, type) {
+        if (order === void 0) { order = 10; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        if (type === void 0) { type = 'regular'; }
+        return this.algorithms.LPC(frame, order, sampleRate, type);
+    };
     /**
     * This algorithm estimates the long-term loudness of an audio signal. The LARM model is based on the asymmetrical low-pass filtering of the Peak Program Meter (PPM), combined with Revised Low-frequency B-weighting (RLB) and power mean calculations. LARM has shown to be a reliable and objective loudness estimate of music and speech. Check https://essentia.upf.edu/reference/std_Larm.html for more details.
     * @method
@@ -1101,7 +1687,13 @@ declare class Essentia {
     * @returns {object} {larm: 'the LARM loudness estimate [dB]'}
     * @memberof Essentia
     */
-    Larm(signal: any, attackTime?: number, power?: number, releaseTime?: number, sampleRate?: number): any;
+    Essentia.prototype.Larm = function (signal, attackTime, power, releaseTime, sampleRate) {
+        if (attackTime === void 0) { attackTime = 10; }
+        if (power === void 0) { power = 1.5; }
+        if (releaseTime === void 0) { releaseTime = 1500; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        return this.algorithms.Larm(signal, attackTime, power, releaseTime, sampleRate);
+    };
     /**
     * This algorithm computes the Equivalent sound level (Leq) of an audio signal. The Leq measure can be derived from the Revised Low-frequency B-weighting (RLB) or from the raw signal as described in [1]. If the signal contains no energy, Leq defaults to essentias definition of silence which is -90dB.
     This algorithm will throw an exception on empty input. Check https://essentia.upf.edu/reference/std_Leq.html for more details.
@@ -1110,7 +1702,9 @@ declare class Essentia {
     * @returns {object} {leq: 'the equivalent sound level estimate [dB]'}
     * @memberof Essentia
     */
-    Leq(signal: any): any;
+    Essentia.prototype.Leq = function (signal) {
+        return this.algorithms.Leq(signal);
+    };
     /**
     * This algorithm extracts the loudness of an audio signal in frames using Loudness algorithm. Check https://essentia.upf.edu/reference/std_LevelExtractor.html for more details.
     * @method
@@ -1120,7 +1714,11 @@ declare class Essentia {
     * @returns {object} {loudness: 'the loudness values'}
     * @memberof Essentia
     */
-    LevelExtractor(signal: any, frameSize?: number, hopSize?: number): any;
+    Essentia.prototype.LevelExtractor = function (signal, frameSize, hopSize) {
+        if (frameSize === void 0) { frameSize = 88200; }
+        if (hopSize === void 0) { hopSize = 44100; }
+        return this.algorithms.LevelExtractor(signal, frameSize, hopSize);
+    };
     /**
     * This algorithm computes the log (base 10) of the attack time of a signal envelope. The attack time is defined as the time duration from when the sound becomes perceptually audible to when it reaches its maximum intensity. By default, the start of the attack is estimated as the point where the signal envelope reaches 20% of its maximum value in order to account for possible noise presence. Also by default, the end of the attack is estimated as as the point where the signal envelope has reached 90% of its maximum value, in order to account for the possibility that the max value occurres after the logAttack, as in trumpet sounds. Check https://essentia.upf.edu/reference/std_LogAttackTime.html for more details.
     * @method
@@ -1131,7 +1729,12 @@ declare class Essentia {
     * @returns {object} {logAttackTime: 'the log (base 10) of the attack time [log10(s)]', attackStart: 'the attack start time [s]', attackStop: 'the attack end time [s]'}
     * @memberof Essentia
     */
-    LogAttackTime(signal: any, sampleRate?: number, startAttackThreshold?: number, stopAttackThreshold?: number): any;
+    Essentia.prototype.LogAttackTime = function (signal, sampleRate, startAttackThreshold, stopAttackThreshold) {
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        if (startAttackThreshold === void 0) { startAttackThreshold = 0.2; }
+        if (stopAttackThreshold === void 0) { stopAttackThreshold = 0.9; }
+        return this.algorithms.LogAttackTime(signal, sampleRate, startAttackThreshold, stopAttackThreshold);
+    };
     /**
     * This algorithm computes spectrum with logarithmically distributed frequency bins. This code is ported from NNLS Chroma [1, 2].This algorithm also returns a local tuning that is retrieved for input frame and a global tuning that is updated with a moving average. Check https://essentia.upf.edu/reference/std_LogSpectrum.html for more details.
     * @method
@@ -1143,7 +1746,13 @@ declare class Essentia {
     * @returns {object} {logFreqSpectrum: 'log frequency spectrum frame', meanTuning: 'normalized mean tuning frequency', localTuning: 'normalized local tuning frequency'}
     * @memberof Essentia
     */
-    LogSpectrum(spectrum: any, binsPerSemitone?: number, frameSize?: number, rollOn?: number, sampleRate?: number): any;
+    Essentia.prototype.LogSpectrum = function (spectrum, binsPerSemitone, frameSize, rollOn, sampleRate) {
+        if (binsPerSemitone === void 0) { binsPerSemitone = 3; }
+        if (frameSize === void 0) { frameSize = 1025; }
+        if (rollOn === void 0) { rollOn = 0; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        return this.algorithms.LogSpectrum(spectrum, binsPerSemitone, frameSize, rollOn, sampleRate);
+    };
     /**
     * This algorithm takes an audio signal and a BPM estimate for that signal and predicts the reliability of the BPM estimate in a value from 0 to 1. The audio signal is assumed to be a musical loop with constant tempo. The confidence returned is based on comparing the duration of the signal with multiples of the BPM estimate (see [1] for more details). Check https://essentia.upf.edu/reference/std_LoopBpmConfidence.html for more details.
     * @method
@@ -1153,7 +1762,10 @@ declare class Essentia {
     * @returns {object} {confidence: 'confidence value for the BPM estimation'}
     * @memberof Essentia
     */
-    LoopBpmConfidence(signal: any, bpmEstimate: number, sampleRate?: number): any;
+    Essentia.prototype.LoopBpmConfidence = function (signal, bpmEstimate, sampleRate) {
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        return this.algorithms.LoopBpmConfidence(signal, bpmEstimate, sampleRate);
+    };
     /**
     * This algorithm estimates the BPM of audio loops. It internally uses PercivalBpmEstimator algorithm to produce a BPM estimate and LoopBpmConfidence to asses the reliability of the estimate. If the provided estimate is below the given confidenceThreshold, the algorithm outputs a BPM 0.0, otherwise it outputs the estimated BPM. For more details on the BPM estimation method and the confidence measure please check the used algorithms. Check https://essentia.upf.edu/reference/std_LoopBpmEstimator.html for more details.
     * @method
@@ -1162,7 +1774,10 @@ declare class Essentia {
     * @returns {object} {bpm: 'the estimated bpm (will be 0 if unsure)'}
     * @memberof Essentia
     */
-    LoopBpmEstimator(signal: any, confidenceThreshold?: number): any;
+    Essentia.prototype.LoopBpmEstimator = function (signal, confidenceThreshold) {
+        if (confidenceThreshold === void 0) { confidenceThreshold = 0.95; }
+        return this.algorithms.LoopBpmEstimator(signal, confidenceThreshold);
+    };
     /**
     * This algorithm computes the loudness of an audio signal defined by Steven's power law. It computes loudness as the energy of the signal raised to the power of 0.67. Check https://essentia.upf.edu/reference/std_Loudness.html for more details.
     * @method
@@ -1170,7 +1785,9 @@ declare class Essentia {
     * @returns {object} {loudness: 'the loudness of the input signal'}
     * @memberof Essentia
     */
-    Loudness(signal: any): any;
+    Essentia.prototype.Loudness = function (signal) {
+        return this.algorithms.Loudness(signal);
+    };
     /**
     * This algorithm computes Vickers's loudness of an audio signal. Currently, this algorithm only works for signals with a 44100Hz sampling rate. This algorithm is meant to be given frames of audio as input (not entire audio signals). The algorithm described in the paper performs a weighted average of the loudness value computed for each of the given frames, this step is left as a post processing step and is not performed by this algorithm. Check https://essentia.upf.edu/reference/std_LoudnessVickers.html for more details.
     * @method
@@ -1179,7 +1796,10 @@ declare class Essentia {
     * @returns {object} {loudness: 'the Vickers loudness [dB]'}
     * @memberof Essentia
     */
-    LoudnessVickers(signal: any, sampleRate?: number): any;
+    Essentia.prototype.LoudnessVickers = function (signal, sampleRate) {
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        return this.algorithms.LoudnessVickers(signal, sampleRate);
+    };
     /**
     * This algorithm extracts a set of level spectral features for which it is recommended to apply a preliminary equal-loudness filter over an input audio signal (according to the internal evaluations conducted at Music Technology Group). To this end, you are expected to provide the output of EqualLoudness algorithm as an input for this algorithm. Still, you are free to provide an unprocessed audio input in the case you want to compute these features without equal-loudness filter. Check https://essentia.upf.edu/reference/std_LowLevelSpectralEqloudExtractor.html for more details.
     * @method
@@ -1190,7 +1810,12 @@ declare class Essentia {
     * @returns {object} {dissonance: 'See Dissonance algorithm documentation', sccoeffs: 'See SpectralContrast algorithm documentation', scvalleys: 'See SpectralContrast algorithm documentation', spectral_centroid: 'See Centroid algorithm documentation', spectral_kurtosis: 'See DistributionShape algorithm documentation', spectral_skewness: 'See DistributionShape algorithm documentation', spectral_spread: 'See DistributionShape algorithm documentation'}
     * @memberof Essentia
     */
-    LowLevelSpectralEqloudExtractor(signal: any, frameSize?: number, hopSize?: number, sampleRate?: number): any;
+    Essentia.prototype.LowLevelSpectralEqloudExtractor = function (signal, frameSize, hopSize, sampleRate) {
+        if (frameSize === void 0) { frameSize = 2048; }
+        if (hopSize === void 0) { hopSize = 1024; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        return this.algorithms.LowLevelSpectralEqloudExtractor(signal, frameSize, hopSize, sampleRate);
+    };
     /**
     * This algorithm extracts all low-level spectral features, which do not require an equal-loudness filter for their computation, from an audio signal Check https://essentia.upf.edu/reference/std_LowLevelSpectralExtractor.html for more details.
     * @method
@@ -1201,7 +1826,12 @@ declare class Essentia {
     * @returns {object} {barkbands: 'spectral energy at each bark band. See BarkBands alogithm', barkbands_kurtosis: 'kurtosis from bark bands. See DistributionShape algorithm documentation', barkbands_skewness: 'skewness from bark bands. See DistributionShape algorithm documentation', barkbands_spread: 'spread from barkbands. See DistributionShape algorithm documentation', hfc: 'See HFC algorithm documentation', mfcc: 'See MFCC algorithm documentation', pitch: 'See PitchYinFFT algorithm documentation', pitch_instantaneous_confidence: 'See PitchYinFFT algorithm documentation', pitch_salience: 'See PitchSalience algorithm documentation', silence_rate_20dB: 'See SilenceRate algorithm documentation', silence_rate_30dB: 'See SilenceRate algorithm documentation', silence_rate_60dB: 'See SilenceRate algorithm documentation', spectral_complexity: 'See Spectral algorithm documentation', spectral_crest: 'See Crest algorithm documentation', spectral_decrease: 'See Decrease algorithm documentation', spectral_energy: 'See Energy algorithm documentation', spectral_energyband_low: 'Energy in band (20,150] Hz. See EnergyBand algorithm documentation', spectral_energyband_middle_low: 'Energy in band (150,800] Hz.See EnergyBand algorithm documentation', spectral_energyband_middle_high: 'Energy in band (800,4000] Hz. See EnergyBand algorithm documentation', spectral_energyband_high: 'Energy in band (4000,20000] Hz. See EnergyBand algorithm documentation', spectral_flatness_db: 'See flatnessDB algorithm documentation', spectral_flux: 'See Flux algorithm documentation', spectral_rms: 'See RMS algorithm documentation', spectral_rolloff: 'See RollOff algorithm documentation', spectral_strongpeak: 'See StrongPeak algorithm documentation', zerocrossingrate: 'See ZeroCrossingRate algorithm documentation', inharmonicity: 'See Inharmonicity algorithm documentation', tristimulus: 'See Tristimulus algorithm documentation', oddtoevenharmonicenergyratio: 'See OddToEvenHarmonicEnergyRatio algorithm documentation'}
     * @memberof Essentia
     */
-    LowLevelSpectralExtractor(signal: any, frameSize?: number, hopSize?: number, sampleRate?: number): any;
+    Essentia.prototype.LowLevelSpectralExtractor = function (signal, frameSize, hopSize, sampleRate) {
+        if (frameSize === void 0) { frameSize = 2048; }
+        if (hopSize === void 0) { hopSize = 1024; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        return this.algorithms.LowLevelSpectralExtractor(signal, frameSize, hopSize, sampleRate);
+    };
     /**
     * This algorithm implements a 1st order IIR low-pass filter. Because of its dependence on IIR, IIR's requirements are inherited.
     References:
@@ -1214,7 +1844,11 @@ declare class Essentia {
     * @returns {object} {signal: 'the filtered signal'}
     * @memberof Essentia
     */
-    LowPass(signal: any, cutoffFrequency?: number, sampleRate?: number): any;
+    Essentia.prototype.LowPass = function (signal, cutoffFrequency, sampleRate) {
+        if (cutoffFrequency === void 0) { cutoffFrequency = 1500; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        return this.algorithms.LowPass(signal, cutoffFrequency, sampleRate);
+    };
     /**
     * This algorithm computes the mel-frequency cepstrum coefficients of a spectrum. As there is no standard implementation, the MFCC-FB40 is used by default:
       - filterbank of 40 bands from 0 to 11000Hz
@@ -1240,7 +1874,23 @@ declare class Essentia {
     * @returns {object} {bands: 'the energies in mel bands', mfcc: 'the mel frequency cepstrum coefficients'}
     * @memberof Essentia
     */
-    MFCC(spectrum: any, dctType?: number, highFrequencyBound?: number, inputSize?: number, liftering?: number, logType?: string, lowFrequencyBound?: number, normalize?: string, numberBands?: number, numberCoefficients?: number, sampleRate?: number, silenceThreshold?: number, type?: string, warpingFormula?: string, weighting?: string): any;
+    Essentia.prototype.MFCC = function (spectrum, dctType, highFrequencyBound, inputSize, liftering, logType, lowFrequencyBound, normalize, numberBands, numberCoefficients, sampleRate, silenceThreshold, type, warpingFormula, weighting) {
+        if (dctType === void 0) { dctType = 2; }
+        if (highFrequencyBound === void 0) { highFrequencyBound = 11000; }
+        if (inputSize === void 0) { inputSize = 1025; }
+        if (liftering === void 0) { liftering = 0; }
+        if (logType === void 0) { logType = 'dbamp'; }
+        if (lowFrequencyBound === void 0) { lowFrequencyBound = 0; }
+        if (normalize === void 0) { normalize = 'unit_sum'; }
+        if (numberBands === void 0) { numberBands = 40; }
+        if (numberCoefficients === void 0) { numberCoefficients = 13; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        if (silenceThreshold === void 0) { silenceThreshold = 1e-10; }
+        if (type === void 0) { type = 'power'; }
+        if (warpingFormula === void 0) { warpingFormula = 'htkMel'; }
+        if (weighting === void 0) { weighting = 'warping'; }
+        return this.algorithms.MFCC(spectrum, dctType, highFrequencyBound, inputSize, liftering, logType, lowFrequencyBound, normalize, numberBands, numberCoefficients, sampleRate, silenceThreshold, type, warpingFormula, weighting);
+    };
     /**
     * This algorithm implements a maximum filter for 1d signal using van Herk/Gil-Werman (HGW) algorithm. Check https://essentia.upf.edu/reference/std_MaxFilter.html for more details.
     * @method
@@ -1250,7 +1900,11 @@ declare class Essentia {
     * @returns {object} {signal: 'filtered output'}
     * @memberof Essentia
     */
-    MaxFilter(signal: any, causal?: boolean, width?: number): any;
+    Essentia.prototype.MaxFilter = function (signal, causal, width) {
+        if (causal === void 0) { causal = true; }
+        if (width === void 0) { width = 3; }
+        return this.algorithms.MaxFilter(signal, causal, width);
+    };
     /**
     * This algorithm computes the frequency with the largest magnitude in a spectrum.
     Note that a spectrum must contain at least two elements otherwise an exception is thrown Check https://essentia.upf.edu/reference/std_MaxMagFreq.html for more details.
@@ -1260,7 +1914,10 @@ declare class Essentia {
     * @returns {object} {maxMagFreq: 'the frequency with the largest magnitude [Hz]'}
     * @memberof Essentia
     */
-    MaxMagFreq(spectrum: any, sampleRate?: number): any;
+    Essentia.prototype.MaxMagFreq = function (spectrum, sampleRate) {
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        return this.algorithms.MaxMagFreq(spectrum, sampleRate);
+    };
     /**
     * This algorithm computes the ratio between the index of the maximum value of the envelope of a signal and the total length of the envelope. This ratio shows how much the maximum amplitude is off-center. Its value is close to 0 if the maximum is close to the beginning (e.g. Decrescendo or Impulsive sounds), close to 0.5 if it is close to the middle (e.g. Delta sounds) and close to 1 if it is close to the end of the sound (e.g. Crescendo sounds). This algorithm is intended to be fed by the output of the Envelope algorithm Check https://essentia.upf.edu/reference/std_MaxToTotal.html for more details.
     * @method
@@ -1268,7 +1925,9 @@ declare class Essentia {
     * @returns {object} {maxToTotal: 'the maximum amplitude position to total length ratio'}
     * @memberof Essentia
     */
-    MaxToTotal(envelope: any): any;
+    Essentia.prototype.MaxToTotal = function (envelope) {
+        return this.algorithms.MaxToTotal(envelope);
+    };
     /**
     * This algorithm computes the mean of an array. Check https://essentia.upf.edu/reference/std_Mean.html for more details.
     * @method
@@ -1276,7 +1935,9 @@ declare class Essentia {
     * @returns {object} {mean: 'the mean of the input array'}
     * @memberof Essentia
     */
-    Mean(array: any): any;
+    Essentia.prototype.Mean = function (array) {
+        return this.algorithms.Mean(array);
+    };
     /**
     * This algorithm computes the median of an array. When there is an odd number of numbers, the median is simply the middle number. For example, the median of 2, 4, and 7 is 4. When there is an even number of numbers, the median is the mean of the two middle numbers. Thus, the median of the numbers 2, 4, 7, 12 is (4+7)/2 = 5.5. See [1] for more info. Check https://essentia.upf.edu/reference/std_Median.html for more details.
     * @method
@@ -1284,7 +1945,9 @@ declare class Essentia {
     * @returns {object} {median: 'the median of the input array'}
     * @memberof Essentia
     */
-    Median(array: any): any;
+    Essentia.prototype.Median = function (array) {
+        return this.algorithms.Median(array);
+    };
     /**
     * This algorithm computes the median filtered version of the input signal giving the kernel size as detailed in [1]. Check https://essentia.upf.edu/reference/std_MedianFilter.html for more details.
     * @method
@@ -1293,7 +1956,10 @@ declare class Essentia {
     * @returns {object} {filteredArray: 'the median-filtered input array'}
     * @memberof Essentia
     */
-    MedianFilter(array: any, kernelSize?: number): any;
+    Essentia.prototype.MedianFilter = function (array, kernelSize) {
+        if (kernelSize === void 0) { kernelSize = 11; }
+        return this.algorithms.MedianFilter(array, kernelSize);
+    };
     /**
     * This algorithm computes energy in mel bands of a spectrum. It applies a frequency-domain filterbank (MFCC FB-40, [1]), which consists of equal area triangular filters spaced according to the mel scale. The filterbank is normalized in such a way that the sum of coefficients for every filter equals one. It is recommended that the input "spectrum" be calculated by the Spectrum algorithm. Check https://essentia.upf.edu/reference/std_MelBands.html for more details.
     * @method
@@ -1311,7 +1977,19 @@ declare class Essentia {
     * @returns {object} {bands: 'the energy in mel bands'}
     * @memberof Essentia
     */
-    MelBands(spectrum: any, highFrequencyBound?: number, inputSize?: number, log?: boolean, lowFrequencyBound?: number, normalize?: string, numberBands?: number, sampleRate?: number, type?: string, warpingFormula?: string, weighting?: string): any;
+    Essentia.prototype.MelBands = function (spectrum, highFrequencyBound, inputSize, log, lowFrequencyBound, normalize, numberBands, sampleRate, type, warpingFormula, weighting) {
+        if (highFrequencyBound === void 0) { highFrequencyBound = 22050; }
+        if (inputSize === void 0) { inputSize = 1025; }
+        if (log === void 0) { log = false; }
+        if (lowFrequencyBound === void 0) { lowFrequencyBound = 0; }
+        if (normalize === void 0) { normalize = 'unit_sum'; }
+        if (numberBands === void 0) { numberBands = 24; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        if (type === void 0) { type = 'power'; }
+        if (warpingFormula === void 0) { warpingFormula = 'htkMel'; }
+        if (weighting === void 0) { weighting = 'warping'; }
+        return this.algorithms.MelBands(spectrum, highFrequencyBound, inputSize, log, lowFrequencyBound, normalize, numberBands, sampleRate, type, warpingFormula, weighting);
+    };
     /**
     * This algorithm estimates the time signature of a given beatogram by finding the highest correlation between beats. Check https://essentia.upf.edu/reference/std_Meter.html for more details.
     * @method
@@ -1319,7 +1997,9 @@ declare class Essentia {
     * @returns {object} {meter: 'the time signature'}
     * @memberof Essentia
     */
-    Meter(beatogram: any): any;
+    Essentia.prototype.Meter = function (beatogram) {
+        return this.algorithms.Meter(beatogram);
+    };
     /**
     * This algorithm calculates the minimum or maximum value of an array.
     If the array has more than one minimum or maximum value, the index of the first one is returned Check https://essentia.upf.edu/reference/std_MinMax.html for more details.
@@ -1329,7 +2009,10 @@ declare class Essentia {
     * @returns {object} {real: 'the minimum or maximum of the input array, according to the type parameter', int: 'the index of the value'}
     * @memberof Essentia
     */
-    MinMax(array: any, type?: string): any;
+    Essentia.prototype.MinMax = function (array, type) {
+        if (type === void 0) { type = 'min'; }
+        return this.algorithms.MinMax(array, type);
+    };
     /**
     * This algorithm computes the ratio between the index of the minimum value of the envelope of a signal and the total length of the envelope. Check https://essentia.upf.edu/reference/std_MinToTotal.html for more details.
     * @method
@@ -1337,7 +2020,9 @@ declare class Essentia {
     * @returns {object} {minToTotal: 'the minimum amplitude position to total length ratio'}
     * @memberof Essentia
     */
-    MinToTotal(envelope: any): any;
+    Essentia.prototype.MinToTotal = function (envelope) {
+        return this.algorithms.MinToTotal(envelope);
+    };
     /**
     * This algorithm implements a FIR Moving Average filter. Because of its dependece on IIR, IIR's requirements are inherited. Check https://essentia.upf.edu/reference/std_MovingAverage.html for more details.
     * @method
@@ -1346,7 +2031,10 @@ declare class Essentia {
     * @returns {object} {signal: 'the filtered signal'}
     * @memberof Essentia
     */
-    MovingAverage(signal: any, size?: number): any;
+    Essentia.prototype.MovingAverage = function (signal, size) {
+        if (size === void 0) { size = 6; }
+        return this.algorithms.MovingAverage(signal, size);
+    };
     /**
     * This algorithm estimates multiple pitch values corresponding to the melodic lines present in a polyphonic music signal (for example, string quartet, piano). This implementation is based on the algorithm in [1]: In each frame, a set of possible fundamental frequency candidates is extracted based on the principle of harmonic summation. In an optimization stage, the number of harmonic sources (polyphony) is estimated and the final set of fundamental frequencies determined. In contrast to the pich salience function proposed in [2], this implementation uses the pitch salience function described in [1].
     The output is a vector for each frame containing the estimated melody pitch values. Check https://essentia.upf.edu/reference/std_MultiPitchKlapuri.html for more details.
@@ -1366,7 +2054,20 @@ declare class Essentia {
     * @returns {object} {pitch: 'the estimated pitch values [Hz]'}
     * @memberof Essentia
     */
-    MultiPitchKlapuri(signal: any, binResolution?: number, frameSize?: number, harmonicWeight?: number, hopSize?: number, magnitudeCompression?: number, magnitudeThreshold?: number, maxFrequency?: number, minFrequency?: number, numberHarmonics?: number, referenceFrequency?: number, sampleRate?: number): any;
+    Essentia.prototype.MultiPitchKlapuri = function (signal, binResolution, frameSize, harmonicWeight, hopSize, magnitudeCompression, magnitudeThreshold, maxFrequency, minFrequency, numberHarmonics, referenceFrequency, sampleRate) {
+        if (binResolution === void 0) { binResolution = 10; }
+        if (frameSize === void 0) { frameSize = 2048; }
+        if (harmonicWeight === void 0) { harmonicWeight = 0.8; }
+        if (hopSize === void 0) { hopSize = 128; }
+        if (magnitudeCompression === void 0) { magnitudeCompression = 1; }
+        if (magnitudeThreshold === void 0) { magnitudeThreshold = 40; }
+        if (maxFrequency === void 0) { maxFrequency = 1760; }
+        if (minFrequency === void 0) { minFrequency = 80; }
+        if (numberHarmonics === void 0) { numberHarmonics = 10; }
+        if (referenceFrequency === void 0) { referenceFrequency = 55; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        return this.algorithms.MultiPitchKlapuri(signal, binResolution, frameSize, harmonicWeight, hopSize, magnitudeCompression, magnitudeThreshold, maxFrequency, minFrequency, numberHarmonics, referenceFrequency, sampleRate);
+    };
     /**
     * This algorithm estimates multiple fundamental frequency contours from an audio signal. It is a multi pitch version of the MELODIA algorithm described in [1]. While the algorithm is originally designed to extract melody in polyphonic music, this implementation is adapted for multiple sources. The approach is based on the creation and characterization of pitch contours, time continuous sequences of pitch candidates grouped using auditory streaming cues. To this end, PitchSalienceFunction, PitchSalienceFunctionPeaks, PitchContours, and PitchContoursMonoMelody algorithms are employed. It is strongly advised to use the default parameter values which are optimized according to [1] (where further details are provided) except for minFrequency, maxFrequency, and voicingTolerance, which will depend on your application. Check https://essentia.upf.edu/reference/std_MultiPitchMelodia.html for more details.
     * @method
@@ -1392,7 +2093,27 @@ declare class Essentia {
     * @returns {object} {pitch: 'the estimated pitch values [Hz]'}
     * @memberof Essentia
     */
-    MultiPitchMelodia(signal: any, binResolution?: number, filterIterations?: number, frameSize?: number, guessUnvoiced?: boolean, harmonicWeight?: number, hopSize?: number, magnitudeCompression?: number, magnitudeThreshold?: number, maxFrequency?: number, minDuration?: number, minFrequency?: number, numberHarmonics?: number, peakDistributionThreshold?: number, peakFrameThreshold?: number, pitchContinuity?: number, referenceFrequency?: number, sampleRate?: number, timeContinuity?: number): any;
+    Essentia.prototype.MultiPitchMelodia = function (signal, binResolution, filterIterations, frameSize, guessUnvoiced, harmonicWeight, hopSize, magnitudeCompression, magnitudeThreshold, maxFrequency, minDuration, minFrequency, numberHarmonics, peakDistributionThreshold, peakFrameThreshold, pitchContinuity, referenceFrequency, sampleRate, timeContinuity) {
+        if (binResolution === void 0) { binResolution = 10; }
+        if (filterIterations === void 0) { filterIterations = 3; }
+        if (frameSize === void 0) { frameSize = 2048; }
+        if (guessUnvoiced === void 0) { guessUnvoiced = false; }
+        if (harmonicWeight === void 0) { harmonicWeight = 0.8; }
+        if (hopSize === void 0) { hopSize = 128; }
+        if (magnitudeCompression === void 0) { magnitudeCompression = 1; }
+        if (magnitudeThreshold === void 0) { magnitudeThreshold = 40; }
+        if (maxFrequency === void 0) { maxFrequency = 20000; }
+        if (minDuration === void 0) { minDuration = 100; }
+        if (minFrequency === void 0) { minFrequency = 40; }
+        if (numberHarmonics === void 0) { numberHarmonics = 20; }
+        if (peakDistributionThreshold === void 0) { peakDistributionThreshold = 0.9; }
+        if (peakFrameThreshold === void 0) { peakFrameThreshold = 0.9; }
+        if (pitchContinuity === void 0) { pitchContinuity = 27.5625; }
+        if (referenceFrequency === void 0) { referenceFrequency = 55; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        if (timeContinuity === void 0) { timeContinuity = 100; }
+        return this.algorithms.MultiPitchMelodia(signal, binResolution, filterIterations, frameSize, guessUnvoiced, harmonicWeight, hopSize, magnitudeCompression, magnitudeThreshold, maxFrequency, minDuration, minFrequency, numberHarmonics, peakDistributionThreshold, peakFrameThreshold, pitchContinuity, referenceFrequency, sampleRate, timeContinuity);
+    };
     /**
     * This algorithm returns a single vector from a given number of real values and/or frames. Frames from different inputs are multiplexed onto a single stream in an alternating fashion. Check https://essentia.upf.edu/reference/std_Multiplexer.html for more details.
     * @method
@@ -1401,7 +2122,11 @@ declare class Essentia {
     * @returns {object} {data: 'the frame containing the input values and/or input frames'}
     * @memberof Essentia
     */
-    Multiplexer(numberRealInputs?: number, numberVectorRealInputs?: number): any;
+    Essentia.prototype.Multiplexer = function (numberRealInputs, numberVectorRealInputs) {
+        if (numberRealInputs === void 0) { numberRealInputs = 0; }
+        if (numberVectorRealInputs === void 0) { numberVectorRealInputs = 0; }
+        return this.algorithms.Multiplexer(numberRealInputs, numberVectorRealInputs);
+    };
     /**
     * This algorithm extracts treble and bass chromagrams from a sequence of log-frequency spectrum frames.
     On this representation, two processing steps are performed:
@@ -1423,7 +2148,16 @@ declare class Essentia {
     * @returns {object} {tunedLogfreqSpectrum: 'Log frequency spectrum after tuning', semitoneSpectrum: 'a spectral representation with one bin per semitone', bassChromagram: ' a 12-dimensional chromagram, restricted to the bass range', chromagram: 'a 12-dimensional chromagram, restricted with mid-range emphasis'}
     * @memberof Essentia
     */
-    NNLSChroma(logSpectrogram: any, meanTuning: any, localTuning: any, chromaNormalization?: string, frameSize?: number, sampleRate?: number, spectralShape?: number, spectralWhitening?: number, tuningMode?: string, useNNLS?: boolean): any;
+    Essentia.prototype.NNLSChroma = function (logSpectrogram, meanTuning, localTuning, chromaNormalization, frameSize, sampleRate, spectralShape, spectralWhitening, tuningMode, useNNLS) {
+        if (chromaNormalization === void 0) { chromaNormalization = 'none'; }
+        if (frameSize === void 0) { frameSize = 1025; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        if (spectralShape === void 0) { spectralShape = 0.7; }
+        if (spectralWhitening === void 0) { spectralWhitening = 1; }
+        if (tuningMode === void 0) { tuningMode = 'global'; }
+        if (useNNLS === void 0) { useNNLS = true; }
+        return this.algorithms.NNLSChroma(logSpectrogram, meanTuning, localTuning, chromaNormalization, frameSize, sampleRate, spectralShape, spectralWhitening, tuningMode, useNNLS);
+    };
     /**
     * This algorithm adds noise to an input signal. The average energy of the noise in dB is defined by the level parameter, and is generated using the Mersenne Twister random number generator. Check https://essentia.upf.edu/reference/std_NoiseAdder.html for more details.
     * @method
@@ -1433,7 +2167,11 @@ declare class Essentia {
     * @returns {object} {signal: 'the output signal with the added noise'}
     * @memberof Essentia
     */
-    NoiseAdder(signal: any, fixSeed?: boolean, level?: number): any;
+    Essentia.prototype.NoiseAdder = function (signal, fixSeed, level) {
+        if (fixSeed === void 0) { fixSeed = false; }
+        if (level === void 0) { level = -100; }
+        return this.algorithms.NoiseAdder(signal, fixSeed, level);
+    };
     /**
     * This algorithm detects noise bursts in the waveform by thresholding  the peaks of the second derivative. The threshold is computed using an Exponential Moving Average filter over the RMS of the second derivative of the input frame. Check https://essentia.upf.edu/reference/std_NoiseBurstDetector.html for more details.
     * @method
@@ -1444,7 +2182,12 @@ declare class Essentia {
     * @returns {object} {indexes: 'indexes of the noisy samples'}
     * @memberof Essentia
     */
-    NoiseBurstDetector(frame: any, alpha?: number, silenceThreshold?: number, threshold?: number): any;
+    Essentia.prototype.NoiseBurstDetector = function (frame, alpha, silenceThreshold, threshold) {
+        if (alpha === void 0) { alpha = 0.9; }
+        if (silenceThreshold === void 0) { silenceThreshold = -50; }
+        if (threshold === void 0) { threshold = 8; }
+        return this.algorithms.NoiseBurstDetector(frame, alpha, silenceThreshold, threshold);
+    };
     /**
     * This algorithm computes the "novelty curve" (Grosche & Müller, 2009) onset detection function. The algorithm expects as an input a frame-wise sequence of frequency-bands energies or spectrum magnitudes as originally proposed in [1] (see FrequencyBands and Spectrum algorithms). Novelty in each band (or frequency bin) is computed as a derivative between log-compressed energy (magnitude) values in consequent frames. The overall novelty value is then computed as a weighted sum that can be configured using 'weightCurve' parameter. The resulting novelty curve can be used for beat tracking and onset detection (see BpmHistogram and Onsets). Check https://essentia.upf.edu/reference/std_NoveltyCurve.html for more details.
     * @method
@@ -1456,7 +2199,17 @@ declare class Essentia {
     * @returns {object} {novelty: 'the novelty curve as a single vector'}
     * @memberof Essentia
     */
-    NoveltyCurve(frequencyBands: any, frameRate?: number, normalize?: boolean, weightCurve?: any[], weightCurveType?: string): any;
+    Essentia.prototype.NoveltyCurve = function (frequencyBands, frameRate, normalize, weightCurve, weightCurveType) {
+        if (frameRate === void 0) { frameRate = 344.531; }
+        if (normalize === void 0) { normalize = false; }
+        if (weightCurve === void 0) { weightCurve = []; }
+        if (weightCurveType === void 0) { weightCurveType = 'hybrid'; }
+        var vecweightCurve = new this.module.VectorFloat();
+        for (var i = 0; i < vecweightCurve.size(); i++) {
+            vecweightCurve.push_back(weightCurve[i]);
+        }
+        return this.algorithms.NoveltyCurve(frequencyBands, frameRate, normalize, vecweightCurve, weightCurveType);
+    };
     /**
     * This algorithm outputs a histogram of the most probable bpms assuming the signal has constant tempo given the novelty curve. This algorithm is based on the autocorrelation of the novelty curve (see NoveltyCurve algorithm) and should only be used for signals that have a constant tempo or as a first tempo estimator to be used in conjunction with other algorithms such as BpmHistogram.It is a simplified version of the algorithm described in [1] as, in order to predict the best BPM candidate,  it computes autocorrelation of the entire novelty curve instead of analyzing it on frames and histogramming the peaks over frames. Check https://essentia.upf.edu/reference/std_NoveltyCurveFixedBpmEstimator.html for more details.
     * @method
@@ -1469,7 +2222,14 @@ declare class Essentia {
     * @returns {object} {bpms: 'the bpm candidates sorted by magnitude', amplitudes: 'the magnitude of each bpm candidate'}
     * @memberof Essentia
     */
-    NoveltyCurveFixedBpmEstimator(novelty: any, hopSize?: number, maxBpm?: number, minBpm?: number, sampleRate?: number, tolerance?: number): any;
+    Essentia.prototype.NoveltyCurveFixedBpmEstimator = function (novelty, hopSize, maxBpm, minBpm, sampleRate, tolerance) {
+        if (hopSize === void 0) { hopSize = 512; }
+        if (maxBpm === void 0) { maxBpm = 560; }
+        if (minBpm === void 0) { minBpm = 30; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        if (tolerance === void 0) { tolerance = 3; }
+        return this.algorithms.NoveltyCurveFixedBpmEstimator(novelty, hopSize, maxBpm, minBpm, sampleRate, tolerance);
+    };
     /**
     * This algorithm computes the ratio between a signal's odd and even harmonic energy given the signal's harmonic peaks. The odd to even harmonic energy ratio is a measure allowing to distinguish odd-harmonic-energy predominant sounds (such as from a clarinet) from equally important even-harmonic-energy sounds (such as from a trumpet). The required harmonic frequencies and magnitudes can be computed by the HarmonicPeaks algorithm.
     In the case when the even energy is zero, which may happen when only even harmonics where found or when only one peak was found, the algorithm outputs the maximum real number possible. Therefore, this algorithm should be used in conjunction with the harmonic peaks algorithm.
@@ -1480,7 +2240,9 @@ declare class Essentia {
     * @returns {object} {oddToEvenHarmonicEnergyRatio: 'the ratio between the odd and even harmonic energies of the given harmonic peaks'}
     * @memberof Essentia
     */
-    OddToEvenHarmonicEnergyRatio(frequencies: any, magnitudes: any): any;
+    Essentia.prototype.OddToEvenHarmonicEnergyRatio = function (frequencies, magnitudes) {
+        return this.algorithms.OddToEvenHarmonicEnergyRatio(frequencies, magnitudes);
+    };
     /**
     * This algorithm computes various onset detection functions. The output of this algorithm should be post-processed in order to determine whether the frame contains an onset or not. Namely, it could be fed to the Onsets algorithm. It is recommended that the input "spectrum" is generated by the Spectrum algorithm.
     Four methods are available:
@@ -1498,7 +2260,11 @@ declare class Essentia {
     * @returns {object} {onsetDetection: 'the value of the detection function in the current frame'}
     * @memberof Essentia
     */
-    OnsetDetection(spectrum: any, phase: any, method?: string, sampleRate?: number): any;
+    Essentia.prototype.OnsetDetection = function (spectrum, phase, method, sampleRate) {
+        if (method === void 0) { method = 'hfc'; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        return this.algorithms.OnsetDetection(spectrum, phase, method, sampleRate);
+    };
     /**
     * This algorithm computes various onset detection functions. Detection values are computed frame-wisely given an input signal. The output of this algorithm should be post-processed in order to determine whether the frame contains an onset or not. Namely, it could be fed to the Onsets algorithm.
     The following method are available:
@@ -1517,7 +2283,13 @@ declare class Essentia {
     * @returns {object} {onsetDetections: 'the frame-wise values of the detection function'}
     * @memberof Essentia
     */
-    OnsetDetectionGlobal(signal: any, frameSize?: number, hopSize?: number, method?: string, sampleRate?: number): any;
+    Essentia.prototype.OnsetDetectionGlobal = function (signal, frameSize, hopSize, method, sampleRate) {
+        if (frameSize === void 0) { frameSize = 2048; }
+        if (hopSize === void 0) { hopSize = 512; }
+        if (method === void 0) { method = 'infogain'; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        return this.algorithms.OnsetDetectionGlobal(signal, frameSize, hopSize, method, sampleRate);
+    };
     /**
     * This algorithm computes the number of onsets per second and their position in time for an audio signal. Onset detection functions are computed using both high frequency content and complex-domain methods available in OnsetDetection algorithm. See OnsetDetection for more information.
     Please note that due to a dependence on the Onsets algorithm, this algorithm is only valid for audio signals with a sampling rate of 44100Hz.
@@ -1527,7 +2299,9 @@ declare class Essentia {
     * @returns {object} {onsets: 'the positions of detected onsets [s]', onsetRate: 'the number of onsets per second'}
     * @memberof Essentia
     */
-    OnsetRate(signal: any): any;
+    Essentia.prototype.OnsetRate = function (signal) {
+        return this.algorithms.OnsetRate(signal);
+    };
     /**
     * This algorithm returns the output of an overlap-add process for a sequence of frames of an audio signal. It considers that the input audio frames are windowed audio signals. Giving the size of the frame and the hop size, overlapping and adding consecutive frames will produce a continuous signal. A normalization gain can be passed as a parameter. Check https://essentia.upf.edu/reference/std_OverlapAdd.html for more details.
     * @method
@@ -1538,7 +2312,12 @@ declare class Essentia {
     * @returns {object} {signal: 'the output overlap-add audio signal frame'}
     * @memberof Essentia
     */
-    OverlapAdd(signal: any, frameSize?: number, gain?: number, hopSize?: number): any;
+    Essentia.prototype.OverlapAdd = function (signal, frameSize, gain, hopSize) {
+        if (frameSize === void 0) { frameSize = 2048; }
+        if (gain === void 0) { gain = 1; }
+        if (hopSize === void 0) { hopSize = 128; }
+        return this.algorithms.OverlapAdd(signal, frameSize, gain, hopSize);
+    };
     /**
     * This algorithm detects local maxima (peaks) in an array. The algorithm finds positive slopes and detects a peak when the slope changes sign and the peak is above the threshold.
     It optionally interpolates using parabolic curve fitting.
@@ -1556,7 +2335,17 @@ declare class Essentia {
     * @returns {object} {positions: 'the positions of the peaks', amplitudes: 'the amplitudes of the peaks'}
     * @memberof Essentia
     */
-    PeakDetection(array: any, interpolate?: boolean, maxPeaks?: number, maxPosition?: number, minPeakDistance?: number, minPosition?: number, orderBy?: string, range?: number, threshold?: number): any;
+    Essentia.prototype.PeakDetection = function (array, interpolate, maxPeaks, maxPosition, minPeakDistance, minPosition, orderBy, range, threshold) {
+        if (interpolate === void 0) { interpolate = true; }
+        if (maxPeaks === void 0) { maxPeaks = 100; }
+        if (maxPosition === void 0) { maxPosition = 1; }
+        if (minPeakDistance === void 0) { minPeakDistance = 0; }
+        if (minPosition === void 0) { minPosition = 0; }
+        if (orderBy === void 0) { orderBy = 'position'; }
+        if (range === void 0) { range = 1; }
+        if (threshold === void 0) { threshold = -1e+06; }
+        return this.algorithms.PeakDetection(array, interpolate, maxPeaks, maxPosition, minPeakDistance, minPosition, orderBy, range, threshold);
+    };
     /**
     * This algorithm estimates the tempo in beats per minute (BPM) from an input signal as described in [1]. Check https://essentia.upf.edu/reference/std_PercivalBpmEstimator.html for more details.
     * @method
@@ -1571,7 +2360,16 @@ declare class Essentia {
     * @returns {object} {bpm: 'the tempo estimation [bpm]'}
     * @memberof Essentia
     */
-    PercivalBpmEstimator(signal: any, frameSize?: number, frameSizeOSS?: number, hopSize?: number, hopSizeOSS?: number, maxBPM?: number, minBPM?: number, sampleRate?: number): any;
+    Essentia.prototype.PercivalBpmEstimator = function (signal, frameSize, frameSizeOSS, hopSize, hopSizeOSS, maxBPM, minBPM, sampleRate) {
+        if (frameSize === void 0) { frameSize = 1024; }
+        if (frameSizeOSS === void 0) { frameSizeOSS = 2048; }
+        if (hopSize === void 0) { hopSize = 128; }
+        if (hopSizeOSS === void 0) { hopSizeOSS = 128; }
+        if (maxBPM === void 0) { maxBPM = 210; }
+        if (minBPM === void 0) { minBPM = 50; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        return this.algorithms.PercivalBpmEstimator(signal, frameSize, frameSizeOSS, hopSize, hopSizeOSS, maxBPM, minBPM, sampleRate);
+    };
     /**
     * This algorithm implements the 'Enhance Harmonics' step as described in [1].Given an input autocorrelation signal, two time-stretched versions of it (by factors of 2 and 4) are added to the original.In this way, peaks with an harmonic relation are boosted.
     For more details check the referenced paper. Check https://essentia.upf.edu/reference/std_PercivalEnhanceHarmonics.html for more details.
@@ -1580,7 +2378,9 @@ declare class Essentia {
     * @returns {object} {array: 'the input signal with enhanced harmonics'}
     * @memberof Essentia
     */
-    PercivalEnhanceHarmonics(array: any): any;
+    Essentia.prototype.PercivalEnhanceHarmonics = function (array) {
+        return this.algorithms.PercivalEnhanceHarmonics(array);
+    };
     /**
     * This algorithm implements the 'Evaluate Pulse Trains' step as described in [1].Given an input onset strength signal (OSS) and a number of candidate tempo lag positions, the OSS is correlated with ideal expected pulse trains (for each candidate tempo lag) shifted in time by different amounts. The candidate tempo lag which generates the pulse train that better correlates with the OSS is returned as the preferred tempo candidate.
     For more details check the referenced paper. Check https://essentia.upf.edu/reference/std_PercivalEvaluatePulseTrains.html for more details.
@@ -1590,7 +2390,9 @@ declare class Essentia {
     * @returns {object} {lag: 'best tempo lag estimate'}
     * @memberof Essentia
     */
-    PercivalEvaluatePulseTrains(oss: any, positions: any): any;
+    Essentia.prototype.PercivalEvaluatePulseTrains = function (oss, positions) {
+        return this.algorithms.PercivalEvaluatePulseTrains(oss, positions);
+    };
     /**
     * This algorithm converts a pitch sequence estimated from an audio signal into a set of discrete note events. Each note is defined by its onset time, duration and MIDI pitch value, quantized to the equal tempered scale. Check https://essentia.upf.edu/reference/std_PitchContourSegmentation.html for more details.
     * @method
@@ -1605,7 +2407,15 @@ declare class Essentia {
     * @returns {object} {onset: 'note onset times [s]', duration: 'note durations [s]', MIDIpitch: 'quantized MIDI pitch value'}
     * @memberof Essentia
     */
-    PitchContourSegmentation(pitch: any, signal: any, hopSize?: number, minDuration?: number, pitchDistanceThreshold?: number, rmsThreshold?: number, sampleRate?: number, tuningFrequency?: number): any;
+    Essentia.prototype.PitchContourSegmentation = function (pitch, signal, hopSize, minDuration, pitchDistanceThreshold, rmsThreshold, sampleRate, tuningFrequency) {
+        if (hopSize === void 0) { hopSize = 128; }
+        if (minDuration === void 0) { minDuration = 0.1; }
+        if (pitchDistanceThreshold === void 0) { pitchDistanceThreshold = 60; }
+        if (rmsThreshold === void 0) { rmsThreshold = -2; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        if (tuningFrequency === void 0) { tuningFrequency = 440; }
+        return this.algorithms.PitchContourSegmentation(pitch, signal, hopSize, minDuration, pitchDistanceThreshold, rmsThreshold, sampleRate, tuningFrequency);
+    };
     /**
     * This algorithm tracks a set of predominant pitch contours of an audio signal. This algorithm is intended to receive its "frequencies" and "magnitudes" inputs from the PitchSalienceFunctionPeaks algorithm outputs aggregated over all frames in the sequence. The output is a vector of estimated melody pitch values. Check https://essentia.upf.edu/reference/std_PitchContours.html for more details.
     * @method
@@ -1622,7 +2432,17 @@ declare class Essentia {
     * @returns {object} {contoursBins: 'array of frame-wise vectors of cent bin values representing each contour', contoursSaliences: 'array of frame-wise vectors of pitch saliences representing each contour', contoursStartTimes: 'array of start times of each contour [s]', duration: 'time duration of the input signal [s]'}
     * @memberof Essentia
     */
-    PitchContours(peakBins: any, peakSaliences: any, binResolution?: number, hopSize?: number, minDuration?: number, peakDistributionThreshold?: number, peakFrameThreshold?: number, pitchContinuity?: number, sampleRate?: number, timeContinuity?: number): any;
+    Essentia.prototype.PitchContours = function (peakBins, peakSaliences, binResolution, hopSize, minDuration, peakDistributionThreshold, peakFrameThreshold, pitchContinuity, sampleRate, timeContinuity) {
+        if (binResolution === void 0) { binResolution = 10; }
+        if (hopSize === void 0) { hopSize = 128; }
+        if (minDuration === void 0) { minDuration = 100; }
+        if (peakDistributionThreshold === void 0) { peakDistributionThreshold = 0.9; }
+        if (peakFrameThreshold === void 0) { peakFrameThreshold = 0.9; }
+        if (pitchContinuity === void 0) { pitchContinuity = 27.5625; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        if (timeContinuity === void 0) { timeContinuity = 100; }
+        return this.algorithms.PitchContours(peakBins, peakSaliences, binResolution, hopSize, minDuration, peakDistributionThreshold, peakFrameThreshold, pitchContinuity, sampleRate, timeContinuity);
+    };
     /**
     * This algorithm converts a set of pitch contours into a sequence of predominant f0 values in Hz by taking the value of the most predominant contour in each frame.
     This algorithm is intended to receive its "contoursBins", "contoursSaliences", and "contoursStartTimes" inputs from the PitchContours algorithm. The "duration" input corresponds to the time duration of the input signal. The output is a vector of estimated pitch values and a vector of confidence values. Check https://essentia.upf.edu/reference/std_PitchContoursMelody.html for more details.
@@ -1644,7 +2464,19 @@ declare class Essentia {
     * @returns {object} {pitch: 'vector of estimated pitch values (i.e., melody) [Hz]', pitchConfidence: 'confidence with which the pitch was detected'}
     * @memberof Essentia
     */
-    PitchContoursMelody(contoursBins: any, contoursSaliences: any, contoursStartTimes: any, duration: number, binResolution?: number, filterIterations?: number, guessUnvoiced?: boolean, hopSize?: number, maxFrequency?: number, minFrequency?: number, referenceFrequency?: number, sampleRate?: number, voiceVibrato?: boolean, voicingTolerance?: number): any;
+    Essentia.prototype.PitchContoursMelody = function (contoursBins, contoursSaliences, contoursStartTimes, duration, binResolution, filterIterations, guessUnvoiced, hopSize, maxFrequency, minFrequency, referenceFrequency, sampleRate, voiceVibrato, voicingTolerance) {
+        if (binResolution === void 0) { binResolution = 10; }
+        if (filterIterations === void 0) { filterIterations = 3; }
+        if (guessUnvoiced === void 0) { guessUnvoiced = false; }
+        if (hopSize === void 0) { hopSize = 128; }
+        if (maxFrequency === void 0) { maxFrequency = 20000; }
+        if (minFrequency === void 0) { minFrequency = 80; }
+        if (referenceFrequency === void 0) { referenceFrequency = 55; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        if (voiceVibrato === void 0) { voiceVibrato = false; }
+        if (voicingTolerance === void 0) { voicingTolerance = 0.2; }
+        return this.algorithms.PitchContoursMelody(contoursBins, contoursSaliences, contoursStartTimes, duration, binResolution, filterIterations, guessUnvoiced, hopSize, maxFrequency, minFrequency, referenceFrequency, sampleRate, voiceVibrato, voicingTolerance);
+    };
     /**
     * This algorithm converts a set of pitch contours into a sequence of f0 values in Hz by taking the value of the most salient contour in each frame.
     In contrast to pitchContoursMelody, it assumes a single source.
@@ -1665,7 +2497,17 @@ declare class Essentia {
     * @returns {object} {pitch: 'vector of estimated pitch values (i.e., melody) [Hz]', pitchConfidence: 'confidence with which the pitch was detected'}
     * @memberof Essentia
     */
-    PitchContoursMonoMelody(contoursBins: any, contoursSaliences: any, contoursStartTimes: any, duration: number, binResolution?: number, filterIterations?: number, guessUnvoiced?: boolean, hopSize?: number, maxFrequency?: number, minFrequency?: number, referenceFrequency?: number, sampleRate?: number): any;
+    Essentia.prototype.PitchContoursMonoMelody = function (contoursBins, contoursSaliences, contoursStartTimes, duration, binResolution, filterIterations, guessUnvoiced, hopSize, maxFrequency, minFrequency, referenceFrequency, sampleRate) {
+        if (binResolution === void 0) { binResolution = 10; }
+        if (filterIterations === void 0) { filterIterations = 3; }
+        if (guessUnvoiced === void 0) { guessUnvoiced = false; }
+        if (hopSize === void 0) { hopSize = 128; }
+        if (maxFrequency === void 0) { maxFrequency = 20000; }
+        if (minFrequency === void 0) { minFrequency = 80; }
+        if (referenceFrequency === void 0) { referenceFrequency = 55; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        return this.algorithms.PitchContoursMonoMelody(contoursBins, contoursSaliences, contoursStartTimes, duration, binResolution, filterIterations, guessUnvoiced, hopSize, maxFrequency, minFrequency, referenceFrequency, sampleRate);
+    };
     /**
     * This algorithm post-processes a set of pitch contours into a sequence of mutliple f0 values in Hz.
     This algorithm is intended to receive its "contoursBins", "contoursSaliences", and "contoursStartTimes" inputs from the PitchContours algorithm. The "duration" input corresponds to the time duration of the input signal. The output is a vector of estimated pitch values Check https://essentia.upf.edu/reference/std_PitchContoursMultiMelody.html for more details.
@@ -1685,7 +2527,17 @@ declare class Essentia {
     * @returns {object} {pitch: 'vector of estimated pitch values (i.e., melody) [Hz]'}
     * @memberof Essentia
     */
-    PitchContoursMultiMelody(contoursBins: any, contoursSaliences: any, contoursStartTimes: any, duration: number, binResolution?: number, filterIterations?: number, guessUnvoiced?: boolean, hopSize?: number, maxFrequency?: number, minFrequency?: number, referenceFrequency?: number, sampleRate?: number): any;
+    Essentia.prototype.PitchContoursMultiMelody = function (contoursBins, contoursSaliences, contoursStartTimes, duration, binResolution, filterIterations, guessUnvoiced, hopSize, maxFrequency, minFrequency, referenceFrequency, sampleRate) {
+        if (binResolution === void 0) { binResolution = 10; }
+        if (filterIterations === void 0) { filterIterations = 3; }
+        if (guessUnvoiced === void 0) { guessUnvoiced = false; }
+        if (hopSize === void 0) { hopSize = 128; }
+        if (maxFrequency === void 0) { maxFrequency = 20000; }
+        if (minFrequency === void 0) { minFrequency = 80; }
+        if (referenceFrequency === void 0) { referenceFrequency = 55; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        return this.algorithms.PitchContoursMultiMelody(contoursBins, contoursSaliences, contoursStartTimes, duration, binResolution, filterIterations, guessUnvoiced, hopSize, maxFrequency, minFrequency, referenceFrequency, sampleRate);
+    };
     /**
     * This algorithm corrects the fundamental frequency estimations for a sequence of frames given pitch values together with their confidence values. In particular, it removes non-confident parts and spurious jumps in pitch and applies octave corrections. Check https://essentia.upf.edu/reference/std_PitchFilter.html for more details.
     * @method
@@ -1697,7 +2549,12 @@ declare class Essentia {
     * @returns {object} {pitchFiltered: 'vector of corrected pitch values [Hz]'}
     * @memberof Essentia
     */
-    PitchFilter(pitch: any, pitchConfidence: any, confidenceThreshold?: number, minChunkSize?: number, useAbsolutePitchConfidence?: boolean): any;
+    Essentia.prototype.PitchFilter = function (pitch, pitchConfidence, confidenceThreshold, minChunkSize, useAbsolutePitchConfidence) {
+        if (confidenceThreshold === void 0) { confidenceThreshold = 36; }
+        if (minChunkSize === void 0) { minChunkSize = 30; }
+        if (useAbsolutePitchConfidence === void 0) { useAbsolutePitchConfidence = false; }
+        return this.algorithms.PitchFilter(pitch, pitchConfidence, confidenceThreshold, minChunkSize, useAbsolutePitchConfidence);
+    };
     /**
     * This algorithm estimates the fundamental frequency corresponding to the melody of a monophonic music signal based on the MELODIA algorithm. While the algorithm is originally designed to extract the predominant melody from polyphonic music [1], this implementation is adapted for monophonic signals. The approach is based on the creation and characterization of pitch contours, time continuous sequences of pitch candidates grouped using auditory streaming cues. To this end, PitchSalienceFunction, PitchSalienceFunctionPeaks, PitchContours, and PitchContoursMonoMelody algorithms are employed. It is strongly advised to use the default parameter values which are optimized according to [1] (where further details are provided) except for minFrequency and maxFrequency, which will depend on your application. Check https://essentia.upf.edu/reference/std_PitchMelodia.html for more details.
     * @method
@@ -1723,7 +2580,27 @@ declare class Essentia {
     * @returns {object} {pitch: 'the estimated pitch values [Hz]', pitchConfidence: 'confidence with which the pitch was detected'}
     * @memberof Essentia
     */
-    PitchMelodia(signal: any, binResolution?: number, filterIterations?: number, frameSize?: number, guessUnvoiced?: boolean, harmonicWeight?: number, hopSize?: number, magnitudeCompression?: number, magnitudeThreshold?: number, maxFrequency?: number, minDuration?: number, minFrequency?: number, numberHarmonics?: number, peakDistributionThreshold?: number, peakFrameThreshold?: number, pitchContinuity?: number, referenceFrequency?: number, sampleRate?: number, timeContinuity?: number): any;
+    Essentia.prototype.PitchMelodia = function (signal, binResolution, filterIterations, frameSize, guessUnvoiced, harmonicWeight, hopSize, magnitudeCompression, magnitudeThreshold, maxFrequency, minDuration, minFrequency, numberHarmonics, peakDistributionThreshold, peakFrameThreshold, pitchContinuity, referenceFrequency, sampleRate, timeContinuity) {
+        if (binResolution === void 0) { binResolution = 10; }
+        if (filterIterations === void 0) { filterIterations = 3; }
+        if (frameSize === void 0) { frameSize = 2048; }
+        if (guessUnvoiced === void 0) { guessUnvoiced = false; }
+        if (harmonicWeight === void 0) { harmonicWeight = 0.8; }
+        if (hopSize === void 0) { hopSize = 128; }
+        if (magnitudeCompression === void 0) { magnitudeCompression = 1; }
+        if (magnitudeThreshold === void 0) { magnitudeThreshold = 40; }
+        if (maxFrequency === void 0) { maxFrequency = 20000; }
+        if (minDuration === void 0) { minDuration = 100; }
+        if (minFrequency === void 0) { minFrequency = 40; }
+        if (numberHarmonics === void 0) { numberHarmonics = 20; }
+        if (peakDistributionThreshold === void 0) { peakDistributionThreshold = 0.9; }
+        if (peakFrameThreshold === void 0) { peakFrameThreshold = 0.9; }
+        if (pitchContinuity === void 0) { pitchContinuity = 27.5625; }
+        if (referenceFrequency === void 0) { referenceFrequency = 55; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        if (timeContinuity === void 0) { timeContinuity = 100; }
+        return this.algorithms.PitchMelodia(signal, binResolution, filterIterations, frameSize, guessUnvoiced, harmonicWeight, hopSize, magnitudeCompression, magnitudeThreshold, maxFrequency, minDuration, minFrequency, numberHarmonics, peakDistributionThreshold, peakFrameThreshold, pitchContinuity, referenceFrequency, sampleRate, timeContinuity);
+    };
     /**
     * This algorithm computes the pitch salience of a spectrum. The pitch salience is given by the ratio of the highest auto correlation value of the spectrum to the non-shifted auto correlation value. Pitch salience was designed as quick measure of tone sensation. Unpitched sounds (non-musical sound effects) and pure tones have an average pitch salience value close to 0 whereas sounds containing several harmonics in the spectrum tend to have a higher value. Check https://essentia.upf.edu/reference/std_PitchSalience.html for more details.
     * @method
@@ -1734,7 +2611,12 @@ declare class Essentia {
     * @returns {object} {pitchSalience: 'the pitch salience (normalized from 0 to 1)'}
     * @memberof Essentia
     */
-    PitchSalience(spectrum: any, highBoundary?: number, lowBoundary?: number, sampleRate?: number): any;
+    Essentia.prototype.PitchSalience = function (spectrum, highBoundary, lowBoundary, sampleRate) {
+        if (highBoundary === void 0) { highBoundary = 5000; }
+        if (lowBoundary === void 0) { lowBoundary = 100; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        return this.algorithms.PitchSalience(spectrum, highBoundary, lowBoundary, sampleRate);
+    };
     /**
     * This algorithm computes the pitch salience function of a signal frame given its spectral peaks. The salience function covers a pitch range of nearly five octaves (i.e., 6000 cents), starting from the "referenceFrequency", and is quantized into cent bins according to the specified "binResolution". The salience of a given frequency is computed as the sum of the weighted energies found at integer multiples (harmonics) of that frequency.  Check https://essentia.upf.edu/reference/std_PitchSalienceFunction.html for more details.
     * @method
@@ -1749,7 +2631,15 @@ declare class Essentia {
     * @returns {object} {salienceFunction: 'array of the quantized pitch salience values'}
     * @memberof Essentia
     */
-    PitchSalienceFunction(frequencies: any, magnitudes: any, binResolution?: number, harmonicWeight?: number, magnitudeCompression?: number, magnitudeThreshold?: number, numberHarmonics?: number, referenceFrequency?: number): any;
+    Essentia.prototype.PitchSalienceFunction = function (frequencies, magnitudes, binResolution, harmonicWeight, magnitudeCompression, magnitudeThreshold, numberHarmonics, referenceFrequency) {
+        if (binResolution === void 0) { binResolution = 10; }
+        if (harmonicWeight === void 0) { harmonicWeight = 0.8; }
+        if (magnitudeCompression === void 0) { magnitudeCompression = 1; }
+        if (magnitudeThreshold === void 0) { magnitudeThreshold = 40; }
+        if (numberHarmonics === void 0) { numberHarmonics = 20; }
+        if (referenceFrequency === void 0) { referenceFrequency = 55; }
+        return this.algorithms.PitchSalienceFunction(frequencies, magnitudes, binResolution, harmonicWeight, magnitudeCompression, magnitudeThreshold, numberHarmonics, referenceFrequency);
+    };
     /**
     * This algorithm computes the peaks of a given pitch salience function. Check https://essentia.upf.edu/reference/std_PitchSalienceFunctionPeaks.html for more details.
     * @method
@@ -1761,7 +2651,13 @@ declare class Essentia {
     * @returns {object} {salienceBins: 'the cent bins corresponding to salience function peaks', salienceValues: 'the values of salience function peaks'}
     * @memberof Essentia
     */
-    PitchSalienceFunctionPeaks(salienceFunction: any, binResolution?: number, maxFrequency?: number, minFrequency?: number, referenceFrequency?: number): any;
+    Essentia.prototype.PitchSalienceFunctionPeaks = function (salienceFunction, binResolution, maxFrequency, minFrequency, referenceFrequency) {
+        if (binResolution === void 0) { binResolution = 10; }
+        if (maxFrequency === void 0) { maxFrequency = 1760; }
+        if (minFrequency === void 0) { minFrequency = 55; }
+        if (referenceFrequency === void 0) { referenceFrequency = 55; }
+        return this.algorithms.PitchSalienceFunctionPeaks(salienceFunction, binResolution, maxFrequency, minFrequency, referenceFrequency);
+    };
     /**
     * This algorithm estimates the fundamental frequency given the frame of a monophonic music signal. It is an implementation of the Yin algorithm [1] for computations in the time domain. Check https://essentia.upf.edu/reference/std_PitchYin.html for more details.
     * @method
@@ -1775,7 +2671,15 @@ declare class Essentia {
     * @returns {object} {pitch: 'detected pitch [Hz]', pitchConfidence: 'confidence with which the pitch was detected [0,1]'}
     * @memberof Essentia
     */
-    PitchYin(signal: any, frameSize?: number, interpolate?: boolean, maxFrequency?: number, minFrequency?: number, sampleRate?: number, tolerance?: number): any;
+    Essentia.prototype.PitchYin = function (signal, frameSize, interpolate, maxFrequency, minFrequency, sampleRate, tolerance) {
+        if (frameSize === void 0) { frameSize = 2048; }
+        if (interpolate === void 0) { interpolate = true; }
+        if (maxFrequency === void 0) { maxFrequency = 22050; }
+        if (minFrequency === void 0) { minFrequency = 20; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        if (tolerance === void 0) { tolerance = 0.15; }
+        return this.algorithms.PitchYin(signal, frameSize, interpolate, maxFrequency, minFrequency, sampleRate, tolerance);
+    };
     /**
     * This algorithm estimates the fundamental frequency given the spectrum of a monophonic music signal. It is an implementation of YinFFT algorithm [1], which is an optimized version of Yin algorithm for computation in the frequency domain. It is recommended to window the input spectrum with a Hann window. The raw spectrum can be computed with the Spectrum algorithm. Check https://essentia.upf.edu/reference/std_PitchYinFFT.html for more details.
     * @method
@@ -1789,7 +2693,15 @@ declare class Essentia {
     * @returns {object} {pitch: 'detected pitch [Hz]', pitchConfidence: 'confidence with which the pitch was detected [0,1]'}
     * @memberof Essentia
     */
-    PitchYinFFT(spectrum: any, frameSize?: number, interpolate?: boolean, maxFrequency?: number, minFrequency?: number, sampleRate?: number, tolerance?: number): any;
+    Essentia.prototype.PitchYinFFT = function (spectrum, frameSize, interpolate, maxFrequency, minFrequency, sampleRate, tolerance) {
+        if (frameSize === void 0) { frameSize = 2048; }
+        if (interpolate === void 0) { interpolate = true; }
+        if (maxFrequency === void 0) { maxFrequency = 22050; }
+        if (minFrequency === void 0) { minFrequency = 20; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        if (tolerance === void 0) { tolerance = 1; }
+        return this.algorithms.PitchYinFFT(spectrum, frameSize, interpolate, maxFrequency, minFrequency, sampleRate, tolerance);
+    };
     /**
     * This algorithm computes the pitch track of a mono audio signal using probabilistic Yin algorithm. Check https://essentia.upf.edu/reference/std_PitchYinProbabilistic.html for more details.
     * @method
@@ -1803,7 +2715,15 @@ declare class Essentia {
     * @returns {object} {pitch: 'the output pitch estimations', voicedProbabilities: 'the voiced probabilities'}
     * @memberof Essentia
     */
-    PitchYinProbabilistic(signal: any, frameSize?: number, hopSize?: number, lowRMSThreshold?: number, outputUnvoiced?: string, preciseTime?: boolean, sampleRate?: number): any;
+    Essentia.prototype.PitchYinProbabilistic = function (signal, frameSize, hopSize, lowRMSThreshold, outputUnvoiced, preciseTime, sampleRate) {
+        if (frameSize === void 0) { frameSize = 2048; }
+        if (hopSize === void 0) { hopSize = 256; }
+        if (lowRMSThreshold === void 0) { lowRMSThreshold = 0.1; }
+        if (outputUnvoiced === void 0) { outputUnvoiced = 'negative'; }
+        if (preciseTime === void 0) { preciseTime = false; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        return this.algorithms.PitchYinProbabilistic(signal, frameSize, hopSize, lowRMSThreshold, outputUnvoiced, preciseTime, sampleRate);
+    };
     /**
     * This algorithm estimates the fundamental frequencies, their probabilities given the frame of a monophonic music signal. It is a part of the implementation of the probabilistic Yin algorithm [1]. Check https://essentia.upf.edu/reference/std_PitchYinProbabilities.html for more details.
     * @method
@@ -1815,7 +2735,13 @@ declare class Essentia {
     * @returns {object} {pitch: 'the output pitch candidate frequencies in cents', probabilities: 'the output pitch candidate probabilities', RMS: 'the output RMS value'}
     * @memberof Essentia
     */
-    PitchYinProbabilities(signal: any, frameSize?: number, lowAmp?: number, preciseTime?: boolean, sampleRate?: number): any;
+    Essentia.prototype.PitchYinProbabilities = function (signal, frameSize, lowAmp, preciseTime, sampleRate) {
+        if (frameSize === void 0) { frameSize = 2048; }
+        if (lowAmp === void 0) { lowAmp = 0.1; }
+        if (preciseTime === void 0) { preciseTime = false; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        return this.algorithms.PitchYinProbabilities(signal, frameSize, lowAmp, preciseTime, sampleRate);
+    };
     /**
     * This algorithm estimates the smoothed fundamental frequency given the pitch candidates and probabilities using hidden Markov models. It is a part of the implementation of the probabilistic Yin algorithm [1]. Check https://essentia.upf.edu/reference/std_PitchYinProbabilitiesHMM.html for more details.
     * @method
@@ -1828,7 +2754,13 @@ declare class Essentia {
     * @returns {object} {pitch: 'pitch frequencies in Hz'}
     * @memberof Essentia
     */
-    PitchYinProbabilitiesHMM(pitchCandidates: any, probabilities: any, minFrequency?: number, numberBinsPerSemitone?: number, selfTransition?: number, yinTrust?: number): any;
+    Essentia.prototype.PitchYinProbabilitiesHMM = function (pitchCandidates, probabilities, minFrequency, numberBinsPerSemitone, selfTransition, yinTrust) {
+        if (minFrequency === void 0) { minFrequency = 61.735; }
+        if (numberBinsPerSemitone === void 0) { numberBinsPerSemitone = 5; }
+        if (selfTransition === void 0) { selfTransition = 0.99; }
+        if (yinTrust === void 0) { yinTrust = 0.5; }
+        return this.algorithms.PitchYinProbabilitiesHMM(pitchCandidates, probabilities, minFrequency, numberBinsPerSemitone, selfTransition, yinTrust);
+    };
     /**
     * This algorithm computes the power mean of an array. It accepts one parameter, p, which is the power (or order or degree) of the Power Mean. Note that if p=-1, the Power Mean is equal to the Harmonic Mean, if p=0, the Power Mean is equal to the Geometric Mean, if p=1, the Power Mean is equal to the Arithmetic Mean, if p=2, the Power Mean is equal to the Root Mean Square. Check https://essentia.upf.edu/reference/std_PowerMean.html for more details.
     * @method
@@ -1837,7 +2769,10 @@ declare class Essentia {
     * @returns {object} {powerMean: 'the power mean of the input array'}
     * @memberof Essentia
     */
-    PowerMean(array: any, power?: number): any;
+    Essentia.prototype.PowerMean = function (array, power) {
+        if (power === void 0) { power = 1; }
+        return this.algorithms.PowerMean(array, power);
+    };
     /**
     * This algorithm computes the power spectrum of an array of Reals. The resulting power spectrum has a size which is half the size of the input array plus one. Bins contain squared magnitude values. Check https://essentia.upf.edu/reference/std_PowerSpectrum.html for more details.
     * @method
@@ -1846,7 +2781,10 @@ declare class Essentia {
     * @returns {object} {powerSpectrum: 'power spectrum of the input signal'}
     * @memberof Essentia
     */
-    PowerSpectrum(signal: any, size?: number): any;
+    Essentia.prototype.PowerSpectrum = function (signal, size) {
+        if (size === void 0) { size = 2048; }
+        return this.algorithms.PowerSpectrum(signal, size);
+    };
     /**
     * This algorithm estimates the fundamental frequency of the predominant melody from polyphonic music signals using the MELODIA algorithm. It is specifically suited for music with a predominent melodic element, for example the singing voice melody in an accompanied singing recording. The approach [1] is based on the creation and characterization of pitch contours, time continuous sequences of pitch candidates grouped using auditory streaming cues. It furthermore determines for each frame, if the predominant melody is present or not. To this end, PitchSalienceFunction, PitchSalienceFunctionPeaks, PitchContours, and PitchContoursMelody algorithms are employed. It is strongly advised to use the default parameter values which are optimized according to [1] (where further details are provided) except for minFrequency, maxFrequency, and voicingTolerance, which will depend on your application. Check https://essentia.upf.edu/reference/std_PredominantPitchMelodia.html for more details.
     * @method
@@ -1874,7 +2812,29 @@ declare class Essentia {
     * @returns {object} {pitch: 'the estimated pitch values [Hz]', pitchConfidence: 'confidence with which the pitch was detected'}
     * @memberof Essentia
     */
-    PredominantPitchMelodia(signal: any, binResolution?: number, filterIterations?: number, frameSize?: number, guessUnvoiced?: boolean, harmonicWeight?: number, hopSize?: number, magnitudeCompression?: number, magnitudeThreshold?: number, maxFrequency?: number, minDuration?: number, minFrequency?: number, numberHarmonics?: number, peakDistributionThreshold?: number, peakFrameThreshold?: number, pitchContinuity?: number, referenceFrequency?: number, sampleRate?: number, timeContinuity?: number, voiceVibrato?: boolean, voicingTolerance?: number): any;
+    Essentia.prototype.PredominantPitchMelodia = function (signal, binResolution, filterIterations, frameSize, guessUnvoiced, harmonicWeight, hopSize, magnitudeCompression, magnitudeThreshold, maxFrequency, minDuration, minFrequency, numberHarmonics, peakDistributionThreshold, peakFrameThreshold, pitchContinuity, referenceFrequency, sampleRate, timeContinuity, voiceVibrato, voicingTolerance) {
+        if (binResolution === void 0) { binResolution = 10; }
+        if (filterIterations === void 0) { filterIterations = 3; }
+        if (frameSize === void 0) { frameSize = 2048; }
+        if (guessUnvoiced === void 0) { guessUnvoiced = false; }
+        if (harmonicWeight === void 0) { harmonicWeight = 0.8; }
+        if (hopSize === void 0) { hopSize = 128; }
+        if (magnitudeCompression === void 0) { magnitudeCompression = 1; }
+        if (magnitudeThreshold === void 0) { magnitudeThreshold = 40; }
+        if (maxFrequency === void 0) { maxFrequency = 20000; }
+        if (minDuration === void 0) { minDuration = 100; }
+        if (minFrequency === void 0) { minFrequency = 80; }
+        if (numberHarmonics === void 0) { numberHarmonics = 20; }
+        if (peakDistributionThreshold === void 0) { peakDistributionThreshold = 0.9; }
+        if (peakFrameThreshold === void 0) { peakFrameThreshold = 0.9; }
+        if (pitchContinuity === void 0) { pitchContinuity = 27.5625; }
+        if (referenceFrequency === void 0) { referenceFrequency = 55; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        if (timeContinuity === void 0) { timeContinuity = 100; }
+        if (voiceVibrato === void 0) { voiceVibrato = false; }
+        if (voicingTolerance === void 0) { voicingTolerance = 0.2; }
+        return this.algorithms.PredominantPitchMelodia(signal, binResolution, filterIterations, frameSize, guessUnvoiced, harmonicWeight, hopSize, magnitudeCompression, magnitudeThreshold, maxFrequency, minDuration, minFrequency, numberHarmonics, peakDistributionThreshold, peakFrameThreshold, pitchContinuity, referenceFrequency, sampleRate, timeContinuity, voiceVibrato, voicingTolerance);
+    };
     /**
     * This algorithm computes the root mean square (quadratic mean) of an array.
     RMS is not defined for empty arrays. In such case, an exception will be thrown
@@ -1887,7 +2847,9 @@ declare class Essentia {
     * @returns {object} {rms: 'the root mean square of the input array'}
     * @memberof Essentia
     */
-    RMS(array: any): any;
+    Essentia.prototype.RMS = function (array) {
+        return this.algorithms.RMS(array);
+    };
     /**
     * This algorithm computes the first 5 raw moments of an array. The output array is of size 6 because the zero-ith moment is used for padding so that the first moment corresponds to index 1. Check https://essentia.upf.edu/reference/std_RawMoments.html for more details.
     * @method
@@ -1896,7 +2858,10 @@ declare class Essentia {
     * @returns {object} {rawMoments: 'the (raw) moments of the input array'}
     * @memberof Essentia
     */
-    RawMoments(array: any, range?: number): any;
+    Essentia.prototype.RawMoments = function (array, range) {
+        if (range === void 0) { range = 22050; }
+        return this.algorithms.RawMoments(array, range);
+    };
     /**
     * This algorithm computes the Replay Gain loudness value of an audio signal. The algorithm is described in detail in [1]. The value returned is the 'standard' ReplayGain value, not the value with 6dB preamplification as computed by lame, mp3gain, vorbisgain, and all widely used ReplayGain programs. Check https://essentia.upf.edu/reference/std_ReplayGain.html for more details.
     * @method
@@ -1905,7 +2870,10 @@ declare class Essentia {
     * @returns {object} {replayGain: 'the distance to the suitable average replay level (~-31dbB) defined by SMPTE [dB]'}
     * @memberof Essentia
     */
-    ReplayGain(signal: any, sampleRate?: number): any;
+    Essentia.prototype.ReplayGain = function (signal, sampleRate) {
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        return this.algorithms.ReplayGain(signal, sampleRate);
+    };
     /**
     * This algorithm resamples the input signal to the desired sampling rate. Check https://essentia.upf.edu/reference/std_Resample.html for more details.
     * @method
@@ -1916,7 +2884,12 @@ declare class Essentia {
     * @returns {object} {signal: 'the resampled signal'}
     * @memberof Essentia
     */
-    Resample(signal: any, inputSampleRate?: number, outputSampleRate?: number, quality?: number): any;
+    Essentia.prototype.Resample = function (signal, inputSampleRate, outputSampleRate, quality) {
+        if (inputSampleRate === void 0) { inputSampleRate = 44100; }
+        if (outputSampleRate === void 0) { outputSampleRate = 44100; }
+        if (quality === void 0) { quality = 1; }
+        return this.algorithms.Resample(signal, inputSampleRate, outputSampleRate, quality);
+    };
     /**
     * This algorithm resamples a sequence using FFT / IFFT. The input and output sizes must be an even number. (It is meant to be eqivalent to the resample function in Numpy). Check https://essentia.upf.edu/reference/std_ResampleFFT.html for more details.
     * @method
@@ -1926,7 +2899,11 @@ declare class Essentia {
     * @returns {object} {output: 'output resample array'}
     * @memberof Essentia
     */
-    ResampleFFT(input: any, inSize?: number, outSize?: number): any;
+    Essentia.prototype.ResampleFFT = function (input, inSize, outSize) {
+        if (inSize === void 0) { inSize = 128; }
+        if (outSize === void 0) { outSize = 128; }
+        return this.algorithms.ResampleFFT(input, inSize, outSize);
+    };
     /**
     * This algorithm computes rhythm features (bpm, beat positions, beat histogram peaks) for an audio signal. It combines RhythmExtractor2013 for beat tracking and BPM estimation with BpmHistogramDescriptors algorithms. Check https://essentia.upf.edu/reference/std_RhythmDescriptors.html for more details.
     * @method
@@ -1934,7 +2911,9 @@ declare class Essentia {
     * @returns {object} {beats_position: 'See RhythmExtractor2013 algorithm documentation', confidence: 'See RhythmExtractor2013 algorithm documentation', bpm: 'See RhythmExtractor2013 algorithm documentation', bpm_estimates: 'See RhythmExtractor2013 algorithm documentation', bpm_intervals: 'See RhythmExtractor2013 algorithm documentation', first_peak_bpm: 'See BpmHistogramDescriptors algorithm documentation', first_peak_spread: 'See BpmHistogramDescriptors algorithm documentation', first_peak_weight: 'See BpmHistogramDescriptors algorithm documentation', second_peak_bpm: 'See BpmHistogramDescriptors algorithm documentation', second_peak_spread: 'See BpmHistogramDescriptors algorithm documentation', second_peak_weight: 'See BpmHistogramDescriptors algorithm documentation', histogram: 'bpm histogram [bpm]'}
     * @memberof Essentia
     */
-    RhythmDescriptors(signal: any): any;
+    Essentia.prototype.RhythmDescriptors = function (signal) {
+        return this.algorithms.RhythmDescriptors(signal);
+    };
     /**
     * This algorithm estimates the tempo in bpm and beat positions given an audio signal. The algorithm combines several periodicity functions and estimates beats using TempoTap and TempoTapTicks. It combines:
     - onset detection functions based on high-frequency content (see OnsetDetection)
@@ -1957,7 +2936,25 @@ declare class Essentia {
     * @returns {object} {bpm: 'the tempo estimation [bpm]', ticks: ' the estimated tick locations [s]', estimates: 'the bpm estimation per frame [bpm]', bpmIntervals: 'list of beats interval [s]'}
     * @memberof Essentia
     */
-    RhythmExtractor(signal: any, frameHop?: number, frameSize?: number, hopSize?: number, lastBeatInterval?: number, maxTempo?: number, minTempo?: number, numberFrames?: number, sampleRate?: number, tempoHints?: any[], tolerance?: number, useBands?: boolean, useOnset?: boolean): any;
+    Essentia.prototype.RhythmExtractor = function (signal, frameHop, frameSize, hopSize, lastBeatInterval, maxTempo, minTempo, numberFrames, sampleRate, tempoHints, tolerance, useBands, useOnset) {
+        if (frameHop === void 0) { frameHop = 1024; }
+        if (frameSize === void 0) { frameSize = 1024; }
+        if (hopSize === void 0) { hopSize = 256; }
+        if (lastBeatInterval === void 0) { lastBeatInterval = 0.1; }
+        if (maxTempo === void 0) { maxTempo = 208; }
+        if (minTempo === void 0) { minTempo = 40; }
+        if (numberFrames === void 0) { numberFrames = 1024; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        if (tempoHints === void 0) { tempoHints = []; }
+        if (tolerance === void 0) { tolerance = 0.24; }
+        if (useBands === void 0) { useBands = true; }
+        if (useOnset === void 0) { useOnset = true; }
+        var vectempoHints = new this.module.VectorFloat();
+        for (var i = 0; i < vectempoHints.size(); i++) {
+            vectempoHints.push_back(tempoHints[i]);
+        }
+        return this.algorithms.RhythmExtractor(signal, frameHop, frameSize, hopSize, lastBeatInterval, maxTempo, minTempo, numberFrames, sampleRate, vectempoHints, tolerance, useBands, useOnset);
+    };
     /**
     * This algorithm extracts the beat positions and estimates their confidence as well as tempo in bpm for an audio signal. The beat locations can be computed using:
       - 'multifeature', the BeatTrackerMultiFeature algorithm
@@ -1970,7 +2967,12 @@ declare class Essentia {
     * @returns {object} {bpm: 'the tempo estimation [bpm]', ticks: ' the estimated tick locations [s]', confidence: 'confidence with which the ticks are detected (ignore this value if using 'degara' method)', estimates: 'the list of bpm estimates characterizing the bpm distribution for the signal [bpm]', bpmIntervals: 'list of beats interval [s]'}
     * @memberof Essentia
     */
-    RhythmExtractor2013(signal: any, maxTempo?: number, method?: string, minTempo?: number): any;
+    Essentia.prototype.RhythmExtractor2013 = function (signal, maxTempo, method, minTempo) {
+        if (maxTempo === void 0) { maxTempo = 208; }
+        if (method === void 0) { method = 'multifeature'; }
+        if (minTempo === void 0) { minTempo = 40; }
+        return this.algorithms.RhythmExtractor2013(signal, maxTempo, method, minTempo);
+    };
     /**
     * This algorithm implements the rhythm transform. It computes a tempogram, a representation of rhythmic periodicities in the input signal in the rhythm domain, by using FFT similarly to computation of spectrum in the frequency domain [1]. Additional features, including rhythmic centroid and a rhythmic counterpart of MFCCs, can be derived from this rhythmic representation. Check https://essentia.upf.edu/reference/std_RhythmTransform.html for more details.
     * @method
@@ -1980,7 +2982,11 @@ declare class Essentia {
     * @returns {object} {rhythm: 'consecutive frames in the rhythm domain'}
     * @memberof Essentia
     */
-    RhythmTransform(melBands: any, frameSize?: number, hopSize?: number): any;
+    Essentia.prototype.RhythmTransform = function (melBands, frameSize, hopSize) {
+        if (frameSize === void 0) { frameSize = 256; }
+        if (hopSize === void 0) { hopSize = 32; }
+        return this.algorithms.RhythmTransform(melBands, frameSize, hopSize);
+    };
     /**
     * This algorithm computes the roll-off frequency of a spectrum. The roll-off frequency is defined as the frequency under which some percentage (cutoff) of the total energy of the spectrum is contained. The roll-off frequency can be used to distinguish between harmonic (below roll-off) and noisy sounds (above roll-off). Check https://essentia.upf.edu/reference/std_RollOff.html for more details.
     * @method
@@ -1990,7 +2996,11 @@ declare class Essentia {
     * @returns {object} {rollOff: 'the roll-off frequency [Hz]'}
     * @memberof Essentia
     */
-    RollOff(spectrum: any, cutoff?: number, sampleRate?: number): any;
+    Essentia.prototype.RollOff = function (spectrum, cutoff, sampleRate) {
+        if (cutoff === void 0) { cutoff = 0.85; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        return this.algorithms.RollOff(spectrum, cutoff, sampleRate);
+    };
     /**
     * This algorithm computes the SNR of the input audio in a frame-wise manner. The algorithm assumes that:
       1. The noise is gaussian.
@@ -2010,7 +3020,16 @@ declare class Essentia {
     * @returns {object} {instantSNR: 'SNR value for the the current frame', averagedSNR: 'averaged SNR through an Exponential Moving Average filter', spectralSNR: 'instant SNR for each frequency bin'}
     * @memberof Essentia
     */
-    SNR(frame: any, MAAlpha?: number, MMSEAlpha?: number, NoiseAlpha?: number, frameSize?: number, noiseThreshold?: number, sampleRate?: number, useBroadbadNoiseCorrection?: boolean): any;
+    Essentia.prototype.SNR = function (frame, MAAlpha, MMSEAlpha, NoiseAlpha, frameSize, noiseThreshold, sampleRate, useBroadbadNoiseCorrection) {
+        if (MAAlpha === void 0) { MAAlpha = 0.95; }
+        if (MMSEAlpha === void 0) { MMSEAlpha = 0.98; }
+        if (NoiseAlpha === void 0) { NoiseAlpha = 0.9; }
+        if (frameSize === void 0) { frameSize = 512; }
+        if (noiseThreshold === void 0) { noiseThreshold = -40; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        if (useBroadbadNoiseCorrection === void 0) { useBroadbadNoiseCorrection = true; }
+        return this.algorithms.SNR(frame, MAAlpha, MMSEAlpha, NoiseAlpha, frameSize, noiseThreshold, sampleRate, useBroadbadNoiseCorrection);
+    };
     /**
     * this algorithm outputs the staring/ending locations of the saturated regions in seconds. Saturated regions are found by means of a tripe criterion:
        1. samples in a saturated region should have more energy than a given threshold.
@@ -2027,7 +3046,15 @@ declare class Essentia {
     * @returns {object} {starts: 'starting times of the detected saturated regions [s]', ends: 'ending times of the detected saturated regions [s]'}
     * @memberof Essentia
     */
-    SaturationDetector(frame: any, differentialThreshold?: number, energyThreshold?: number, frameSize?: number, hopSize?: number, minimumDuration?: number, sampleRate?: number): any;
+    Essentia.prototype.SaturationDetector = function (frame, differentialThreshold, energyThreshold, frameSize, hopSize, minimumDuration, sampleRate) {
+        if (differentialThreshold === void 0) { differentialThreshold = 0.001; }
+        if (energyThreshold === void 0) { energyThreshold = -1; }
+        if (frameSize === void 0) { frameSize = 512; }
+        if (hopSize === void 0) { hopSize = 256; }
+        if (minimumDuration === void 0) { minimumDuration = 0.005; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        return this.algorithms.SaturationDetector(frame, differentialThreshold, energyThreshold, frameSize, hopSize, minimumDuration, sampleRate);
+    };
     /**
     * This algorithm scales the audio by the specified factor using clipping if required. Check https://essentia.upf.edu/reference/std_Scale.html for more details.
     * @method
@@ -2038,7 +3065,12 @@ declare class Essentia {
     * @returns {object} {signal: 'the output audio signal'}
     * @memberof Essentia
     */
-    Scale(signal: any, clipping?: boolean, factor?: number, maxAbsValue?: number): any;
+    Essentia.prototype.Scale = function (signal, clipping, factor, maxAbsValue) {
+        if (clipping === void 0) { clipping = true; }
+        if (factor === void 0) { factor = 10; }
+        if (maxAbsValue === void 0) { maxAbsValue = 1; }
+        return this.algorithms.Scale(signal, clipping, factor, maxAbsValue);
+    };
     /**
     * This algorithm subtracts the sinusoids computed with the sine model analysis from an input audio signal. It ouputs an audio signal. Check https://essentia.upf.edu/reference/std_SineSubtraction.html for more details.
     * @method
@@ -2052,7 +3084,12 @@ declare class Essentia {
     * @returns {object} {frame: 'the output audio frame'}
     * @memberof Essentia
     */
-    SineSubtraction(frame: any, magnitudes: any, frequencies: any, phases: any, fftSize?: number, hopSize?: number, sampleRate?: number): any;
+    Essentia.prototype.SineSubtraction = function (frame, magnitudes, frequencies, phases, fftSize, hopSize, sampleRate) {
+        if (fftSize === void 0) { fftSize = 512; }
+        if (hopSize === void 0) { hopSize = 128; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        return this.algorithms.SineSubtraction(frame, magnitudes, frequencies, phases, fftSize, hopSize, sampleRate);
+    };
     /**
     * This algorithm computes the spectrum energy of a single beat across the whole frequency range and on each specified frequency band given an audio segment. It detects the onset of the beat within the input segment, computes spectrum on a window starting on this onset, and estimates energy (see Energy and EnergyBandRatio algorithms). The frequency bands used by default are: 0-200 Hz, 200-400 Hz, 400-800 Hz, 800-1600 Hz, 1600-3200 Hz, 3200-22000Hz, following E. Scheirer [1]. Check https://essentia.upf.edu/reference/std_SingleBeatLoudness.html for more details.
     * @method
@@ -2065,7 +3102,18 @@ declare class Essentia {
     * @returns {object} {loudness: 'the beat's energy across the whole spectrum', loudnessBandRatio: 'the beat's energy ratio for each band'}
     * @memberof Essentia
     */
-    SingleBeatLoudness(beat: any, beatDuration?: number, beatWindowDuration?: number, frequencyBands?: any[], onsetStart?: string, sampleRate?: number): any;
+    Essentia.prototype.SingleBeatLoudness = function (beat, beatDuration, beatWindowDuration, frequencyBands, onsetStart, sampleRate) {
+        if (beatDuration === void 0) { beatDuration = 0.05; }
+        if (beatWindowDuration === void 0) { beatWindowDuration = 0.1; }
+        if (frequencyBands === void 0) { frequencyBands = [0, 200, 400, 800, 1600, 3200, 22000]; }
+        if (onsetStart === void 0) { onsetStart = 'sumEnergy'; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        var vecfrequencyBands = new this.module.VectorFloat();
+        for (var i = 0; i < vecfrequencyBands.size(); i++) {
+            vecfrequencyBands.push_back(frequencyBands[i]);
+        }
+        return this.algorithms.SingleBeatLoudness(beat, beatDuration, beatWindowDuration, vecfrequencyBands, onsetStart, sampleRate);
+    };
     /**
     * This algorithm splits an audio signal into segments given their start and end times. Check https://essentia.upf.edu/reference/std_Slicer.html for more details.
     * @method
@@ -2077,7 +3125,21 @@ declare class Essentia {
     * @returns {object} {frame: 'the frames of the sliced input signal'}
     * @memberof Essentia
     */
-    Slicer(audio: any, endTimes?: any[], sampleRate?: number, startTimes?: any[], timeUnits?: string): any;
+    Essentia.prototype.Slicer = function (audio, endTimes, sampleRate, startTimes, timeUnits) {
+        if (endTimes === void 0) { endTimes = []; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        if (startTimes === void 0) { startTimes = []; }
+        if (timeUnits === void 0) { timeUnits = 'seconds'; }
+        var vecendTimes = new this.module.VectorFloat();
+        for (var i = 0; i < vecendTimes.size(); i++) {
+            vecendTimes.push_back(endTimes[i]);
+        }
+        var vecstartTimes = new this.module.VectorFloat();
+        for (var i = 0; i < vecstartTimes.size(); i++) {
+            vecstartTimes.push_back(startTimes[i]);
+        }
+        return this.algorithms.Slicer(audio, vecendTimes, sampleRate, vecstartTimes, timeUnits);
+    };
     /**
     * This algorithm computes the spectral centroid of a signal in time domain. A first difference filter is applied to the input signal. Then the centroid is computed by dividing the norm of the resulting signal by the norm of the input signal. The centroid is given in hertz.
     References:
@@ -2089,7 +3151,10 @@ declare class Essentia {
     * @returns {object} {centroid: 'the spectral centroid of the signal'}
     * @memberof Essentia
     */
-    SpectralCentroidTime(array: any, sampleRate?: number): any;
+    Essentia.prototype.SpectralCentroidTime = function (array, sampleRate) {
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        return this.algorithms.SpectralCentroidTime(array, sampleRate);
+    };
     /**
     * This algorithm computes the spectral complexity of a spectrum. The spectral complexity is based on the number of peaks in the input spectrum. Check https://essentia.upf.edu/reference/std_SpectralComplexity.html for more details.
     * @method
@@ -2099,7 +3164,11 @@ declare class Essentia {
     * @returns {object} {spectralComplexity: 'the spectral complexity of the input spectrum'}
     * @memberof Essentia
     */
-    SpectralComplexity(spectrum: any, magnitudeThreshold?: number, sampleRate?: number): any;
+    Essentia.prototype.SpectralComplexity = function (spectrum, magnitudeThreshold, sampleRate) {
+        if (magnitudeThreshold === void 0) { magnitudeThreshold = 0.005; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        return this.algorithms.SpectralComplexity(spectrum, magnitudeThreshold, sampleRate);
+    };
     /**
     * This algorithm computes the Spectral Contrast feature of a spectrum. It is based on the Octave Based Spectral Contrast feature as described in [1]. The version implemented here is a modified version to improve discriminative power and robustness. The modifications are described in [2]. Check https://essentia.upf.edu/reference/std_SpectralContrast.html for more details.
     * @method
@@ -2114,7 +3183,16 @@ declare class Essentia {
     * @returns {object} {spectralContrast: 'the spectral contrast coefficients', spectralValley: 'the magnitudes of the valleys'}
     * @memberof Essentia
     */
-    SpectralContrast(spectrum: any, frameSize?: number, highFrequencyBound?: number, lowFrequencyBound?: number, neighbourRatio?: number, numberBands?: number, sampleRate?: number, staticDistribution?: number): any;
+    Essentia.prototype.SpectralContrast = function (spectrum, frameSize, highFrequencyBound, lowFrequencyBound, neighbourRatio, numberBands, sampleRate, staticDistribution) {
+        if (frameSize === void 0) { frameSize = 2048; }
+        if (highFrequencyBound === void 0) { highFrequencyBound = 11000; }
+        if (lowFrequencyBound === void 0) { lowFrequencyBound = 20; }
+        if (neighbourRatio === void 0) { neighbourRatio = 0.4; }
+        if (numberBands === void 0) { numberBands = 6; }
+        if (sampleRate === void 0) { sampleRate = 22050; }
+        if (staticDistribution === void 0) { staticDistribution = 0.15; }
+        return this.algorithms.SpectralContrast(spectrum, frameSize, highFrequencyBound, lowFrequencyBound, neighbourRatio, numberBands, sampleRate, staticDistribution);
+    };
     /**
     * This algorithm extracts peaks from a spectrum. It is important to note that the peak algorithm is independent of an input that is linear or in dB, so one has to adapt the threshold to fit with the type of data fed to it. The algorithm relies on PeakDetection algorithm which is run with parabolic interpolation [1]. The exactness of the peak-searching depends heavily on the windowing type. It gives best results with dB input, a blackman-harris 92dB window and interpolation set to true. According to [1], spectral peak frequencies tend to be about twice as accurate when dB magnitude is used rather than just linear magnitude. For further information about the peak detection, see the description of the PeakDetection algorithm. Check https://essentia.upf.edu/reference/std_SpectralPeaks.html for more details.
     * @method
@@ -2128,7 +3206,15 @@ declare class Essentia {
     * @returns {object} {frequencies: 'the frequencies of the spectral peaks [Hz]', magnitudes: 'the magnitudes of the spectral peaks'}
     * @memberof Essentia
     */
-    SpectralPeaks(spectrum: any, magnitudeThreshold?: number, maxFrequency?: number, maxPeaks?: number, minFrequency?: number, orderBy?: string, sampleRate?: number): any;
+    Essentia.prototype.SpectralPeaks = function (spectrum, magnitudeThreshold, maxFrequency, maxPeaks, minFrequency, orderBy, sampleRate) {
+        if (magnitudeThreshold === void 0) { magnitudeThreshold = 0; }
+        if (maxFrequency === void 0) { maxFrequency = 5000; }
+        if (maxPeaks === void 0) { maxPeaks = 100; }
+        if (minFrequency === void 0) { minFrequency = 0; }
+        if (orderBy === void 0) { orderBy = 'frequency'; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        return this.algorithms.SpectralPeaks(spectrum, magnitudeThreshold, maxFrequency, maxPeaks, minFrequency, orderBy, sampleRate);
+    };
     /**
     * Performs spectral whitening of spectral peaks of a spectrum. The algorithm works in dB scale, but the conversion is done by the algorithm so input should be in linear scale. The concept of 'whitening' refers to 'white noise' or a non-zero flat spectrum. It first computes a spectral envelope similar to the 'true envelope' in [1], and then modifies the amplitude of each peak relative to the envelope. For example, the predominant peaks will have a value close to 0dB because they are very close to the envelope. On the other hand, minor peaks between significant peaks will have lower amplitudes such as -30dB. Check https://essentia.upf.edu/reference/std_SpectralWhitening.html for more details.
     * @method
@@ -2140,7 +3226,11 @@ declare class Essentia {
     * @returns {object} {magnitudes: 'the whitened spectral peaks' linear magnitudes'}
     * @memberof Essentia
     */
-    SpectralWhitening(spectrum: any, frequencies: any, magnitudes: any, maxFrequency?: number, sampleRate?: number): any;
+    Essentia.prototype.SpectralWhitening = function (spectrum, frequencies, magnitudes, maxFrequency, sampleRate) {
+        if (maxFrequency === void 0) { maxFrequency = 5000; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        return this.algorithms.SpectralWhitening(spectrum, frequencies, magnitudes, maxFrequency, sampleRate);
+    };
     /**
     * This algorithm computes the magnitude spectrum of an array of Reals. The resulting magnitude spectrum has a size which is half the size of the input array plus one. Bins contain raw (linear) magnitude values. Check https://essentia.upf.edu/reference/std_Spectrum.html for more details.
     * @method
@@ -2149,7 +3239,10 @@ declare class Essentia {
     * @returns {object} {spectrum: 'magnitude spectrum of the input audio signal'}
     * @memberof Essentia
     */
-    Spectrum(frame: any, size?: number): any;
+    Essentia.prototype.Spectrum = function (frame, size) {
+        if (size === void 0) { size = 2048; }
+        return this.algorithms.Spectrum(frame, size);
+    };
     /**
     * This algorithm computes the magnitude of the Constant-Q spectrum. See ConstantQ algorithm for more details.
      Check https://essentia.upf.edu/reference/std_SpectrumCQ.html for more details.
@@ -2167,7 +3260,18 @@ declare class Essentia {
     * @returns {object} {spectrumCQ: 'the magnitude constant-Q spectrum'}
     * @memberof Essentia
     */
-    SpectrumCQ(frame: any, binsPerOctave?: number, minFrequency?: number, minimumKernelSize?: number, numberBins?: number, sampleRate?: number, scale?: number, threshold?: number, windowType?: string, zeroPhase?: boolean): any;
+    Essentia.prototype.SpectrumCQ = function (frame, binsPerOctave, minFrequency, minimumKernelSize, numberBins, sampleRate, scale, threshold, windowType, zeroPhase) {
+        if (binsPerOctave === void 0) { binsPerOctave = 12; }
+        if (minFrequency === void 0) { minFrequency = 32.7; }
+        if (minimumKernelSize === void 0) { minimumKernelSize = 4; }
+        if (numberBins === void 0) { numberBins = 84; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        if (scale === void 0) { scale = 1; }
+        if (threshold === void 0) { threshold = 0.01; }
+        if (windowType === void 0) { windowType = 'hann'; }
+        if (zeroPhase === void 0) { zeroPhase = true; }
+        return this.algorithms.SpectrumCQ(frame, binsPerOctave, minFrequency, minimumKernelSize, numberBins, sampleRate, scale, threshold, windowType, zeroPhase);
+    };
     /**
     * This algorithm computes energy in triangular frequency bands of a spectrum equally spaced on the cent scale. Each band is computed to have a constant wideness in the cent scale. For each band the power-spectrum (mag-squared) is summed. Check https://essentia.upf.edu/reference/std_SpectrumToCent.html for more details.
     * @method
@@ -2183,7 +3287,17 @@ declare class Essentia {
     * @returns {object} {bands: 'the energy in each band', frequencies: 'the central frequency of each band'}
     * @memberof Essentia
     */
-    SpectrumToCent(spectrum: any, bands?: number, centBinResolution?: number, inputSize?: number, log?: boolean, minimumFrequency?: number, normalize?: string, sampleRate?: number, type?: string): any;
+    Essentia.prototype.SpectrumToCent = function (spectrum, bands, centBinResolution, inputSize, log, minimumFrequency, normalize, sampleRate, type) {
+        if (bands === void 0) { bands = 720; }
+        if (centBinResolution === void 0) { centBinResolution = 10; }
+        if (inputSize === void 0) { inputSize = 32768; }
+        if (log === void 0) { log = true; }
+        if (minimumFrequency === void 0) { minimumFrequency = 164; }
+        if (normalize === void 0) { normalize = 'unit_sum'; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        if (type === void 0) { type = 'power'; }
+        return this.algorithms.SpectrumToCent(spectrum, bands, centBinResolution, inputSize, log, minimumFrequency, normalize, sampleRate, type);
+    };
     /**
     * Evaluates a piecewise spline of type b, beta or quadratic.
     The input value, i.e. the point at which the spline is to be evaluated typically should be between xPoins[0] and xPoinst[size-1]. If the value lies outside this range, extrapolation is used.
@@ -2201,7 +3315,22 @@ declare class Essentia {
     * @returns {object} {y: 'the value of the spline at x'}
     * @memberof Essentia
     */
-    Spline(x: number, beta1?: number, beta2?: number, type?: string, xPoints?: any[], yPoints?: any[]): any;
+    Essentia.prototype.Spline = function (x, beta1, beta2, type, xPoints, yPoints) {
+        if (beta1 === void 0) { beta1 = 1; }
+        if (beta2 === void 0) { beta2 = 0; }
+        if (type === void 0) { type = 'b'; }
+        if (xPoints === void 0) { xPoints = [0, 1]; }
+        if (yPoints === void 0) { yPoints = [0, 1]; }
+        var vecxPoints = new this.module.VectorFloat();
+        for (var i = 0; i < vecxPoints.size(); i++) {
+            vecxPoints.push_back(xPoints[i]);
+        }
+        var vecyPoints = new this.module.VectorFloat();
+        for (var i = 0; i < vecyPoints.size(); i++) {
+            vecyPoints.push_back(yPoints[i]);
+        }
+        return this.algorithms.Spline(x, beta1, beta2, type, vecxPoints, vecyPoints);
+    };
     /**
     * This algorithm computes the sinusoidal plus residual model analysis.  Check https://essentia.upf.edu/reference/std_SprModelAnal.html for more details.
     * @method
@@ -2220,7 +3349,20 @@ declare class Essentia {
     * @returns {object} {frequencies: 'the frequencies of the sinusoidal peaks [Hz]', magnitudes: 'the magnitudes of the sinusoidal peaks', phases: 'the phases of the sinusoidal peaks', res: 'output residual frame'}
     * @memberof Essentia
     */
-    SprModelAnal(frame: any, fftSize?: number, freqDevOffset?: number, freqDevSlope?: number, hopSize?: number, magnitudeThreshold?: number, maxFrequency?: number, maxPeaks?: number, maxnSines?: number, minFrequency?: number, orderBy?: string, sampleRate?: number): any;
+    Essentia.prototype.SprModelAnal = function (frame, fftSize, freqDevOffset, freqDevSlope, hopSize, magnitudeThreshold, maxFrequency, maxPeaks, maxnSines, minFrequency, orderBy, sampleRate) {
+        if (fftSize === void 0) { fftSize = 2048; }
+        if (freqDevOffset === void 0) { freqDevOffset = 20; }
+        if (freqDevSlope === void 0) { freqDevSlope = 0.01; }
+        if (hopSize === void 0) { hopSize = 512; }
+        if (magnitudeThreshold === void 0) { magnitudeThreshold = 0; }
+        if (maxFrequency === void 0) { maxFrequency = 5000; }
+        if (maxPeaks === void 0) { maxPeaks = 100; }
+        if (maxnSines === void 0) { maxnSines = 100; }
+        if (minFrequency === void 0) { minFrequency = 0; }
+        if (orderBy === void 0) { orderBy = 'frequency'; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        return this.algorithms.SprModelAnal(frame, fftSize, freqDevOffset, freqDevSlope, hopSize, magnitudeThreshold, maxFrequency, maxPeaks, maxnSines, minFrequency, orderBy, sampleRate);
+    };
     /**
     * This algorithm computes the sinusoidal plus residual model synthesis from SPS model analysis. Check https://essentia.upf.edu/reference/std_SprModelSynth.html for more details.
     * @method
@@ -2234,7 +3376,12 @@ declare class Essentia {
     * @returns {object} {frame: 'the output audio frame of the Sinusoidal Plus Stochastic model', sineframe: 'the output audio frame for sinusoidal component ', resframe: 'the output audio frame for stochastic component '}
     * @memberof Essentia
     */
-    SprModelSynth(magnitudes: any, frequencies: any, phases: any, res: any, fftSize?: number, hopSize?: number, sampleRate?: number): any;
+    Essentia.prototype.SprModelSynth = function (magnitudes, frequencies, phases, res, fftSize, hopSize, sampleRate) {
+        if (fftSize === void 0) { fftSize = 2048; }
+        if (hopSize === void 0) { hopSize = 512; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        return this.algorithms.SprModelSynth(magnitudes, frequencies, phases, res, fftSize, hopSize, sampleRate);
+    };
     /**
     * This algorithm computes the stochastic model analysis.  Check https://essentia.upf.edu/reference/std_SpsModelAnal.html for more details.
     * @method
@@ -2254,7 +3401,21 @@ declare class Essentia {
     * @returns {object} {frequencies: 'the frequencies of the sinusoidal peaks [Hz]', magnitudes: 'the magnitudes of the sinusoidal peaks', phases: 'the phases of the sinusoidal peaks', stocenv: 'the stochastic envelope'}
     * @memberof Essentia
     */
-    SpsModelAnal(frame: any, fftSize?: number, freqDevOffset?: number, freqDevSlope?: number, hopSize?: number, magnitudeThreshold?: number, maxFrequency?: number, maxPeaks?: number, maxnSines?: number, minFrequency?: number, orderBy?: string, sampleRate?: number, stocf?: number): any;
+    Essentia.prototype.SpsModelAnal = function (frame, fftSize, freqDevOffset, freqDevSlope, hopSize, magnitudeThreshold, maxFrequency, maxPeaks, maxnSines, minFrequency, orderBy, sampleRate, stocf) {
+        if (fftSize === void 0) { fftSize = 2048; }
+        if (freqDevOffset === void 0) { freqDevOffset = 20; }
+        if (freqDevSlope === void 0) { freqDevSlope = 0.01; }
+        if (hopSize === void 0) { hopSize = 512; }
+        if (magnitudeThreshold === void 0) { magnitudeThreshold = 0; }
+        if (maxFrequency === void 0) { maxFrequency = 5000; }
+        if (maxPeaks === void 0) { maxPeaks = 100; }
+        if (maxnSines === void 0) { maxnSines = 100; }
+        if (minFrequency === void 0) { minFrequency = 0; }
+        if (orderBy === void 0) { orderBy = 'frequency'; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        if (stocf === void 0) { stocf = 0.2; }
+        return this.algorithms.SpsModelAnal(frame, fftSize, freqDevOffset, freqDevSlope, hopSize, magnitudeThreshold, maxFrequency, maxPeaks, maxnSines, minFrequency, orderBy, sampleRate, stocf);
+    };
     /**
     * This algorithm computes the sinusoidal plus stochastic model synthesis from SPS model analysis. Check https://essentia.upf.edu/reference/std_SpsModelSynth.html for more details.
     * @method
@@ -2269,7 +3430,13 @@ declare class Essentia {
     * @returns {object} {frame: 'the output audio frame of the Sinusoidal Plus Stochastic model', sineframe: 'the output audio frame for sinusoidal component ', stocframe: 'the output audio frame for stochastic component '}
     * @memberof Essentia
     */
-    SpsModelSynth(magnitudes: any, frequencies: any, phases: any, stocenv: any, fftSize?: number, hopSize?: number, sampleRate?: number, stocf?: number): any;
+    Essentia.prototype.SpsModelSynth = function (magnitudes, frequencies, phases, stocenv, fftSize, hopSize, sampleRate, stocf) {
+        if (fftSize === void 0) { fftSize = 2048; }
+        if (hopSize === void 0) { hopSize = 512; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        if (stocf === void 0) { stocf = 0.2; }
+        return this.algorithms.SpsModelSynth(magnitudes, frequencies, phases, stocenv, fftSize, hopSize, sampleRate, stocf);
+    };
     /**
     * This algorithm outputs if there is a cut at the beginning or at the end of the audio by locating the first and last non-silent frames and comparing their positions to the actual beginning and end of the audio. The input audio is considered to be cut at the beginning (or the end) and the corresponding flag is activated if the first (last) non-silent frame occurs before (after) the configurable time threshold. Check https://essentia.upf.edu/reference/std_StartStopCut.html for more details.
     * @method
@@ -2283,7 +3450,15 @@ declare class Essentia {
     * @returns {object} {startCut: '1 if there is a cut at the begining of the audio', stopCut: '1 if there is a cut at the end of the audio'}
     * @memberof Essentia
     */
-    StartStopCut(audio: any, frameSize?: number, hopSize?: number, maximumStartTime?: number, maximumStopTime?: number, sampleRate?: number, threshold?: number): any;
+    Essentia.prototype.StartStopCut = function (audio, frameSize, hopSize, maximumStartTime, maximumStopTime, sampleRate, threshold) {
+        if (frameSize === void 0) { frameSize = 256; }
+        if (hopSize === void 0) { hopSize = 256; }
+        if (maximumStartTime === void 0) { maximumStartTime = 10; }
+        if (maximumStopTime === void 0) { maximumStopTime = 10; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        if (threshold === void 0) { threshold = -60; }
+        return this.algorithms.StartStopCut(audio, frameSize, hopSize, maximumStartTime, maximumStopTime, sampleRate, threshold);
+    };
     /**
     * This algorithm outputs the frame at which sound begins and the frame at which sound ends. Check https://essentia.upf.edu/reference/std_StartStopSilence.html for more details.
     * @method
@@ -2292,7 +3467,10 @@ declare class Essentia {
     * @returns {object} {startFrame: 'number of the first non-silent frame', stopFrame: 'number of the last non-silent frame'}
     * @memberof Essentia
     */
-    StartStopSilence(frame: any, threshold?: number): any;
+    Essentia.prototype.StartStopSilence = function (frame, threshold) {
+        if (threshold === void 0) { threshold = -60; }
+        return this.algorithms.StartStopSilence(frame, threshold);
+    };
     /**
     * This algorithm computes the stochastic model analysis. It gets the resampled spectral envelope of the stochastic component. Check https://essentia.upf.edu/reference/std_StochasticModelAnal.html for more details.
     * @method
@@ -2304,7 +3482,13 @@ declare class Essentia {
     * @returns {object} {stocenv: 'the stochastic envelope'}
     * @memberof Essentia
     */
-    StochasticModelAnal(frame: any, fftSize?: number, hopSize?: number, sampleRate?: number, stocf?: number): any;
+    Essentia.prototype.StochasticModelAnal = function (frame, fftSize, hopSize, sampleRate, stocf) {
+        if (fftSize === void 0) { fftSize = 2048; }
+        if (hopSize === void 0) { hopSize = 512; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        if (stocf === void 0) { stocf = 0.2; }
+        return this.algorithms.StochasticModelAnal(frame, fftSize, hopSize, sampleRate, stocf);
+    };
     /**
     * This algorithm computes the stochastic model synthesis. It generates the noisy spectrum from a resampled spectral envelope of the stochastic component. Check https://essentia.upf.edu/reference/std_StochasticModelSynth.html for more details.
     * @method
@@ -2316,7 +3500,13 @@ declare class Essentia {
     * @returns {object} {frame: 'the output frame'}
     * @memberof Essentia
     */
-    StochasticModelSynth(stocenv: any, fftSize?: number, hopSize?: number, sampleRate?: number, stocf?: number): any;
+    Essentia.prototype.StochasticModelSynth = function (stocenv, fftSize, hopSize, sampleRate, stocf) {
+        if (fftSize === void 0) { fftSize = 2048; }
+        if (hopSize === void 0) { hopSize = 512; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        if (stocf === void 0) { stocf = 0.2; }
+        return this.algorithms.StochasticModelSynth(stocenv, fftSize, hopSize, sampleRate, stocf);
+    };
     /**
     * This algorithm computes the Strong Decay of an audio signal. The Strong Decay is built from the non-linear combination of the signal energy and the signal temporal centroid, the latter being the balance of the absolute value of the signal. A signal containing a temporal centroid near its start boundary and a strong energy is said to have a strong decay. Check https://essentia.upf.edu/reference/std_StrongDecay.html for more details.
     * @method
@@ -2325,7 +3515,10 @@ declare class Essentia {
     * @returns {object} {strongDecay: 'the strong decay'}
     * @memberof Essentia
     */
-    StrongDecay(signal: any, sampleRate?: number): any;
+    Essentia.prototype.StrongDecay = function (signal, sampleRate) {
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        return this.algorithms.StrongDecay(signal, sampleRate);
+    };
     /**
     * This algorithm computes the Strong Peak of a spectrum. The Strong Peak is defined as the ratio between the spectrum's maximum peak's magnitude and the "bandwidth" of the peak above a threshold (half its amplitude). This ratio reveals whether the spectrum presents a very "pronounced" maximum peak (i.e. the thinner and the higher the maximum of the spectrum is, the higher the ratio value). Check https://essentia.upf.edu/reference/std_StrongPeak.html for more details.
     * @method
@@ -2333,7 +3526,9 @@ declare class Essentia {
     * @returns {object} {strongPeak: 'the Strong Peak ratio'}
     * @memberof Essentia
     */
-    StrongPeak(spectrum: any): any;
+    Essentia.prototype.StrongPeak = function (spectrum) {
+        return this.algorithms.StrongPeak(spectrum);
+    };
     /**
     * This algorithm detects onsets given an audio signal using SuperFlux algorithm. This implementation is based on the available reference implementation in python [2]. The algorithm computes spectrum of the input signal, summarizes it into triangular band energies, and computes a onset detection function based on spectral flux tracking spectral trajectories with a maximum filter (SuperFluxNovelty). The peaks of the function are then detected (SuperFluxPeaks). Check https://essentia.upf.edu/reference/std_SuperFluxExtractor.html for more details.
     * @method
@@ -2347,7 +3542,15 @@ declare class Essentia {
     * @returns {object} {onsets: 'the onsets times'}
     * @memberof Essentia
     */
-    SuperFluxExtractor(signal: any, combine?: number, frameSize?: number, hopSize?: number, ratioThreshold?: number, sampleRate?: number, threshold?: number): any;
+    Essentia.prototype.SuperFluxExtractor = function (signal, combine, frameSize, hopSize, ratioThreshold, sampleRate, threshold) {
+        if (combine === void 0) { combine = 20; }
+        if (frameSize === void 0) { frameSize = 2048; }
+        if (hopSize === void 0) { hopSize = 256; }
+        if (ratioThreshold === void 0) { ratioThreshold = 16; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        if (threshold === void 0) { threshold = 0.05; }
+        return this.algorithms.SuperFluxExtractor(signal, combine, frameSize, hopSize, ratioThreshold, sampleRate, threshold);
+    };
     /**
     * Onset detection function for Superflux algorithm. See SuperFluxExtractor for more details. Check https://essentia.upf.edu/reference/std_SuperFluxNovelty.html for more details.
     * @method
@@ -2357,7 +3560,11 @@ declare class Essentia {
     * @returns {object} {differences: 'SuperFlux novelty curve'}
     * @memberof Essentia
     */
-    SuperFluxNovelty(bands: any, binWidth?: number, frameWidth?: number): any;
+    Essentia.prototype.SuperFluxNovelty = function (bands, binWidth, frameWidth) {
+        if (binWidth === void 0) { binWidth = 3; }
+        if (frameWidth === void 0) { frameWidth = 2; }
+        return this.algorithms.SuperFluxNovelty(bands, binWidth, frameWidth);
+    };
     /**
     * This algorithm detects peaks of an onset detection function computed by the SuperFluxNovelty algorithm. See SuperFluxExtractor for more details. Check https://essentia.upf.edu/reference/std_SuperFluxPeaks.html for more details.
     * @method
@@ -2371,7 +3578,15 @@ declare class Essentia {
     * @returns {object} {peaks: 'detected peaks' instants [s]'}
     * @memberof Essentia
     */
-    SuperFluxPeaks(novelty: any, combine?: number, frameRate?: number, pre_avg?: number, pre_max?: number, ratioThreshold?: number, threshold?: number): any;
+    Essentia.prototype.SuperFluxPeaks = function (novelty, combine, frameRate, pre_avg, pre_max, ratioThreshold, threshold) {
+        if (combine === void 0) { combine = 30; }
+        if (frameRate === void 0) { frameRate = 172; }
+        if (pre_avg === void 0) { pre_avg = 100; }
+        if (pre_max === void 0) { pre_max = 30; }
+        if (ratioThreshold === void 0) { ratioThreshold = 16; }
+        if (threshold === void 0) { threshold = 0.05; }
+        return this.algorithms.SuperFluxPeaks(novelty, combine, frameRate, pre_avg, pre_max, ratioThreshold, threshold);
+    };
     /**
     * This algorithm calculates the ratio of the temporal centroid to the total length of a signal envelope. This ratio shows how the sound is 'balanced'. Its value is close to 0 if most of the energy lies at the beginning of the sound (e.g. decrescendo or impulsive sounds), close to 0.5 if the sound is symetric (e.g. 'delta unvarying' sounds), and close to 1 if most of the energy lies at the end of the sound (e.g. crescendo sounds). Check https://essentia.upf.edu/reference/std_TCToTotal.html for more details.
     * @method
@@ -2379,7 +3594,9 @@ declare class Essentia {
     * @returns {object} {TCToTotal: 'the temporal centroid to total length ratio'}
     * @memberof Essentia
     */
-    TCToTotal(envelope: any): any;
+    Essentia.prototype.TCToTotal = function (envelope) {
+        return this.algorithms.TCToTotal(envelope);
+    };
     /**
     * This algorithm computes features for tempo tracking to be used with the TempoTap algorithm. See standard_rhythmextractor_tempotap in examples folder. Check https://essentia.upf.edu/reference/std_TempoScaleBands.html for more details.
     * @method
@@ -2389,7 +3606,15 @@ declare class Essentia {
     * @returns {object} {scaledBands: 'the output bands after scaling', cumulativeBands: 'cumulative sum of the output bands before scaling'}
     * @memberof Essentia
     */
-    TempoScaleBands(bands: any, bandsGain?: any[], frameTime?: number): any;
+    Essentia.prototype.TempoScaleBands = function (bands, bandsGain, frameTime) {
+        if (bandsGain === void 0) { bandsGain = [2, 3, 2, 1, 1.20000004768, 2, 3, 2.5]; }
+        if (frameTime === void 0) { frameTime = 512; }
+        var vecbandsGain = new this.module.VectorFloat();
+        for (var i = 0; i < vecbandsGain.size(); i++) {
+            vecbandsGain.push_back(bandsGain[i]);
+        }
+        return this.algorithms.TempoScaleBands(bands, vecbandsGain, frameTime);
+    };
     /**
     * This algorithm estimates the periods and phases of a periodic signal, represented by a sequence of values of any number of detection functions, such as energy bands, onsets locations, etc. It requires to be sequentially run on a vector of such values ("featuresFrame") for each particular audio frame in order to get estimations related to that frames. The estimations are done for each detection function separately, utilizing the latest "frameHop" frames, including the present one, to compute autocorrelation. Empty estimations will be returned until enough frames are accumulated in the algorithm's buffer.
     The algorithm uses elements of the following beat-tracking methods:
@@ -2407,7 +3632,20 @@ declare class Essentia {
     * @returns {object} {periods: 'list of tempo estimates found for each input feature, in frames', phases: 'list of initial phase candidates found for each input feature, in frames'}
     * @memberof Essentia
     */
-    TempoTap(featuresFrame: any, frameHop?: number, frameSize?: number, maxTempo?: number, minTempo?: number, numberFrames?: number, sampleRate?: number, tempoHints?: any[]): any;
+    Essentia.prototype.TempoTap = function (featuresFrame, frameHop, frameSize, maxTempo, minTempo, numberFrames, sampleRate, tempoHints) {
+        if (frameHop === void 0) { frameHop = 1024; }
+        if (frameSize === void 0) { frameSize = 256; }
+        if (maxTempo === void 0) { maxTempo = 208; }
+        if (minTempo === void 0) { minTempo = 40; }
+        if (numberFrames === void 0) { numberFrames = 1024; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        if (tempoHints === void 0) { tempoHints = []; }
+        var vectempoHints = new this.module.VectorFloat();
+        for (var i = 0; i < vectempoHints.size(); i++) {
+            vectempoHints.push_back(tempoHints[i]);
+        }
+        return this.algorithms.TempoTap(featuresFrame, frameHop, frameSize, maxTempo, minTempo, numberFrames, sampleRate, vectempoHints);
+    };
     /**
     * This algorithm estimates beat positions given an onset detection function.  The detection function is partitioned into 6-second frames with a 1.5-second increment, and the autocorrelation is computed for each frame, and is weighted by a tempo preference curve [2]. Periodicity estimations are done frame-wisely, searching for the best match with the Viterbi algorith [3]. The estimated periods are then passed to the probabilistic beat tracking algorithm [1], which computes beat positions. Check https://essentia.upf.edu/reference/std_TempoTapDegara.html for more details.
     * @method
@@ -2419,7 +3657,13 @@ declare class Essentia {
     * @returns {object} {ticks: 'the list of resulting ticks [s]'}
     * @memberof Essentia
     */
-    TempoTapDegara(onsetDetections: any, maxTempo?: number, minTempo?: number, resample?: string, sampleRateODF?: number): any;
+    Essentia.prototype.TempoTapDegara = function (onsetDetections, maxTempo, minTempo, resample, sampleRateODF) {
+        if (maxTempo === void 0) { maxTempo = 208; }
+        if (minTempo === void 0) { minTempo = 40; }
+        if (resample === void 0) { resample = 'none'; }
+        if (sampleRateODF === void 0) { sampleRateODF = 86.1328; }
+        return this.algorithms.TempoTapDegara(onsetDetections, maxTempo, minTempo, resample, sampleRateODF);
+    };
     /**
     * This algorithm outputs beat positions and confidence of their estimation based on the maximum mutual agreement between beat candidates estimated by different beat trackers (or using different features). Check https://essentia.upf.edu/reference/std_TempoTapMaxAgreement.html for more details.
     * @method
@@ -2427,7 +3671,9 @@ declare class Essentia {
     * @returns {object} {ticks: 'the list of resulting ticks [s]', confidence: 'confidence with which the ticks were detected [0, 5.32]'}
     * @memberof Essentia
     */
-    TempoTapMaxAgreement(tickCandidates: any): any;
+    Essentia.prototype.TempoTapMaxAgreement = function (tickCandidates) {
+        return this.algorithms.TempoTapMaxAgreement(tickCandidates);
+    };
     /**
     * This algorithm builds the list of ticks from the period and phase candidates given by the TempoTap algorithm. Check https://essentia.upf.edu/reference/std_TempoTapTicks.html for more details.
     * @method
@@ -2439,7 +3685,12 @@ declare class Essentia {
     * @returns {object} {ticks: 'the list of resulting ticks [s]', matchingPeriods: 'list of matching periods [s]'}
     * @memberof Essentia
     */
-    TempoTapTicks(periods: any, phases: any, frameHop?: number, hopSize?: number, sampleRate?: number): any;
+    Essentia.prototype.TempoTapTicks = function (periods, phases, frameHop, hopSize, sampleRate) {
+        if (frameHop === void 0) { frameHop = 512; }
+        if (hopSize === void 0) { hopSize = 256; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        return this.algorithms.TempoTapTicks(periods, phases, frameHop, hopSize, sampleRate);
+    };
     /**
     * This algorithm computes mel-bands with a particular parametrization specific to MusiCNN based models. Check https://essentia.upf.edu/reference/std_TensorflowInputMusiCNN.html for more details.
     * @method
@@ -2447,7 +3698,9 @@ declare class Essentia {
     * @returns {object} {bands: 'the log compressed mel bands'}
     * @memberof Essentia
     */
-    TensorflowInputMusiCNN(frame: any): any;
+    Essentia.prototype.TensorflowInputMusiCNN = function (frame) {
+        return this.algorithms.TensorflowInputMusiCNN(frame);
+    };
     /**
     * This algorithm computes mel-bands with a particular parametrization specific to VGGish based models. Check https://essentia.upf.edu/reference/std_TensorflowInputVGGish.html for more details.
     * @method
@@ -2455,7 +3708,9 @@ declare class Essentia {
     * @returns {object} {bands: 'the log compressed mel bands'}
     * @memberof Essentia
     */
-    TensorflowInputVGGish(frame: any): any;
+    Essentia.prototype.TensorflowInputVGGish = function (frame) {
+        return this.algorithms.TensorflowInputVGGish(frame);
+    };
     /**
     * This algorithm computes tonal features for an audio signal Check https://essentia.upf.edu/reference/std_TonalExtractor.html for more details.
     * @method
@@ -2466,7 +3721,12 @@ declare class Essentia {
     * @returns {object} {chords_changes_rate: 'See ChordsDescriptors algorithm documentation', chords_histogram: 'See ChordsDescriptors algorithm documentation', chords_key: 'See ChordsDescriptors algorithm documentation', chords_number_rate: 'See ChordsDescriptors algorithm documentation', chords_progression: 'See ChordsDetection algorithm documentation', chords_scale: 'See ChordsDetection algorithm documentation', chords_strength: 'See ChordsDetection algorithm documentation', hpcp: 'See HPCP algorithm documentation', hpcp_highres: 'See HPCP algorithm documentation', key_key: 'See Key algorithm documentation', key_scale: 'See Key algorithm documentation', key_strength: 'See Key algorithm documentation'}
     * @memberof Essentia
     */
-    TonalExtractor(signal: any, frameSize?: number, hopSize?: number, tuningFrequency?: number): any;
+    Essentia.prototype.TonalExtractor = function (signal, frameSize, hopSize, tuningFrequency) {
+        if (frameSize === void 0) { frameSize = 4096; }
+        if (hopSize === void 0) { hopSize = 2048; }
+        if (tuningFrequency === void 0) { tuningFrequency = 440; }
+        return this.algorithms.TonalExtractor(signal, frameSize, hopSize, tuningFrequency);
+    };
     /**
     * This algorithm estimates the tonic frequency of the lead artist in Indian art music. It uses multipitch representation of the audio signal (pitch salience) to compute a histogram using which the tonic is identified as one of its peak. The decision is made based on the distance between the prominent peaks, the classification is done using a decision tree. Check https://essentia.upf.edu/reference/std_TonicIndianArtMusic.html for more details.
     * @method
@@ -2486,7 +3746,21 @@ declare class Essentia {
     * @returns {object} {tonic: 'the estimated tonic frequency [Hz]'}
     * @memberof Essentia
     */
-    TonicIndianArtMusic(signal: any, binResolution?: number, frameSize?: number, harmonicWeight?: number, hopSize?: number, magnitudeCompression?: number, magnitudeThreshold?: number, maxTonicFrequency?: number, minTonicFrequency?: number, numberHarmonics?: number, numberSaliencePeaks?: number, referenceFrequency?: number, sampleRate?: number): any;
+    Essentia.prototype.TonicIndianArtMusic = function (signal, binResolution, frameSize, harmonicWeight, hopSize, magnitudeCompression, magnitudeThreshold, maxTonicFrequency, minTonicFrequency, numberHarmonics, numberSaliencePeaks, referenceFrequency, sampleRate) {
+        if (binResolution === void 0) { binResolution = 10; }
+        if (frameSize === void 0) { frameSize = 2048; }
+        if (harmonicWeight === void 0) { harmonicWeight = 0.85; }
+        if (hopSize === void 0) { hopSize = 512; }
+        if (magnitudeCompression === void 0) { magnitudeCompression = 1; }
+        if (magnitudeThreshold === void 0) { magnitudeThreshold = 40; }
+        if (maxTonicFrequency === void 0) { maxTonicFrequency = 375; }
+        if (minTonicFrequency === void 0) { minTonicFrequency = 100; }
+        if (numberHarmonics === void 0) { numberHarmonics = 20; }
+        if (numberSaliencePeaks === void 0) { numberSaliencePeaks = 5; }
+        if (referenceFrequency === void 0) { referenceFrequency = 55; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        return this.algorithms.TonicIndianArtMusic(signal, binResolution, frameSize, harmonicWeight, hopSize, magnitudeCompression, magnitudeThreshold, maxTonicFrequency, minTonicFrequency, numberHarmonics, numberSaliencePeaks, referenceFrequency, sampleRate);
+    };
     /**
     * This algorithm computes energy in triangular frequency bands of a spectrum. The arbitrary number of overlapping bands can be specified. For each band the power-spectrum (mag-squared) is summed. Check https://essentia.upf.edu/reference/std_TriangularBands.html for more details.
     * @method
@@ -2501,7 +3775,20 @@ declare class Essentia {
     * @returns {object} {bands: 'the energy in each band'}
     * @memberof Essentia
     */
-    TriangularBands(spectrum: any, frequencyBands?: any[], inputSize?: number, log?: boolean, normalize?: string, sampleRate?: number, type?: string, weighting?: string): any;
+    Essentia.prototype.TriangularBands = function (spectrum, frequencyBands, inputSize, log, normalize, sampleRate, type, weighting) {
+        if (frequencyBands === void 0) { frequencyBands = [21.533203125, 43.06640625, 64.599609375, 86.1328125, 107.666015625, 129.19921875, 150.732421875, 172.265625, 193.798828125, 215.33203125, 236.865234375, 258.3984375, 279.931640625, 301.46484375, 322.998046875, 344.53125, 366.064453125, 387.59765625, 409.130859375, 430.6640625, 452.197265625, 473.73046875, 495.263671875, 516.796875, 538.330078125, 559.86328125, 581.396484375, 602.9296875, 624.462890625, 645.99609375, 667.529296875, 689.0625, 710.595703125, 732.12890625, 753.662109375, 775.1953125, 796.728515625, 839.794921875, 861.328125, 882.861328125, 904.39453125, 925.927734375, 968.994140625, 990.52734375, 1012.06054688, 1055.12695312, 1076.66015625, 1098.19335938, 1141.25976562, 1184.32617188, 1205.859375, 1248.92578125, 1270.45898438, 1313.52539062, 1356.59179688, 1399.65820312, 1442.72460938, 1485.79101562, 1528.85742188, 1571.92382812, 1614.99023438, 1658.05664062, 1701.12304688, 1765.72265625, 1808.7890625, 1873.38867188, 1916.45507812, 1981.0546875, 2024.12109375, 2088.72070312, 2153.3203125, 2217.91992188, 2282.51953125, 2347.11914062, 2411.71875, 2497.8515625, 2562.45117188, 2627.05078125, 2713.18359375, 2799.31640625, 2885.44921875, 2950.04882812, 3036.18164062, 3143.84765625, 3229.98046875, 3316.11328125, 3423.77929688, 3509.91210938, 3617.578125, 3725.24414062, 3832.91015625, 3940.57617188, 4069.77539062, 4177.44140625, 4306.640625, 4435.83984375, 4565.0390625, 4694.23828125, 4844.97070312, 4974.16992188, 5124.90234375, 5275.63476562, 5426.3671875, 5577.09960938, 5749.36523438, 5921.63085938, 6093.89648438, 6266.16210938, 6459.9609375, 6653.75976562, 6847.55859375, 7041.35742188, 7256.68945312, 7450.48828125, 7687.35351562, 7902.68554688, 8139.55078125, 8376.41601562, 8613.28125, 8871.6796875, 9130.078125, 9388.4765625, 9668.40820312, 9948.33984375, 10249.8046875, 10551.2695312, 10852.734375, 11175.7324219, 11498.7304688, 11843.2617188, 12187.7929688, 12553.8574219, 12919.921875, 13285.9863281, 13673.5839844, 14082.7148438, 14491.8457031, 14922.5097656, 15353.1738281, 15805.3710938, 16257.5683594]; }
+        if (inputSize === void 0) { inputSize = 1025; }
+        if (log === void 0) { log = true; }
+        if (normalize === void 0) { normalize = 'unit_sum'; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        if (type === void 0) { type = 'power'; }
+        if (weighting === void 0) { weighting = 'linear'; }
+        var vecfrequencyBands = new this.module.VectorFloat();
+        for (var i = 0; i < vecfrequencyBands.size(); i++) {
+            vecfrequencyBands.push_back(frequencyBands[i]);
+        }
+        return this.algorithms.TriangularBands(spectrum, vecfrequencyBands, inputSize, log, normalize, sampleRate, type, weighting);
+    };
     /**
     * This algorithm computes energy in the bark bands of a spectrum. It is different to the regular BarkBands algorithm in that is more configurable so that it can be used in the BFCC algorithm to produce output similar to Rastamat (http://www.ee.columbia.edu/ln/rosa/matlab/rastamat/)
     See the BFCC algorithm documentation for more information as to why you might want to choose this over Mel frequency analysis
@@ -2520,7 +3807,18 @@ declare class Essentia {
     * @returns {object} {bands: 'the energy in bark bands'}
     * @memberof Essentia
     */
-    TriangularBarkBands(spectrum: any, highFrequencyBound?: number, inputSize?: number, log?: boolean, lowFrequencyBound?: number, normalize?: string, numberBands?: number, sampleRate?: number, type?: string, weighting?: string): any;
+    Essentia.prototype.TriangularBarkBands = function (spectrum, highFrequencyBound, inputSize, log, lowFrequencyBound, normalize, numberBands, sampleRate, type, weighting) {
+        if (highFrequencyBound === void 0) { highFrequencyBound = 22050; }
+        if (inputSize === void 0) { inputSize = 1025; }
+        if (log === void 0) { log = false; }
+        if (lowFrequencyBound === void 0) { lowFrequencyBound = 0; }
+        if (normalize === void 0) { normalize = 'unit_sum'; }
+        if (numberBands === void 0) { numberBands = 24; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        if (type === void 0) { type = 'power'; }
+        if (weighting === void 0) { weighting = 'warping'; }
+        return this.algorithms.TriangularBarkBands(spectrum, highFrequencyBound, inputSize, log, lowFrequencyBound, normalize, numberBands, sampleRate, type, weighting);
+    };
     /**
     * This algorithm extracts a segment of an audio signal given its start and end times.
     Giving "startTime" greater than "endTime" will raise an exception. Check https://essentia.upf.edu/reference/std_Trimmer.html for more details.
@@ -2533,7 +3831,13 @@ declare class Essentia {
     * @returns {object} {signal: 'the trimmed signal'}
     * @memberof Essentia
     */
-    Trimmer(signal: any, checkRange?: boolean, endTime?: number, sampleRate?: number, startTime?: number): any;
+    Essentia.prototype.Trimmer = function (signal, checkRange, endTime, sampleRate, startTime) {
+        if (checkRange === void 0) { checkRange = false; }
+        if (endTime === void 0) { endTime = 1e+06; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        if (startTime === void 0) { startTime = 0; }
+        return this.algorithms.Trimmer(signal, checkRange, endTime, sampleRate, startTime);
+    };
     /**
     * This algorithm calculates the tristimulus of a signal given its harmonic peaks. The tristimulus has been introduced as a timbre equivalent to the color attributes in the vision. Tristimulus measures the mixture of harmonics in a given sound, grouped into three sections. The first tristimulus measures the relative weight of the first harmonic; the second tristimulus measures the relative weight of the second, third, and fourth harmonics taken together; and the third tristimulus measures the relative weight of all the remaining harmonics. Check https://essentia.upf.edu/reference/std_Tristimulus.html for more details.
     * @method
@@ -2542,7 +3846,9 @@ declare class Essentia {
     * @returns {object} {tristimulus: 'a three-element vector that measures the mixture of harmonics of the given spectrum'}
     * @memberof Essentia
     */
-    Tristimulus(frequencies: any, magnitudes: any): any;
+    Essentia.prototype.Tristimulus = function (frequencies, magnitudes) {
+        return this.algorithms.Tristimulus(frequencies, magnitudes);
+    };
     /**
     * This algorithm implements a “true-peak” level meter for clipping detection. According to the ITU-R recommendations, “true-peak” values overcoming the full-scale range are potential sources of “clipping in subsequent processes, such as within particular D/A converters or during sample-rate conversion”.
     The ITU-R BS.1770-4[1] (by default) and the ITU-R BS.1770-2[2] signal-flows can be used. Go to the references for information about the differences.
@@ -2566,7 +3872,16 @@ declare class Essentia {
     * @returns {object} {peakLocations: 'the peak locations in the ouput signal', output: 'the processed signal'}
     * @memberof Essentia
     */
-    TruePeakDetector(signal: any, blockDC?: boolean, emphasise?: boolean, oversamplingFactor?: number, quality?: number, sampleRate?: number, threshold?: number, version?: number): any;
+    Essentia.prototype.TruePeakDetector = function (signal, blockDC, emphasise, oversamplingFactor, quality, sampleRate, threshold, version) {
+        if (blockDC === void 0) { blockDC = false; }
+        if (emphasise === void 0) { emphasise = false; }
+        if (oversamplingFactor === void 0) { oversamplingFactor = 4; }
+        if (quality === void 0) { quality = 1; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        if (threshold === void 0) { threshold = -0.0002; }
+        if (version === void 0) { version = 4; }
+        return this.algorithms.TruePeakDetector(signal, blockDC, emphasise, oversamplingFactor, quality, sampleRate, threshold, version);
+    };
     /**
     * This algorithm estimates the tuning frequency give a sequence/set of spectral peaks. The result is the tuning frequency in Hz, and its distance from 440Hz in cents. This version is slightly adapted from the original algorithm [1], but gives the same results. Check https://essentia.upf.edu/reference/std_TuningFrequency.html for more details.
     * @method
@@ -2576,7 +3891,10 @@ declare class Essentia {
     * @returns {object} {tuningFrequency: 'the tuning frequency [Hz]', tuningCents: 'the deviation from 440 Hz (between -35 to 65 cents)'}
     * @memberof Essentia
     */
-    TuningFrequency(frequencies: any, magnitudes: any, resolution?: number): any;
+    Essentia.prototype.TuningFrequency = function (frequencies, magnitudes, resolution) {
+        if (resolution === void 0) { resolution = 1; }
+        return this.algorithms.TuningFrequency(frequencies, magnitudes, resolution);
+    };
     /**
     * This algorithm extracts the tuning frequency of an audio signal Check https://essentia.upf.edu/reference/std_TuningFrequencyExtractor.html for more details.
     * @method
@@ -2586,7 +3904,11 @@ declare class Essentia {
     * @returns {object} {tuningFrequency: 'the computed tuning frequency'}
     * @memberof Essentia
     */
-    TuningFrequencyExtractor(signal: any, frameSize?: number, hopSize?: number): any;
+    Essentia.prototype.TuningFrequencyExtractor = function (signal, frameSize, hopSize) {
+        if (frameSize === void 0) { frameSize = 4096; }
+        if (hopSize === void 0) { hopSize = 2048; }
+        return this.algorithms.TuningFrequencyExtractor(signal, frameSize, hopSize);
+    };
     /**
     * This algorithm performs basic arithmetical operations element by element given an array.
     Note:
@@ -2602,7 +3924,12 @@ declare class Essentia {
     * @returns {object} {array: 'the input array transformed by unary operation'}
     * @memberof Essentia
     */
-    UnaryOperator(array: any, scale?: number, shift?: number, type?: string): any;
+    Essentia.prototype.UnaryOperator = function (array, scale, shift, type) {
+        if (scale === void 0) { scale = 1; }
+        if (shift === void 0) { shift = 0; }
+        if (type === void 0) { type = 'identity'; }
+        return this.algorithms.UnaryOperator(array, scale, shift, type);
+    };
     /**
     * This algorithm performs basic arithmetical operations element by element given an array.
     Note:
@@ -2618,7 +3945,12 @@ declare class Essentia {
     * @returns {object} {array: 'the input array transformed by unary operation'}
     * @memberof Essentia
     */
-    UnaryOperatorStream(array: any, scale?: number, shift?: number, type?: string): any;
+    Essentia.prototype.UnaryOperatorStream = function (array, scale, shift, type) {
+        if (scale === void 0) { scale = 1; }
+        if (shift === void 0) { shift = 0; }
+        if (type === void 0) { type = 'identity'; }
+        return this.algorithms.UnaryOperatorStream(array, scale, shift, type);
+    };
     /**
     * This algorithm computes the variance of an array. Check https://essentia.upf.edu/reference/std_Variance.html for more details.
     * @method
@@ -2626,7 +3958,9 @@ declare class Essentia {
     * @returns {object} {variance: 'the variance of the input array'}
     * @memberof Essentia
     */
-    Variance(array: any): any;
+    Essentia.prototype.Variance = function (array) {
+        return this.algorithms.Variance(array);
+    };
     /**
     * This algorithm detects the presence of vibrato and estimates its parameters given a pitch contour [Hz]. The result is the vibrato frequency in Hz and the extent (peak to peak) in cents. If no vibrato is detected in a frame, the output of both values is zero. Check https://essentia.upf.edu/reference/std_Vibrato.html for more details.
     * @method
@@ -2639,7 +3973,14 @@ declare class Essentia {
     * @returns {object} {vibratoFrequency: 'estimated vibrato frequency (or speed) [Hz]; zero if no vibrato was detected.', vibratoExtend: 'estimated vibrato extent (or depth) [cents]; zero if no vibrato was detected.'}
     * @memberof Essentia
     */
-    Vibrato(pitch: any, maxExtend?: number, maxFrequency?: number, minExtend?: number, minFrequency?: number, sampleRate?: number): any;
+    Essentia.prototype.Vibrato = function (pitch, maxExtend, maxFrequency, minExtend, minFrequency, sampleRate) {
+        if (maxExtend === void 0) { maxExtend = 250; }
+        if (maxFrequency === void 0) { maxFrequency = 8; }
+        if (minExtend === void 0) { minExtend = 50; }
+        if (minFrequency === void 0) { minFrequency = 4; }
+        if (sampleRate === void 0) { sampleRate = 344.531; }
+        return this.algorithms.Vibrato(pitch, maxExtend, maxFrequency, minExtend, minFrequency, sampleRate);
+    };
     /**
     * This algorithm computes the warped auto-correlation of an audio signal. The implementation is an adapted version of K. Schmidt's implementation of the matlab algorithm from the 'warped toolbox' by Aki Harma and Matti Karjalainen found [2]. For a detailed explanation of the algorithm, see [1].
     This algorithm is only defined for positive lambda = 1.0674*sqrt(2.0*atan(0.00006583*sampleRate)/PI) - 0.1916, thus it will throw an exception when the supplied sampling rate does not pass the requirements.
@@ -2651,7 +3992,11 @@ declare class Essentia {
     * @returns {object} {warpedAutoCorrelation: 'the warped auto-correlation vector'}
     * @memberof Essentia
     */
-    WarpedAutoCorrelation(array: any, maxLag?: number, sampleRate?: number): any;
+    Essentia.prototype.WarpedAutoCorrelation = function (array, maxLag, sampleRate) {
+        if (maxLag === void 0) { maxLag = 1; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        return this.algorithms.WarpedAutoCorrelation(array, maxLag, sampleRate);
+    };
     /**
     *  This algorithm estimates the Power Spectral Density of the input signal using the Welch's method [1].
      The input should be fed with the overlapped audio frames. The algorithm stores internally therequired past frames to compute each output. Call reset() to clear the buffers. This implentation is based on Scipy [2] Check https://essentia.upf.edu/reference/std_Welch.html for more details.
@@ -2666,7 +4011,15 @@ declare class Essentia {
     * @returns {object} {psd: 'Power Spectral Density [dB] or [dB/Hz]'}
     * @memberof Essentia
     */
-    Welch(frame: any, averagingFrames?: number, fftSize?: number, frameSize?: number, sampleRate?: number, scaling?: string, windowType?: string): any;
+    Essentia.prototype.Welch = function (frame, averagingFrames, fftSize, frameSize, sampleRate, scaling, windowType) {
+        if (averagingFrames === void 0) { averagingFrames = 10; }
+        if (fftSize === void 0) { fftSize = 1024; }
+        if (frameSize === void 0) { frameSize = 512; }
+        if (sampleRate === void 0) { sampleRate = 44100; }
+        if (scaling === void 0) { scaling = 'density'; }
+        if (windowType === void 0) { windowType = 'hann'; }
+        return this.algorithms.Welch(frame, averagingFrames, fftSize, frameSize, sampleRate, scaling, windowType);
+    };
     /**
     * This algorithm applies windowing to an audio signal. It optionally applies zero-phase windowing and optionally adds zero-padding. The resulting windowed frame size is equal to the incoming frame size plus the number of padded zeros. By default, the available windows are normalized (to have an area of 1) and then scaled by a factor of 2. Check https://essentia.upf.edu/reference/std_Windowing.html for more details.
     * @method
@@ -2679,7 +4032,14 @@ declare class Essentia {
     * @returns {object} {frame: 'the windowed audio frame'}
     * @memberof Essentia
     */
-    Windowing(frame: any, normalized?: boolean, size?: number, type?: string, zeroPadding?: number, zeroPhase?: boolean): any;
+    Essentia.prototype.Windowing = function (frame, normalized, size, type, zeroPadding, zeroPhase) {
+        if (normalized === void 0) { normalized = true; }
+        if (size === void 0) { size = 1024; }
+        if (type === void 0) { type = 'hann'; }
+        if (zeroPadding === void 0) { zeroPadding = 0; }
+        if (zeroPhase === void 0) { zeroPhase = true; }
+        return this.algorithms.Windowing(frame, normalized, size, type, zeroPadding, zeroPhase);
+    };
     /**
     * This algorithm computes the zero-crossing rate of an audio signal. It is the number of sign changes between consecutive signal values divided by the total number of values. Noisy signals tend to have higher zero-crossing rate.
     In order to avoid small variations around zero caused by noise, a threshold around zero is given to consider a valid zerocrosing whenever the boundary is crossed. Check https://essentia.upf.edu/reference/std_ZeroCrossingRate.html for more details.
@@ -2689,6 +4049,200 @@ declare class Essentia {
     * @returns {object} {zeroCrossingRate: 'the zero-crossing rate'}
     * @memberof Essentia
     */
-    ZeroCrossingRate(signal: any, threshold?: number): any;
-}
-export default Essentia;
+    Essentia.prototype.ZeroCrossingRate = function (signal, threshold) {
+        if (threshold === void 0) { threshold = 0; }
+        return this.algorithms.ZeroCrossingRate(signal, threshold);
+    };
+    return Essentia;
+}());
+
+/**
+ * @license
+ * Copyright (C) 2006-2020  Music Technology Group - Universitat Pompeu Fabra
+ *
+ * This file is part of Essentia
+ *
+ * Essentia is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Affero General Public License as published by the Free
+ * Software Foundation (FSF), either version 3 of the License, or (at your
+ * option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+ * details.
+ *
+ * You should have received a copy of the Affero GNU General Public License
+ * version 3 along with this program.  If not, see http://www.gnu.org/licenses/
+ */
+/**
+ * EssentiaExtractor
+ * This class provides one-liner methods which implements the whole chain of algorithms
+ * required for computing features such as log-scaled mel spectrogram, HPCP chroma features etc.
+ * This can be extended according to your needs.
+ * @class
+ * @extends {Essentia}
+ */
+var EssentiaExtractor = /** @class */ (function (_super) {
+    __extends(EssentiaExtractor, _super);
+    /**
+     *Creates an instance of EssentiaExtractor.
+    * @param {*} EssentiaWASM
+    * @param {boolean} [isDebug=false]
+    * @constructs
+    */
+    function EssentiaExtractor(EssentiaWASM, isDebug) {
+        if (isDebug === void 0) { isDebug = false; }
+        var _this = _super.call(this, EssentiaWASM, isDebug) || this;
+        _this.EssentiaWASM = EssentiaWASM;
+        _this.isDebug = isDebug;
+        _this.sampleRate = 44100;
+        _this.frameSize = 2048;
+        _this.profile = {
+            Windowing: {
+                normalized: false,
+                size: 1024,
+                type: "hann",
+                zeroPadding: 0,
+                zeroPhase: true
+            },
+            Spectrum: {
+                size: _this.frameSize
+            },
+            MelBands: {
+                highFrequencyBound: Math.floor(_this.sampleRate / 2),
+                inputSize: Math.floor(_this.frameSize / (2 + 1)),
+                log: false,
+                lowFrequencyBound: 0,
+                normalize: 'unit_tri',
+                numberBands: 96,
+                sampleRate: _this.sampleRate,
+                type: 'power',
+                warpingFormula: 'slaneyMel',
+                weighting: 'linear'
+            },
+            SpectralPeaks: {
+                magnitudeThreshold: 0,
+                maxFrequency: 4500,
+                maxPeaks: 100,
+                minFrequency: 80,
+                orderBy: 'frequency',
+                sampleRate: _this.sampleRate,
+            },
+            SpectralWhitening: {
+                maxFrequency: 4500,
+                sampleRate: _this.sampleRate
+            },
+            HPCP: {
+                bandPreset: true,
+                bandSplitFrequency: 500,
+                harmonics: 0,
+                maxFrequency: 4500,
+                maxShifted: false,
+                minFrequency: 80,
+                nonLinear: false,
+                normalized: 'unitMax',
+                referenceFrequency: 440,
+                sampleRate: _this.sampleRate,
+                size: 12,
+                weightType: 'squaredCosine',
+                windowSize: 1
+            },
+        };
+        return _this;
+    }
+    /**
+     * Compute log-scaled mel spectrogram for a given audio signal frame along with an optional extractor profile configuration
+     * @method
+     * @param {Float32Array} audioFrame a frame of decoded audio signal as Float32 typed array.
+     * @param {number} sampleRate Sample rate of the input audio signal.
+     * @param {boolean} [asVector=false] whether to output the spectrogram as a vector float type for chaining with other essentia algorithms.
+     * @param {*} [config=this.profile]
+     * @returns {Array} Log-scaled Mel Spectrum
+     * @memberof EssentiaExtractor
+     */
+    EssentiaExtractor.prototype.melSpectrumExtractor = function (audioFrame, sampleRate, asVector, config) {
+        if (sampleRate === void 0) { sampleRate = this.sampleRate; }
+        if (asVector === void 0) { asVector = false; }
+        if (config === void 0) { config = this.profile; }
+        var signalFrame = this.arrayToVector(audioFrame);
+        var _frameSize = audioFrame.length;
+        // we need to compute the following signal process chain 
+        // audio frame => windowing => spectrum => mel bands => log scale
+        var windowOut = this.Windowing(signalFrame, config.Windowing.normalized, config.Windowing.size, config.Windowing.type, config.Windowing.zeroPadding, config.Windowing.zeroPhase);
+        var spectrumOut = this.Spectrum(windowOut.frame, _frameSize);
+        var melOut = this.MelBands(spectrumOut.spectrum, config.MelBands.highFrequencyBound, Math.floor(_frameSize / (2 + 1)), config.MelBands.log, config.MelBands.lowFrequencyBound, config.MelBands.normalize, config.MelBands.numberBands, sampleRate, config.MelBands.type, config.MelBands.warpingFormula, config.MelBands.weighting);
+        // shift operation of mel-spectrograms
+        var shift = this.UnaryOperator(melOut.bands, 10000, 1);
+        // logarithmic compression of mel-spectrograms
+        var logComp = this.UnaryOperator(shift.array, 1, 0, "log10");
+        // return the output of the feature extractor either as VectorFloat type or as JavaScript Float32 typed array
+        if (asVector) {
+            // fallback to free the std vectors
+            //delete windowOut.frame;
+            delete spectrumOut.spectrum;
+            delete melOut.bands;
+            delete shift.array;
+            return logComp.array;
+        }
+        else {
+            // convert type to JS array
+            var logMelBands = this.vectorToArray(logComp.array);
+            // fallback to free the std vectors
+            //delete windowOut.frame;
+            delete spectrumOut.spectrum;
+            delete melOut.bands;
+            delete shift.array;
+            delete logComp.array;
+            return logMelBands;
+        }
+    };
+    /**
+     * Compute HPCP chroma feature for a given audio signal frame along with an optional extractor profile configuration
+     * @method
+     * @param {Float32Array} audioFrame a decoded audio signal frame as Float32 typed array.
+     * @param {number} sampleRate Sample rate of the input audio signal.
+     * @param {boolean} [asVector=false] whether to output the hpcpgram as a vector float type for chaining with other essentia algorithms.
+     * @param {*} [config=this.profile]
+     * @returns {Array} Frame-wise HPCP
+     * @memberof EssentiaExtractor
+     */
+    EssentiaExtractor.prototype.hpcpExtractor = function (audioFrame, sampleRate, asVector, config) {
+        if (sampleRate === void 0) { sampleRate = this.sampleRate; }
+        if (asVector === void 0) { asVector = false; }
+        if (config === void 0) { config = this.profile; }
+        var signalFrame = this.arrayToVector(audioFrame);
+        var _frameSize = audioFrame.length;
+        // we need to compute the following signal process chain 
+        // audio frame => windowing => spectrum => spectral peak => spectral whitening => HPCP
+        var windowOut = this.Windowing(signalFrame, config.Windowing.normalized, config.Windowing.size, config.Windowing.type, config.Windowing.zeroPadding, config.Windowing.zeroPhase);
+        var spectrumOut = this.Spectrum(windowOut.frame, _frameSize);
+        var peaksOut = this.SpectralPeaks(spectrumOut.spectrum, config.SpectralPeaks.magnitudeThreshold, config.SpectralPeaks.maxFrequency, config.SpectralPeaks.maxPeaks, config.SpectralPeaks.minFrequency, config.SpectralPeaks.orderBy, sampleRate);
+        var whiteningOut = this.SpectralWhitening(spectrumOut.spectrum, peaksOut.frequencies, peaksOut.magnitudes, config.SpectralWhitening.maxFrequency, sampleRate);
+        var hpcpOut = this.HPCP(peaksOut.frequencies, whiteningOut.magnitudes, config.HPCP.bandPreset, config.HPCP.bandSplitFrequency, config.HPCP.harmonics, config.HPCP.maxFrequency, config.HPCP.maxShifted, config.HPCP.minFrequency, config.HPCP.nonLinear, config.HPCP.normalized, config.HPCP.referenceFrequency, sampleRate, config.HPCP.size, config.HPCP.weightType, config.HPCP.windowSize);
+        // return the output of the feature extractor either as VectorFloat type or as JavaScript Float32 typed array
+        if (asVector) {
+            // fallback to free the std vectors
+            delete windowOut.frame;
+            delete spectrumOut.spectrum;
+            delete peaksOut.frequencies;
+            delete peaksOut.magnitudes;
+            delete whiteningOut.magnitudes;
+            return hpcpOut.hpcp;
+        }
+        else {
+            // convert type to JS array
+            var hpcpFrame = this.vectorToArray(hpcpOut.hpcp);
+            delete windowOut.frame;
+            delete spectrumOut.spectrum;
+            delete peaksOut.frequencies;
+            delete peaksOut.magnitudes;
+            delete whiteningOut.magnitudes;
+            delete hpcpOut.hpcp;
+            return hpcpFrame;
+        }
+    };
+    return EssentiaExtractor;
+}(Essentia));
+
+export default EssentiaExtractor;
