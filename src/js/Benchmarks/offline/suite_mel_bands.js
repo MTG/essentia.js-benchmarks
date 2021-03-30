@@ -55,16 +55,27 @@ export default function mel_bands(essentia, Meyda, audioURL, audioContext) {
                             audioBuffer.copyFromChannel(lastFrame, 0, HOP_SIZE*i);
                             frame = lastFrame;
                         }
-                        let frame_windowed = essentia.Windowing(essentia.arrayToVector(frame), true, FRAME_SIZE);
-                        essentia.MelBands(essentia.Spectrum(frame_windowed['frame'])['spectrum'], 22050, 1025, false, 0, 'unit_sum', 128);
+                        const vector = essentia.arrayToVector(frame);
+                        const frameWindowed = essentia.Windowing(vector, true, FRAME_SIZE).frame;
+                        const spectrum = essentia.Spectrum(frameWindowed).spectrum;
+                        const melBands = essentia.MelBands(spectrum, 22050, 1025, false, 0, 'unit_sum', 128).bands;
+                        vector.delete();
+                        frameWindowed.delete();
+                        spectrum.delete();
+                        melBands.delete();
                     }
                     break;
                 case "essentia":
                     const frames = essentia.FrameGenerator(audioBuffer.getChannelData(0), FRAME_SIZE, HOP_SIZE);
                     for (let i = 0; i < frames.size(); i++){
-                        let frame_windowed = essentia.Windowing(frames.get(i),true, FRAME_SIZE);
-                        essentia.MelBands(essentia.Spectrum(frame_windowed['frame'])['spectrum'], 22050, 1025, false, 0, 'unit_sum', 128);
+                        let frameWindowed = essentia.Windowing(frames.get(i),true, FRAME_SIZE).frame;
+                        const spectrum = essentia.Spectrum(frameWindowed).spectrum;
+                        const melBands = essentia.MelBands(spectrum, 22050, 1025, false, 0, 'unit_sum', 128).bands;
+                        frameWindowed.delete();
+                        spectrum.delete();
+                        melBands.delete();
                     }
+                    frames.delete();
                     break;
             }
         }, options)

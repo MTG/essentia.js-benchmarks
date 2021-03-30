@@ -54,16 +54,27 @@ export default function loudness(essentia, Meyda, audioURL, audioContext) {
                             audioBuffer.copyFromChannel(lastFrame, 0, HOP_SIZE*i);
                             frame = lastFrame;
                         }
-                        let frame_windowed = essentia.Windowing(essentia.arrayToVector(frame), true, FRAME_SIZE);
-                        essentia.BarkBands(essentia.Spectrum(frame_windowed['frame'])['spectrum'], 24);
+                        const vector = essentia.arrayToVector(frame);
+                        const frameWindowed = essentia.Windowing(vector, true, FRAME_SIZE).frame;
+                        const spectrum = essentia.Spectrum(frameWindowed).spectrum;
+                        const barkBands = essentia.BarkBands(spectrum, 24).bands;
+                        vector.delete();
+                        frameWindowed.delete();
+                        spectrum.delete();
+                        barkBands.delete();
                     }
                     break;
                 case "essentia":
                     const frames = essentia.FrameGenerator(audioBuffer.getChannelData(0), FRAME_SIZE, HOP_SIZE);
                     for (let i = 0; i < frames.size(); i++){
-                        let frame_windowed = essentia.Windowing(frames.get(i),true, FRAME_SIZE);
-                        essentia.BarkBands(essentia.Spectrum(frame_windowed['frame'])['spectrum'], 24);
+                        let frameWindowed = essentia.Windowing(frames.get(i),true, FRAME_SIZE).frame;
+                        const spectrum = essentia.Spectrum(frameWindowed).spectrum;
+                        const barkBands = essentia.BarkBands(spectrum, 24).bands;
+                        frameWindowed.delete();
+                        spectrum.delete();
+                        barkBands.delete();
                     }
+                    frames.delete();
                     break;
             }
         }, options)

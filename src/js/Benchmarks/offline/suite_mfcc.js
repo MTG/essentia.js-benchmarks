@@ -54,16 +54,31 @@ export default function mfcc(essentia, Meyda, audioURL, audioContext) {
                             audioBuffer.copyFromChannel(lastFrame, 0, HOP_SIZE*i);
                             frame = lastFrame;
                         }
-                        let frame_windowed = essentia.Windowing(essentia.arrayToVector(frame), true, FRAME_SIZE);
-                        essentia.MFCC(essentia.Spectrum(frame_windowed['frame'])['spectrum']);
+                        const vector = essentia.arrayToVector(frame);
+                        const frameWindowed = essentia.Windowing(vector, true, FRAME_SIZE).frame;
+                        const spectrum = essentia.Spectrum(frameWindowed).spectrum;
+                        const mfcc = essentia.MFCC(spectrum);
+                        vector.delete();
+                        frameWindowed.delete();
+                        spectrum.delete();
+                        mfcc.bands.delete();
+                        mfcc.mfcc.delete();
                     }
                     break;
                 case "essentia":
                     const frames = essentia.FrameGenerator(audioBuffer.getChannelData(0), FRAME_SIZE, HOP_SIZE);
                     for (let i = 0; i < frames.size(); i++){
-                        let frame_windowed = essentia.Windowing(frames.get(i),true, FRAME_SIZE);
-                        essentia.MFCC(essentia.Spectrum(frame_windowed['frame'])['spectrum']);
+                        const frameWindowed = essentia.Windowing(frames.get(i),true, FRAME_SIZE).frame;
+                        const spectrum = essentia.Spectrum(frameWindowed).spectrum;
+                        const mfcc = essentia.MFCC(spectrum);
+                        frameWindowed.delete();
+                        spectrum.delete();
+                        mfcc.bands.delete();
+                        mfcc.mfcc.delete();
+                        melBands.delete();
+
                     }
+                    frames.delete();
                     break;
             }
         }, options)

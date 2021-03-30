@@ -55,16 +55,23 @@ export default function power_spectrum(essentia, Meyda, audioURL, audioContext) 
                             audioBuffer.copyFromChannel(lastFrame, 0, HOP_SIZE*i);
                             frame = lastFrame;
                         }
-                        var frame_windowed = essentia.Windowing(essentia.arrayToVector(frame), true, FRAME_SIZE);
-                        essentia.PowerSpectrum(frame_windowed['frame']);
+                        const vector = essentia.arrayToVector(frame);
+                        const frameWindowed = essentia.Windowing(vector, true, FRAME_SIZE).frame;
+                        const powerSpectrum = essentia.PowerSpectrum(frameWindowed).powerSpectrum;
+                        vector.delete();
+                        frameWindowed.delete();
+                        powerSpectrum.delete();
                     }
                     break;
                 case "essentia":
                     const frames = essentia.FrameGenerator(audioBuffer.getChannelData(0), FRAME_SIZE, HOP_SIZE);
                     for (var i = 0; i < frames.size(); i++){
-                        const frame_windowed = essentia.Windowing(frames.get(i),true, FRAME_SIZE);
-                        essentia.PowerSpectrum(frame_windowed['frame']);
+                        const frameWindowed = essentia.Windowing(frames.get(i),true, FRAME_SIZE).frame;
+                        const powerSpectrum = essentia.PowerSpectrum(frameWindowed);
+                        frameWindowed.delete();
+                        powerSpectrum.delete();
                     }
+                    frames.delete();
                     break;
             }
         }, options)

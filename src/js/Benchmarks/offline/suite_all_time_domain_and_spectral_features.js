@@ -71,20 +71,32 @@ export default function all_time_freq(essentia, Meyda, audioURL, audioContext) {
                             audioBuffer.copyFromChannel(lastFrame, 0, HOP_SIZE*i);
                             frame = lastFrame;
                         }
-                        essentia.Energy(essentia.arrayToVector(frame));
-                        essentia.RMS(essentia.arrayToVector(frame));
-                        essentia.ZeroCrossingRate(essentia.arrayToVector(frame));
-                        let frame_windowed = essentia.Windowing(essentia.arrayToVector(frame),true, FRAME_SIZE)['frame'];
-                        let spectrum = essentia.Spectrum(frame_windowed)['spectrum'];
-                        essentia.PowerSpectrum(frame_windowed);
+                        const vector = essentia.arrayToVector(frame);
+                        const frameWindowed = essentia.Windowing(vector, true, FRAME_SIZE).frame;
+                        essentia.Energy(vector);
+                        essentia.RMS(vector);
+                        essentia.ZeroCrossingRate(vector);
+                        const spectrum = essentia.Spectrum(frameWindowed).spectrum;
+                        const powerSpectrum = essentia.PowerSpectrum(frameWindowed).powerSpectrum;
                         essentia.Centroid(spectrum);
                         essentia.Flatness(spectrum);
-                        // essentia.Flux(spectrum);
+                        essentia.Flux(spectrum);
                         essentia.RollOff(spectrum);
-                        essentia.DistributionShape(essentia.CentralMoments(spectrum)["centralMoments"]);
-                        essentia.MFCC(spectrum);
-                        let bands = essentia.BarkBands(spectrum, 24)['bands'];
+                        const centralMoments = essentia.CentralMoments(spec).centralMoments;
+                        essentia.DistributionShape(centralMoments);
+                        const mfcc = essentia.MFCC(spectrum);
+                        const melBands = essentia.MelBands(spectrum, 22050, 1025, false, 0, 'unit_sum', 128).bands;
+                        const barkBands = essentia.BarkBands(spectrum, 24).bands;
                         essentia.Variance(bands);
+                        vector.delete();
+                        frameWindowed.delete();
+                        spectrum.delete();
+                        powerSpectrum.delete();
+                        centralMoments.delete();
+                        mfcc.bands.delete();
+                        mfcc.mfcc.delete();
+                        melBands.delete();
+                        barkBands.delete();
                     }
                     break;
                 case "essentia":
@@ -93,18 +105,29 @@ export default function all_time_freq(essentia, Meyda, audioURL, audioContext) {
                         essentia.Energy(frames.get(i));
                         essentia.RMS(frames.get(i));
                         essentia.ZeroCrossingRate(frames.get(i));
-                        let frame_windowed = essentia.Windowing(frames.get(i),true, FRAME_SIZE)['frame'];
-                        let spectrum = essentia.Spectrum(frame_windowed)['spectrum'];
-                        essentia.PowerSpectrum(frame_windowed);
+                        const frameWindowed = essentia.Windowing(frames.get(i),true, FRAME_SIZE)['frame'];
+                        const spectrum = essentia.Spectrum(frameWindowed).spectrum;
+                        const powerSpectrum = essentia.PowerSpectrum(frameWindowed).powerSpectrum;
                         essentia.Centroid(spectrum);
                         essentia.Flatness(spectrum);
-                        // essentia.Flux(spectrum);
+                        essentia.Flux(spectrum);
                         essentia.RollOff(spectrum);
-                        essentia.DistributionShape(essentia.CentralMoments(spectrum)["centralMoments"]);
-                        essentia.MFCC(spectrum);
-                        let bands = essentia.BarkBands(spectrum, 24)['bands'];
-                        essentia.Variance(bands);
+                        const centralMoments = essentia.CentralMoments(spectrum).centralMoments;
+                        essentia.DistributionShape(centralMoments);
+                        const mfcc = essentia.MFCC(spectrum);
+                        const melBands = essentia.MelBands(spectrum, 22050, 1025, false, 0, 'unit_sum', 128).bands;
+                        const barkBands = essentia.BarkBands(spectrum, 24).bands;
+                        essentia.Variance(barkBands);
+                        frameWindowed.delete();
+                        spectrum.delete();
+                        powerSpectrum.delete();
+                        centralMoments.delete();
+                        mfcc.bands.delete();
+                        mfcc.mfcc.delete();
+                        melBands.delete();
+                        barkBands.delete();
                     }
+                    frames.delete();
                     break;
             }
         }, options)

@@ -54,16 +54,25 @@ export default function spectralFlux(essentia, Meyda, audioURL, audioContext) {
                             audioBuffer.copyFromChannel(lastFrame, 0, HOP_SIZE*i);
                             frame = lastFrame;
                         }
-                        let frame_windowed = essentia.Windowing(essentia.arrayToVector(frame), true, FRAME_SIZE);
-                        essentia.Flux(essentia.Spectrum(frame_windowed['frame'])['spectrum']);
+                        const vector = essentia.arrayToVector(frame);
+                        const frameWindowed = essentia.Windowing(vector, true, FRAME_SIZE).frame;
+                        const spectrum = essentia.Spectrum(frameWindowed).spectrum;
+                        essentia.Flux(spectrum);
+                        vector.delete();
+                        frameWindowed.delete();
+                        spectrum.delete();
                     }
                     break;
                 case "essentia":
                     const frames = essentia.FrameGenerator(audioBuffer.getChannelData(0), FRAME_SIZE, HOP_SIZE);
                     for (let i = 0; i < frames.size(); i++){
-                        let frame_windowed = essentia.Windowing(frames.get(i),true, FRAME_SIZE);
-                        essentia.Flux(essentia.Spectrum(frame_windowed['frame'])['spectrum']);
+                        let frameWindowed = essentia.Windowing(frames.get(i),true, FRAME_SIZE).frame;
+                        const spectrum = essentia.Spectrum(frameWindowed).spectrum;
+                        essentia.Flux(spectrum);
+                        frameWindowed.delete();
+                        spectrum.delete();
                     }
+                    frames.delete();
                     break;
             }
         }, options)

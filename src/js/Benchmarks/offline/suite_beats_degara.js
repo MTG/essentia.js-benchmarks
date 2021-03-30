@@ -30,7 +30,12 @@ export default function beats_degara(essentia, Meyda, audioURL, audioContext) {
 
         // add tests
         suite.add('Essentia#BEATS_DEGARA', () => {
-            essentia.RhythmExtractor2013(essentia.arrayToVector(audioBuffer.getChannelData(0)), 208, 'beats_degara');
+            const audioData = essentia.arrayToVector(audioBuffer.getChannelData(0));
+            essentia.RhythmExtractor2013(audioData, 208, 'beats_degara');
+            audioData.delete();
+            rhythm.ticks.delete();
+            rhythm.estimates.delete();
+            rhythm.bpmIntervals.delete();
         }, options)
         // add listeners
         .on('cycle', function(event) {

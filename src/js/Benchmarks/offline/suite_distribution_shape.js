@@ -53,16 +53,29 @@ export default function distribution_shape(essentia, Meyda, audioURL, audioConte
                             audioBuffer.copyFromChannel(lastFrame, 0, HOP_SIZE*i);
                             frame = lastFrame;
                         }
-                        let frame_windowed = essentia.Windowing(essentia.arrayToVector(frame), true, FRAME_SIZE);
-                        essentia.DistributionShape(essentia.CentralMoments(essentia.Spectrum(frame_windowed['frame'])['spectrum'])["centralMoments"]);
+                        const vector = essentia.arrayToVector(frame);
+                        const frame_windowed = essentia.Windowing(vector, true, FRAME_SIZE).frame;
+                        const spec = essentia.Spectrum(frame_windowed).spectrum;
+                        const centralMoments = essentia.CentralMoments(spec).centralMoments;
+                        essentia.DistributionShape(centralMoments);
+                        vector.delete();
+                        frame_windowed.delete();
+                        spec.delete();
+                        centralMoments.delete();
                     }
                     break;
                 case "essentia":
                     const frames = essentia.FrameGenerator(audioBuffer.getChannelData(0), FRAME_SIZE, HOP_SIZE);
                     for (let i = 0; i < frames.size(); i++){
-                        let frame_windowed = essentia.Windowing(frames.get(i),true, FRAME_SIZE);
-                        essentia.DistributionShape(essentia.CentralMoments(essentia.Spectrum(frame_windowed['frame'])['spectrum'])["centralMoments"]);
+                        const frame_windowed = essentia.Windowing(frames.get(i),true, FRAME_SIZE).frame;
+                        const spec = essentia.Spectrum(frame_windowed).spectrum;
+                        const centralMoments = essentia.CentralMoments(spec).centralMoments;
+                        essentia.DistributionShape(centralMoments);
+                        frame_windowed.delete();
+                        spec.delete();
+                        centralMoments.delete();
                     }
+                    frames.delete();
                     break;
             }
         }, options)

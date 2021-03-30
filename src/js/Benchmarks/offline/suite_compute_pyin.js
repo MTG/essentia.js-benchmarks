@@ -29,7 +29,11 @@ export default function pyin(essentia, Meyda, audioURL, audioContext) {
         const suite = new Benchmark.Suite('PYIN');
         // add tests
         suite.add('Essentia#PYIN', () => {
-            essentia.PitchYinProbabilistic(essentia.arrayToVector(audioBuffer.getChannelData(0)));
+            const audioData = essentia.arrayToVector(audioBuffer.getChannelData(0));
+            const pyin = essentia.PitchYinProbabilistic(audioData);
+            audioData.delete();
+            pyin.pitch.delete();
+            pyin.voicedProbabilities.delete();
         }, options)
         // add listeners
         .on('cycle', function(event) {

@@ -30,7 +30,9 @@ export default function key(essentia, Meyda, audioURL, audioContext) {
 
         // add tests
         suite.add('Essentia#KEY', () => {
-            essentia.KeyExtractor(essentia.arrayToVector(audioBuffer.getChannelData(0)));
+            const audioData = essentia.arrayToVector(audioBuffer.getChannelData(0));
+            essentia.KeyExtractor(audioData);
+            audioData.delete();
         }, options)
         // add listeners
         .on('cycle', function(event) {

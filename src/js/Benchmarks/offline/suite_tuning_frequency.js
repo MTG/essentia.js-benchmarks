@@ -30,7 +30,10 @@ export default function tuning_frequency(essentia, Meyda, audioURL, audioContext
 
         // add tests
         suite.add('Essentia#TUNINGFREQ', () => {
-            essentia.TuningFrequencyExtractor(essentia.arrayToVector(audioBuffer.getChannelData(0)));
+            const audioData = essentia.arrayToVector(audioBuffer.getChannelData(0));
+            const tuningFrequency = essentia.TuningFrequencyExtractor(audioData).tuningFrequency;
+            audioData.delete();
+            tuningFrequency.delete();
         }, options)
         // add listeners
         .on('cycle', function(event) {

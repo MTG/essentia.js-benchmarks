@@ -63,6 +63,7 @@ export default function zcr(essentia, Meyda, audioURL, audioContext) {
                     for (var i = 0; i < frames.size(); i++){
                         essentia.ZeroCrossingRate(frames.get(i));
                     }
+                    frames.delete();
                     break;
             }
         }, options)

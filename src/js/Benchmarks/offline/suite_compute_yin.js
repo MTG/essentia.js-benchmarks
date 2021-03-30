@@ -38,7 +38,9 @@ export default function yin(essentia, Meyda, audioURL, audioContext) {
                             audioBuffer.copyFromChannel(lastFrame, 0, HOP_SIZE*i);
                             frame = lastFrame;
                         }
+                        const vector = essentia.arrayToVector(frame);
                         essentia.PitchYin(essentia.arrayToVector(frame));
+                        vector.delete();
                     }
                     break;
                 case "essentia":
@@ -46,6 +48,7 @@ export default function yin(essentia, Meyda, audioURL, audioContext) {
                     for (var i = 0; i < frames.size(); i++){
                         essentia.PitchYin(frames.get(i));
                     }
+                    frames.delete();
                     break;
             }
         }, options)

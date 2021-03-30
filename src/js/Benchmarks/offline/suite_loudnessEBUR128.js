@@ -30,13 +30,15 @@ export default function ebur128(essentia, Meyda, audioURL, audioContext) {
 
         // add tests
         suite.add('Essentia#EBUR128', () => {
-            console.log([essentia.arrayToVector(audioBuffer.getChannelData(0)),essentia.arrayToVector(audioBuffer.getChannelData(1))]);
-            console.log('v');
-            var v = new Array();
-            console.log(essentia.arrayToVector(v));
-        // [essentia.arrayToVector(audioBuffer.getChannelData(0)),essentia.arrayToVector(audioBuffer.getChannelData(1))]
-
-            essentia.LoudnessEBUR128(essentia.arrayToVector([essentia.arrayToVector(audioBuffer.getChannelData(0)),essentia.arrayToVector(audioBuffer.getChannelData(1))]));
+            const audioDataL = essentia.arrayToVector(audioBuffer.getChannelData(0));
+            const audioDataR = essentia.arrayToVector(audioBuffer.getChannelData(1));
+            const audioVector = essentia.arrayToVector(audioDataL, audioDataR);
+            const loudness = essentia.LoudnessEBUR128(audioVector);
+            audioDataL.delete();
+            audioDataR.delete();
+            audioVector.delete();
+            loudness.momentaryLoudness.delete();
+            loudness.shortTermLoudness.delete();
         }, options)
         // add listeners
         .on('cycle', function(event) {

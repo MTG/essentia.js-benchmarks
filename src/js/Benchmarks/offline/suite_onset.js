@@ -30,7 +30,10 @@ export default function onset(essentia, Meyda, audioURL, audioContext) {
 
         // add tests
         suite.add('Essentia#ONSET', () => {
-            essentia.OnsetRate(essentia.arrayToVector(audioBuffer.getChannelData(0)));
+            const audioData = essentia.arrayToVector(audioBuffer.getChannelData(0));
+            const onsets = essentia.OnsetRate(audioData).onsets;
+            audioData.delete();
+            onsets.delete();
         }, options)
         // add listeners
         .on('cycle', function(event) {

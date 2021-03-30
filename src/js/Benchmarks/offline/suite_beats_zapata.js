@@ -30,7 +30,12 @@ export default function beats_zapata(essentia, Meyda, audioURL, audioContext) {
 
         // add tests
         suite.add('Essentia#BEATS_ZAPATA', () => {
-            essentia.RhythmExtractor2013(essentia.arrayToVector(audioBuffer.getChannelData(0)));
+            const audioData = essentia.arrayToVector(audioBuffer.getChannelData(0));
+            const rhythm = essentia.RhythmExtractor2013(audioData);
+            audioData.delete();
+            rhythm.ticks.delete();
+            rhythm.estimates.delete();
+            rhythm.bpmIntervals.delete();
         }, options)
         // add listeners
         .on('cycle', function(event) {

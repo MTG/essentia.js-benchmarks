@@ -63,6 +63,7 @@ export default function rms(essentia, Meyda, audioURL, audioContext) {
                     for (var i = 0; i < frames.size(); i++){
                         essentia.RMS(frames.get(i));
                     }
+                    frames.delete();
                     break;
             }
         },options)

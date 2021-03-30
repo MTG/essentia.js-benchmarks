@@ -30,7 +30,10 @@ export default function key(essentia, Meyda, audioURL, audioContext) {
 
         // add tests
         suite.add('Essentia#SUPERFLUX', () => {
-            essentia.SuperFluxExtractor(essentia.arrayToVector(audioBuffer.getChannelData(0)));
+            const audioData = essentia.arrayToVector(audioBuffer.getChannelData(0));
+            const onsets = essentia.SuperFluxExtractor(audioData).onsets;
+            audioData.delete();
+            onsets.delete();
         }, options)
         // add listeners
         .on('cycle', function(event) {
