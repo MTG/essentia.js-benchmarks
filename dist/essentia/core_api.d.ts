@@ -1,4 +1,5 @@
-/*
+/**
+ * @license
  * Copyright (C) 2006-2020  Music Technology Group - Universitat Pompeu Fabra
  *
  * This file is part of Essentia
@@ -17,15 +18,10 @@
  * version 3 along with this program.  If not, see http://www.gnu.org/licenses/
  */
 /**
- * @fileOverview Essentia high-level core interface
- * @author <a href="mailto:albin.correya@upf.edu">Albin Correya</a>
- * @version 0.0.9
- */
-/**
  * essentia.js-core JS API
  * @class
  * @example
- * const essentia = new Essentia(EssentiaModule)
+ * const essentia = new Essentia(EssentiaWASM);
  */
 declare class Essentia {
     EssentiaWASM: any;
@@ -46,7 +42,17 @@ declare class Essentia {
     */
     constructor(EssentiaWASM: any, isDebug?: boolean);
     /**
-     * Decode and returns the audio channel data from an given audio url or blob uri using Web Audio API. (NOTE: only works on modern web-browsers)
+     * Decode and returns the audio buffer of a given audio url or blob uri using Web Audio API. (NOTE: This doesn't work on Safari browser)
+     * @async
+     * @method
+     * @param {string} audioURL web url or blob uri of a audio file
+     * @param {AudioContext} webAudioCtx an instance of Web Audio API `AudioContext`
+     * @returns {AudioBuffer} decoded audio buffer object
+     * @memberof Essentia
+     */
+    getAudioBufferFromURL(audioURL: string, webAudioCtx: AudioContext): Promise<AudioBuffer>;
+    /**
+     * Decode and returns the audio channel data from an given audio url or blob uri using Web Audio API. (NOTE: This doesn't work on Safari browser)
      * @async
      * @method
      * @param {string} audioURL web url or blob uri of a audio file
@@ -69,6 +75,12 @@ declare class Essentia {
      */
     reinstantiate(): void;
     /**
+     * Delete essentiajs class instance
+     * @method
+     * @memberof Essentia
+     */
+    delete(): void;
+    /**
      * Convert an input JS array into VectorFloat type
      * @method
      * @param {Float32Array} inputArray input JS typed array
@@ -83,7 +95,17 @@ declare class Essentia {
      * @returns {Float32Array} returns converted JS typed array
      * @memberof Essentia
      */
-    vectorToArray(inputVector: any): any;
+    vectorToArray(inputVector: any): Float32Array;
+    /**
+     * Generates overlapping frames (chunks) of array with given frame size and hop size from an input array.
+     * @method
+     * @param {string} inputArray web url or blob uri of a audio file
+     * @param {number} frameSize frame size for generating frames (chunks) of input array
+     * @param {number} hopSize hop size required for overlap while generating the frames.
+     * @returns {Array<Float32Array>} generated frames as array of array of Float32 type.
+     * @memberof EssentiaTensorflowInputExtractor
+     */
+    FrameGeneratorArray(inputArray: any[], frameSize: number, hopSize: number): any[];
     /**
      * Cuts an audio signal data into overlapping frames given frame size and hop size
      * @method
@@ -2418,6 +2440,22 @@ declare class Essentia {
     * @memberof Essentia
     */
     TempoTapTicks(periods: any, phases: any, frameHop?: number, hopSize?: number, sampleRate?: number): any;
+    /**
+    * This algorithm computes mel-bands with a particular parametrization specific to MusiCNN based models. Check https://essentia.upf.edu/reference/std_TensorflowInputMusiCNN.html for more details.
+    * @method
+    * @param {VectorFloat} frame the audio frame
+    * @returns {object} {bands: 'the log compressed mel bands'}
+    * @memberof Essentia
+    */
+    TensorflowInputMusiCNN(frame: any): any;
+    /**
+    * This algorithm computes mel-bands with a particular parametrization specific to VGGish based models. Check https://essentia.upf.edu/reference/std_TensorflowInputVGGish.html for more details.
+    * @method
+    * @param {VectorFloat} frame the audio frame
+    * @returns {object} {bands: 'the log compressed mel bands'}
+    * @memberof Essentia
+    */
+    TensorflowInputVGGish(frame: any): any;
     /**
     * This algorithm computes tonal features for an audio signal Check https://essentia.upf.edu/reference/std_TonalExtractor.html for more details.
     * @method

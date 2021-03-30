@@ -28,12 +28,14 @@ import pyin from './Benchmarks/offline/suite_compute_pyin';
 import yin from './Benchmarks/offline/suite_compute_yin';
 import yin_fft from './Benchmarks/offline/suite_compute_yin_fft';
 
-import generateBencharkSet from './utils/generateBencharkSet';
+import autotagging_musicnn from './Benchmarks/offline/suite_autotagging_musicnn';
+
+import generateBenchmarkSet from './utils/generateBenchmarkSet';
 
 // Import CSS
 import "../../src/css/styles.css";
 
-generateBencharkSet();
+generateBenchmarkSet();
 
 // DOM ELEMENTS
 const EnergyButton = document.querySelector('#energy #start_offline');
@@ -62,6 +64,10 @@ const Ebur128Button = document.querySelector('#ebur128 #start_offline');
 const PYINButton = document.querySelector('#pyin #start_offline');
 const YINButton = document.querySelector('#yin #start_offline');
 const YINFFTButton = document.querySelector('#yin_fft #start_offline');
+
+// addition: essentia tensorflow models
+const AutotaggingMusiCNNButton = document.querySelector('#autotagging-musicnn #start_offline');
+
 const Button5s = document.querySelector('.button#audio5s');
 const Button10s = document.querySelector('.button#audio10s');
 const Button20s = document.querySelector('.button#audio20s');
@@ -71,12 +77,14 @@ const FrameMode = document.querySelector('#frameMode');
 
 //Custom Variables
 let essentia;
+let essentiaWasm;
 loadEssentia();
 
 window.downloadResults = false;
 window.frameMode = 'vanilla';
 window.audioURL = 'https://sonosuite-benchmark-audios.s3.amazonaws.com/mozart_c_major_30sec.wav';
 Button30s.classList.add("is-active");
+window.modelsBaseURL = '/models';
 
 // var AudioContext = window.AudioContext // Default
 // || window.webkitAudioContext // Safari and old versions of Chrome
@@ -122,6 +130,10 @@ Ebur128Button.addEventListener('click', () => ebur128(essentia, Meyda, audioURL,
 PYINButton.addEventListener('click', () => pyin(essentia, Meyda, audioURL, ctx));
 YINButton.addEventListener('click', () => yin(essentia, Meyda, audioURL, ctx));
 YINFFTButton.addEventListener('click', () => yin_fft(essentia, Meyda, audioURL, ctx));
+
+// models button event handlers
+AutotaggingMusiCNNButton.addEventListener('click', () => autotagging_musicnn(essentiaWasm, audioURL, ctx));
+
 Button5s.addEventListener('click', (e) => selectAudio(e));
 Button10s.addEventListener('click', (e) => selectAudio(e));
 Button20s.addEventListener('click', (e) => selectAudio(e));
@@ -160,6 +172,7 @@ function manageFrameMode(e) {
 
 function loadEssentia() {
     EssentiaWASM().then((EssentiaWasmModule) => {
+        essentiaWasm = EssentiaWasmModule;
         essentia = new Essentia(EssentiaWasmModule);
     });
 }

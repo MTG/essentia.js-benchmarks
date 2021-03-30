@@ -14,8 +14,8 @@
                     title: "Zero Crossing Rate",
                     id : "zcr"
                 }
-            ]
-
+            ],
+            category: "main"
         },
         {
             title: "Spectral Features", 
@@ -64,7 +64,8 @@
                     title: "Perceptual Spread",
                     id: "perceptual_spread"
                 }
-            ]
+            ],
+            category: "main"
         },
         {
             title: "All time domain and Spectral features (Above)",
@@ -73,7 +74,8 @@
                     title: "All Time and Spectral",
                     id: "all_time_freq"
                 }
-            ]
+            ],
+            category: "main"
         },
         {
             title: "Tonal Features",
@@ -90,7 +92,8 @@
                     title: "Tuning Frequency Extractor",
                     id: "tuning_frequency"
                 }
-            ]
+            ],
+            category: "main"
         },
         {
             title: "Rhythm",
@@ -111,8 +114,8 @@
                     title: "Beats Degara Extractor",
                     id: "beats_degara"
                 }
-            ]
-
+            ],
+            category: "main"
         },
         {
             title: "Loudness",
@@ -133,7 +136,32 @@
                     title: "Compute Pitch YIN (fft)",
                     id: "yin_fft"
                 }
-            ]
+            ],
+            category: "main"
+        },
+        {
+            title: "Essentia Tensorflow Feature Extraction",
+            childs: [
+                {
+                    title: "TensorflowInputMusiCNN",
+                    id: "tensorflow-input-musicnn"
+                },
+                {
+                    title: "TensorflowInputVGGish",
+                    id: "tensorflow-input-vggish"
+                }
+            ],
+            category: "tensorflow_feature_extraction"
+        },
+        {
+            title: "Essentia Tensorflow Models",
+            childs: [
+                {
+                    title: "Autotagging MusiCNN",
+                    id: "autotagging-musicnn"
+                }
+            ],
+            category: "tensorflow_models"
         }
     ];
 

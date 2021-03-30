@@ -30,3 +30,8 @@ header .button{
 .control * {
     margin: 0px 10px 0px 10px;
 }
+
+
+.notification:last-child {
+    margin-bottom: 2rem;
+}
