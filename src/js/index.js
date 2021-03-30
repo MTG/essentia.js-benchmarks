@@ -82,7 +82,7 @@ loadEssentia();
 
 window.downloadResults = false;
 window.frameMode = 'vanilla';
-window.audioURL = 'https://sonosuite-benchmark-audios.s3.amazonaws.com/mozart_c_major_30sec.wav';
+window.audioURL = '../../audio/mozart_c_major_10sec.wav';
 Button30s.classList.add("is-active");
 window.modelsBaseURL = '/models';
 
@@ -141,6 +141,11 @@ Button30s.addEventListener('click', (e) => selectAudio(e));
 DownloadResults.addEventListener('change', (e) => manageResults(e));
 FrameMode.addEventListener('change', (e) => manageFrameMode(e));
 
+// default FrameCutter
+FrameMode.checked = true;
+var event = new Event('change');
+FrameMode.dispatchEvent(event);
+
 function selectAudio(e, audioURL) {
     const buttonsAudio = document.getElementsByClassName("audioButton");
     [].forEach.call(buttonsAudio, (item)=>{item.classList.remove("is-active")});
@@ -167,7 +172,7 @@ function manageResults(e){
 }
 
 function manageFrameMode(e) {
-    window.frameMode = e.target.value === "on" ? "essentia" : "vanilla";
+    window.frameMode = e.target.checked === true ? "essentia" : "vanilla";
 }
 
 function loadEssentia() {
