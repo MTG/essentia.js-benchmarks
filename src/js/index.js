@@ -84,7 +84,7 @@ window.downloadResults = false;
 window.frameMode = 'vanilla';
 window.audioURL = 'https://sonosuite-benchmark-audios.s3.amazonaws.com/mozart_c_major_30sec.wav';
 Button30s.classList.add("is-active");
-window.modelsBaseURL = '/models';
+window.modelsBaseURL = window.location.href + '/models';
 
 // var AudioContext = window.AudioContext // Default
 // || window.webkitAudioContext // Safari and old versions of Chrome
