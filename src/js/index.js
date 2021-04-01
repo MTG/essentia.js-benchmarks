@@ -141,11 +141,6 @@ Button30s.addEventListener('click', (e) => selectAudio(e));
 DownloadResults.addEventListener('change', (e) => manageResults(e));
 FrameMode.addEventListener('change', (e) => manageFrameMode(e));
 
-// default FrameCutter
-FrameMode.checked = true;
-var event = new Event('change');
-FrameMode.dispatchEvent(event);
-
 function selectAudio(e, audioURL) {
     const buttonsAudio = document.getElementsByClassName("audioButton");
     [].forEach.call(buttonsAudio, (item)=>{item.classList.remove("is-active")});
@@ -167,8 +162,16 @@ function selectAudio(e, audioURL) {
     }
 }
 
+var event = new Event('change');
+//default download Json
+DownloadResults.checked = true;
+DownloadResults.dispatchEvent(event);
+// default FrameCutter
+FrameMode.checked = true;
+FrameMode.dispatchEvent(event);
+
 function manageResults(e){
-    window.downloadResults = e.target.value === "on";
+    window.downloadResults = e.target.checked === true;
 }
 
 function manageFrameMode(e) {
