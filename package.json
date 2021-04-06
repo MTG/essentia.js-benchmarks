@@ -31,6 +31,7 @@
     "meyda": "^4.3.1",
     "standardized-audio-context": "^24.1.26",
     "style-loader": "^1.2.1",
-    "webpack-dev-server": "^3.11.0"
+    "webpack-dev-server": "^3.11.0",
+    "node-wav": "^0.0.2"
   }
 }
