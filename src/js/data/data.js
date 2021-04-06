@@ -81,7 +81,7 @@
             title: "Tonal Features",
             childs: [
                 {
-                    title: "HCPC (Chroma)",
+                    title: "HPCP (Chroma)",
                     id: "hpcp"
                 },
                 {
