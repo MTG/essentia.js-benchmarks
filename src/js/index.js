@@ -28,7 +28,15 @@ import pyin from './Benchmarks/offline/suite_compute_pyin';
 import yin from './Benchmarks/offline/suite_compute_yin';
 import yin_fft from './Benchmarks/offline/suite_compute_yin_fft';
 
+import tensorflow_input_musicnn from './Benchmarks/offline/suite_tensorflow_input_musicnn';
+import tensorflow_input_vggish from './Benchmarks/offline/suite_tensorflow_input_vggish'; 
+
 import autotagging_musicnn from './Benchmarks/offline/suite_autotagging_musicnn';
+import autotagging_vgg from './Benchmarks/offline/suite_autotagging_vgg';
+import genre_rosamerica_musicnn from './Benchmarks/offline/suite_genre_rosamerica_musicnn';
+import genre_rosamerica_vggish from './Benchmarks/offline/suite_genre_rosamerica_vggish';
+import mood_happy_musicnn from './Benchmarks/offline/suite_mood_happy_musicnn';
+import mood_happy_vggish from './Benchmarks/offline/suite_mood_happy_vggish';
 
 import generateBenchmarkSet from './utils/generateBenchmarkSet';
 
@@ -66,7 +74,14 @@ const YINButton = document.querySelector('#yin #start_offline');
 const YINFFTButton = document.querySelector('#yin_fft #start_offline');
 
 // addition: essentia tensorflow models
+const TensorflowInputMusiCNNButton = document.querySelector('#tensorflow-input-musicnn #start_offline');
+const TensorflowInputVGGishButton = document.querySelector('#tensorflow-input-musicnn #start_offline');
 const AutotaggingMusiCNNButton = document.querySelector('#autotagging-musicnn #start_offline');
+const AutotaggingVGGButton = document.querySelector('#autotagging-vgg #start_offline');
+const GenreRosamericaMusiCNNButton = document.querySelector('#genre-rosamerica-musicnn #start_offline');
+const GenreRosamericaVGGishButton = document.querySelector('#genre-rosamerica-vggish #start_offline');
+const MoodHappyMusiCNNButton = document.querySelector('#mood-happy-musicnn #start_offline');
+const MoodHappyVGGishButton = document.querySelector('#mood-happy-vggish #start_offline');
 
 const Button5s = document.querySelector('.button#audio5s');
 const Button10s = document.querySelector('.button#audio10s');
@@ -132,7 +147,15 @@ YINButton.addEventListener('click', () => yin(essentia, Meyda, audioURL, ctx));
 YINFFTButton.addEventListener('click', () => yin_fft(essentia, Meyda, audioURL, ctx));
 
 // models button event handlers
+TensorflowInputMusiCNNButton.addEventListener('click', () => tensorflow_input_musicnn(essentiaWasm, audioURL, ctx));
+TensorflowInputVGGishButton.addEventListener('click', () => tensorflow_input_vggish(essentiaWasm, audioURL, ctx));
 AutotaggingMusiCNNButton.addEventListener('click', () => autotagging_musicnn(essentiaWasm, audioURL, ctx));
+AutotaggingVGGButton.addEventListener('click', () => autotagging_vgg(essentiaWasm, audioURL, ctx));
+GenreRosamericaMusiCNNButton.addEventListener('click', () => genre_rosamerica_musicnn(essentiaWasm, audioURL, ctx));
+GenreRosamericaVGGishButton.addEventListener('click', () => genre_rosamerica_vggish(essentiaWasm, audioURL, ctx));
+MoodHappyMusiCNNButton.addEventListener('click', () => mood_happy_musicnn(essentiaWasm, audioURL, ctx));
+MoodHappyVGGishButton.addEventListener('click', () => mood_happy_vggish(essentiaWasm, audioURL, ctx));
+
 
 Button5s.addEventListener('click', (e) => selectAudio(e));
 Button10s.addEventListener('click', (e) => selectAudio(e));

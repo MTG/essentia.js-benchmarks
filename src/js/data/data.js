@@ -159,6 +159,26 @@
                 {
                     title: "Autotagging MusiCNN",
                     id: "autotagging-musicnn"
+                },
+                {
+                    title: "Autotagging VGG",
+                    id: "autotagging-vgg"
+                },
+                {
+                    title: "Genre Rosamerica MusiCNN (dataset: MSD)",
+                    id: "genre-rosamerica-musicnn"
+                },
+                {
+                    title: "Genre Rosamerica VGGish (dataset: Audioset)",
+                    id: "genre-rosamerica-vggish"
+                },
+                {
+                    title: "Mood Happy MusiCNN (dataset: MSD)",
+                    id: "mood-happy-musicnn"
+                },
+                {
+                    title: "Mood Happy VGGish (dataset: Audioset)",
+                    id: "mood-happy-vggish"
                 }
             ],
             category: "tensorflow_models"
