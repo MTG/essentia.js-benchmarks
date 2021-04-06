@@ -75,8 +75,6 @@ export default function mfcc(essentia, Meyda, audioURL, audioContext) {
                         spectrum.delete();
                         mfcc.bands.delete();
                         mfcc.mfcc.delete();
-                        melBands.delete();
-
                     }
                     frames.delete();
                     break;

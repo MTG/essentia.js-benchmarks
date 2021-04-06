@@ -49,7 +49,7 @@ export default function yin_fft(essentia, Meyda, audioURL, audioContext) {
                     }
                     break;
                 case "essentia":
-                    const frames = essentia.FrameGenerator(audioBuffer.getChannelData(0), FRAME_SIZE, HOP_SIZE);
+                    const frames = essentia.FrameGenerator(audioBuffer, FRAME_SIZE, HOP_SIZE);
                     for (var i = 0; i < frames.size(); i++){
                         const frameWindowed = essentia.Windowing(frames.get(i),true, FRAME_SIZE).frame;
                         const spectrum = essentia.Spectrum(frameWindowed).spectrum;
@@ -57,6 +57,7 @@ export default function yin_fft(essentia, Meyda, audioURL, audioContext) {
                         frameWindowed.delete();
                         spectrum.delete();
                     }
+                    frames.delete();
                     break;
             }
         }, options)

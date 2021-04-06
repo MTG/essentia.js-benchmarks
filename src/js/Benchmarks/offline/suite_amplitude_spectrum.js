@@ -66,7 +66,7 @@ export default function amplitude_spectrum(essentia, Meyda, audioURL, audioConte
                     const frames = essentia.FrameGenerator(audioBuffer.getChannelData(0), FRAME_SIZE, HOP_SIZE);
                     for (let i = 0; i < frames.size(); i++){
                         let frameWindowed = essentia.Windowing(frames.get(i), true, FRAME_SIZE).frame;
-                        const spectrum = essentia.Spectrum(frameWindowed['frame']);
+                        const spectrum = essentia.Spectrum(frameWindowed).spectrum;
                         frameWindowed.delete();
                         spectrum.delete();
                     }

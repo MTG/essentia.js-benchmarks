@@ -67,7 +67,7 @@ export default function power_spectrum(essentia, Meyda, audioURL, audioContext) 
                     const frames = essentia.FrameGenerator(audioBuffer.getChannelData(0), FRAME_SIZE, HOP_SIZE);
                     for (var i = 0; i < frames.size(); i++){
                         const frameWindowed = essentia.Windowing(frames.get(i),true, FRAME_SIZE).frame;
-                        const powerSpectrum = essentia.PowerSpectrum(frameWindowed);
+                        const powerSpectrum = essentia.PowerSpectrum(frameWindowed).powerSpectrum;
                         frameWindowed.delete();
                         powerSpectrum.delete();
                     }

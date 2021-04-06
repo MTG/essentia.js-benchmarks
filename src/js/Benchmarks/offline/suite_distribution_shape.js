@@ -67,12 +67,12 @@ export default function distribution_shape(essentia, Meyda, audioURL, audioConte
                 case "essentia":
                     const frames = essentia.FrameGenerator(audioBuffer.getChannelData(0), FRAME_SIZE, HOP_SIZE);
                     for (let i = 0; i < frames.size(); i++){
-                        const frame_windowed = essentia.Windowing(frames.get(i),true, FRAME_SIZE).frame;
-                        const spec = essentia.Spectrum(frame_windowed).spectrum;
-                        const centralMoments = essentia.CentralMoments(spec).centralMoments;
+                        const frameWindowed = essentia.Windowing(frames.get(i),true, FRAME_SIZE).frame;
+                        const spectrum = essentia.Spectrum(frameWindowed).spectrum;
+                        const centralMoments = essentia.CentralMoments(spectrum).centralMoments;
                         essentia.DistributionShape(centralMoments);
-                        frame_windowed.delete();
-                        spec.delete();
+                        frameWindowed.delete();
+                        spectrum.delete();
                         centralMoments.delete();
                     }
                     frames.delete();
