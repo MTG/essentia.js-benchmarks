@@ -6,13 +6,14 @@ import Benchmark from 'benchmark'
 import Essentia from '../../dist/essentia/essentia.js-core.es.js';
 // import essentia-wasm backend
 import { EssentiaWASM } from '../../dist/essentia/essentia-wasm.module.js';
+import wav from "node-wav";
 
 let essentia = new Essentia(EssentiaWASM);
 const __dirname = path.resolve();
 
 const FRAME_SIZE = 2048;
 const HOP_SIZE = 1024;
-const audioFilePath = path.join(__dirname, '..', '..','audio', 'mozart_c_major_5sec.wav');
+const audioFilePath = path.join(__dirname, '..', '..','audio', 'mozart_c_major_30sec.wav');
 var options = {};
 if (process.argv[2] !== undefined){
     options = {
@@ -26,26 +27,41 @@ if (process.argv[2] !== undefined){
 fs.readFile(audioFilePath, (err, data) => {
     if (err) throw err;
     let audioBuffer = data;
+    let result = wav.decode(audioBuffer);
+    const leftChannelData = result.channelData[0];
     const suite = new Benchmark.Suite('MELBANDS');
 
     // add tests
     suite
     // .add('Meyda#MelBands', () => {
-    //     for (let i = 0; i < audioBuffer.length/HOP_SIZE; i++) {
-    //         Meyda.bufferSize = FRAME_SIZE;
-    //         let frame = audioBuffer.slice(HOP_SIZE*i, HOP_SIZE*i + FRAME_SIZE);
-    //         if (frame.length !== FRAME_SIZE) {
-    //             frame = Buffer.concat([frame], FRAME_SIZE);
-    //         }
+    //         for (let i = 0; i < leftChannelData.length/HOP_SIZE; i++) {
+    //             Meyda.bufferSize = FRAME_SIZE;
+    //             let frame = new Float32Array();
+    //             frame = leftChannelData.slice(HOP_SIZE*i, HOP_SIZE*i + FRAME_SIZE);
+    //             if(frame.length !== FRAME_SIZE){
+    //                 let bufferFrame = Buffer.from(frame);
+    //                 frame = new Float32Array(Buffer.concat([bufferFrame], FRAME_SIZE));
+    //
+    //             }
     //         Meyda.extract([''], frame);
     //     }
     // }, options)
     .add('Essentia#MelBands', () => {        
-        const frames = essentia.FrameGenerator(audioBuffer, FRAME_SIZE, HOP_SIZE);
-        for (var i = 0; i < frames.size(); i++){
-            var frame_windowed = essentia.Windowing(frames.get(i),true, FRAME_SIZE);
-            essentia.MelBands(essentia.Spectrum(frame_windowed['frame'])['spectrum'], 22050, 1025, false, 0, 'unit_sum', 128);
+        // const frames = essentia.FrameGenerator(audioBuffer, FRAME_SIZE, HOP_SIZE);
+        // for (var i = 0; i < frames.size(); i++){
+        //     var frame_windowed = essentia.Windowing(frames.get(i),true, FRAME_SIZE);
+        //     essentia.MelBands(essentia.Spectrum(frame_windowed['frame'])['spectrum'], 22050, 1025, false, 0, 'unit_sum', 128);
+        // }
+        const frames = essentia.FrameGenerator(leftChannelData, FRAME_SIZE, HOP_SIZE);
+        for (let i = 0; i < frames.size(); i++){
+            let frameWindowed = essentia.Windowing(frames.get(i), true, FRAME_SIZE).frame;
+            const spectrum = essentia.Spectrum(frameWindowed).spectrum;
+            const melBands = essentia.MelBands(spectrum, 22050, 1025, false, 0, 'unit_sum', 128).bands;
+            frameWindowed.delete();
+            spectrum.delete();
+            melBands.delete();
         }
+        frames.delete();
     }, options)
     // add listeners
     .on('cycle', function(event) {

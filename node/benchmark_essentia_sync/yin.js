@@ -6,13 +6,14 @@ import Benchmark from 'benchmark'
 import Essentia from '../../dist/essentia/essentia.js-core.es.js';
 // import essentia-wasm backend
 import { EssentiaWASM } from '../../dist/essentia/essentia-wasm.module.js';
+import wav from "node-wav";
 
 let essentia = new Essentia(EssentiaWASM);
 const __dirname = path.resolve();
 
 const FRAME_SIZE = 2048;
 const HOP_SIZE = 1024;
-const audioFilePath = path.join(__dirname, '..', '..','audio', 'mozart_c_major_5sec.wav');
+const audioFilePath = path.join(__dirname, '..', '..','audio', 'mozart_c_major_30sec.wav');
 var options = {};
 if (process.argv[2] !== undefined){
     options = {
@@ -26,14 +27,17 @@ if (process.argv[2] !== undefined){
 fs.readFile(audioFilePath, (err, data) => {
     if (err) throw err;
     let audioBuffer = data;
+    let result = wav.decode(audioBuffer);
+    const leftChannelData = result.channelData[0];
     const suite = new Benchmark.Suite('YIN');
 
     // add tests
     suite.add('Essentia#YIN', () => {
-        const frames = essentia.FrameGenerator(audioBuffer, FRAME_SIZE, HOP_SIZE);
-            for (var i = 0; i < frames.size(); i++){
-                essentia.PitchYin(frames.get(i));
+        const frames = essentia.FrameGenerator(leftChannelData, FRAME_SIZE, HOP_SIZE);
+        for (var i = 0; i < frames.size(); i++){
+            essentia.PitchYin(frames.get(i));
         }
+        frames.delete();
     }, options)
     // add listeners
     .on('cycle', function(event) {

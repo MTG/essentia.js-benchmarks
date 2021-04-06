@@ -6,13 +6,14 @@ import Benchmark from 'benchmark'
 import Essentia from '../../dist/essentia/essentia.js-core.es.js';
 // import essentia-wasm backend
 import { EssentiaWASM } from '../../dist/essentia/essentia-wasm.module.js';
+import wav from "node-wav";
 
 let essentia = new Essentia(EssentiaWASM);
 const __dirname = path.resolve();
 
 const FRAME_SIZE = 2048;
 const HOP_SIZE = 1024;
-const audioFilePath = path.join(__dirname, '..', '..','audio', 'mozart_c_major_5sec.wav');
+const audioFilePath = path.join(__dirname, '..', '..','audio', 'mozart_c_major_30sec.wav');
 var options = {};
 if (process.argv[2] !== undefined){
     options = {
@@ -26,24 +27,38 @@ if (process.argv[2] !== undefined){
 fs.readFile(audioFilePath, (err, data) => {
     if (err) throw err;
     let audioBuffer = data;
+    let result = wav.decode(audioBuffer);
+    const leftChannelData = result.channelData[0];
     const suite = new Benchmark.Suite('SpecRolloff');
 
     // add tests
     suite.add('Meyda#SpecRolloff', () => {
-        for (let i = 0; i < audioBuffer.length/HOP_SIZE; i++) {
+        for (let i = 0; i < leftChannelData.length/HOP_SIZE; i++) {
             Meyda.bufferSize = FRAME_SIZE;
-            let frame = audioBuffer.slice(HOP_SIZE*i, HOP_SIZE*i + FRAME_SIZE);
-            if (frame.length !== FRAME_SIZE) {
-                frame = Buffer.concat([frame], FRAME_SIZE);
+            let frame = new Float32Array();
+            frame = leftChannelData.slice(HOP_SIZE*i, HOP_SIZE*i + FRAME_SIZE);
+            if(frame.length !== FRAME_SIZE){
+                let bufferFrame = Buffer.from(frame);
+                frame = new Float32Array(Buffer.concat([bufferFrame], FRAME_SIZE));
+
             }
             Meyda.extract(['spectralRolloff'], frame);
         }
     }).add('Essentia#SpecRolloff', () => {        
-        for (let i = 0; i < audioBuffer.length/HOP_SIZE; i++){
-            let frame = audioBuffer.slice(HOP_SIZE*i, HOP_SIZE*i + FRAME_SIZE);
-            var frame_windowed = essentia.Windowing(essentia.arrayToVector(frame),true, FRAME_SIZE);
-            essentia.RollOff(essentia.Spectrum(frame_windowed['frame'])['spectrum']);
+        // for (let i = 0; i < audioBuffer.length/HOP_SIZE; i++){
+        //     let frame = audioBuffer.slice(HOP_SIZE*i, HOP_SIZE*i + FRAME_SIZE);
+        //     var frame_windowed = essentia.Windowing(essentia.arrayToVector(frame),true, FRAME_SIZE);
+        //     essentia.RollOff(essentia.Spectrum(frame_windowed['frame'])['spectrum']);
+        // }
+        const frames = essentia.FrameGenerator(leftChannelData, FRAME_SIZE, HOP_SIZE);
+        for (let i = 0; i < frames.size(); i++){
+            let frameWindowed = essentia.Windowing(frames.get(i), true, FRAME_SIZE).frame;
+            const spectrum = essentia.Spectrum(frameWindowed).spectrum;
+            essentia.RollOff(spectrum);
+            frameWindowed.delete();
+            spectrum.delete();
         }
+        frames.delete();
     })
     // add listeners
     .on('cycle', function(event) {

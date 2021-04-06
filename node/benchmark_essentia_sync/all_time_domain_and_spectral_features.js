@@ -6,13 +6,14 @@ import Benchmark from 'benchmark'
 import Essentia from '../../dist/essentia/essentia.js-core.es.js';
 // import essentia-wasm backend
 import { EssentiaWASM } from '../../dist/essentia/essentia-wasm.module.js';
+import wav from "node-wav";
 
 let essentia = new Essentia(EssentiaWASM);
 const __dirname = path.resolve();
 
 const FRAME_SIZE = 2048;
 const HOP_SIZE = 1024;
-const audioFilePath = path.join(__dirname, '..', '..','audio', 'mozart_c_major_5sec.wav');
+const audioFilePath = path.join(__dirname, '..', '..','audio', 'mozart_c_major_30sec.wav');
 var options = {};
 if (process.argv[2] !== undefined){
     options = {
@@ -26,15 +27,20 @@ if (process.argv[2] !== undefined){
 fs.readFile(audioFilePath, (err, data) => {
     if (err) throw err;
     let audioBuffer = data;
+    let result = wav.decode(audioBuffer);
+    const leftChannelData = result.channelData[0];
     const suite = new Benchmark.Suite('AllTimeFreq');
 
     // add tests
     suite.add('Meyda#AllTimeFreq', () => {
-        for (let i = 0; i < audioBuffer.length/HOP_SIZE; i++) {
+        for (let i = 0; i < leftChannelData.length/HOP_SIZE; i++) {
             Meyda.bufferSize = FRAME_SIZE;
-            let frame = audioBuffer.slice(HOP_SIZE*i, HOP_SIZE*i + FRAME_SIZE);
-            if (frame.length !== FRAME_SIZE) {
-                frame = Buffer.concat([frame], FRAME_SIZE);
+            let frame = new Float32Array();
+            frame = leftChannelData.slice(HOP_SIZE*i, HOP_SIZE*i + FRAME_SIZE);
+            if(frame.length !== FRAME_SIZE){
+                let bufferFrame = Buffer.from(frame);
+                frame = new Float32Array(Buffer.concat([bufferFrame], FRAME_SIZE));
+
             }
             Meyda.extract([
                 'energy',
@@ -56,23 +62,34 @@ fs.readFile(audioFilePath, (err, data) => {
         }
     }, options)
     .add('Essentia#AllTimeFreq', () => {
-        const frames = essentia.FrameGenerator(audioBuffer, FRAME_SIZE, HOP_SIZE);
+        const frames = essentia.FrameGenerator(leftChannelData, FRAME_SIZE, HOP_SIZE);
         for (var i = 0; i < frames.size(); i++){
             essentia.Energy(frames.get(i));
             essentia.RMS(frames.get(i));
             essentia.ZeroCrossingRate(frames.get(i));
-            var frame_windowed = essentia.Windowing(frames.get(i),true, FRAME_SIZE)['frame'];
-            var spectrum = essentia.Spectrum(frame_windowed)['spectrum'];
-            essentia.PowerSpectrum(frame_windowed);
+            const frameWindowed = essentia.Windowing(frames.get(i),true, FRAME_SIZE)['frame'];
+            const spectrum = essentia.Spectrum(frameWindowed).spectrum;
+            const powerSpectrum = essentia.PowerSpectrum(frameWindowed).powerSpectrum;
             essentia.Centroid(spectrum);
             essentia.Flatness(spectrum);
-            // essentia.Flux(spectrum);
+            essentia.Flux(spectrum);
             essentia.RollOff(spectrum);
-            essentia.DistributionShape(essentia.CentralMoments(spectrum)["centralMoments"]);
-            essentia.MFCC(spectrum);
-            var bands = essentia.BarkBands(spectrum, 24)['bands'];
-            essentia.Variance(bands);
+            const centralMoments = essentia.CentralMoments(spectrum).centralMoments;
+            essentia.DistributionShape(centralMoments);
+            const mfcc = essentia.MFCC(spectrum);
+            const melBands = essentia.MelBands(spectrum, 22050, 1025, false, 0, 'unit_sum', 128).bands;
+            const barkBands = essentia.BarkBands(spectrum, 24).bands;
+            essentia.Variance(barkBands);
+            frameWindowed.delete();
+            spectrum.delete();
+            powerSpectrum.delete();
+            centralMoments.delete();
+            mfcc.bands.delete();
+            mfcc.mfcc.delete();
+            melBands.delete();
+            barkBands.delete();
         }
+        frames.delete();
     }, options)
     // add listeners
     .on('cycle', function(event) {
@@ -80,7 +97,7 @@ fs.readFile(audioFilePath, (err, data) => {
     })
     
     .on('complete', function() {
-        console.log(this);
+        // console.log(this);
         console.log('Fastest is ' + this.filter('fastest').map('name'));
 
         const resultsObj = {
