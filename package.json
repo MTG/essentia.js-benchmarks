@@ -30,7 +30,6 @@
     "css-loader": "^3.5.3",
     "essentia.js": "0.0.9",
     "meyda": "^4.3.1",
-    "node-wav": "0.0.2",
     "standardized-audio-context": "^24.1.26",
     "style-loader": "^1.2.1",
     "webpack-dev-server": "^3.11.0",
