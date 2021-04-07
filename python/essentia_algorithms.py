@@ -244,8 +244,8 @@ def compute_pitch_yinfft(audio):
     return p['pitch_yinfft']
 
 
-audio = MonoLoader(filename="mozart_c_major_30sec.wav")()
-stereo_audio = AudioLoader(filename="mozart_c_major_30sec.wav")()[0]
+audio = MonoLoader(filename="../audio/mozart_c_major_30sec.wav")()
+stereo_audio = AudioLoader(filename="../audio/mozart_c_major_30sec.wav")()[0]
 
 
 

@@ -7,8 +7,8 @@ from essentia import Pool
 from essentia_algorithms import *
 
 
-audio = MonoLoader(filename="mozart_c_major_30sec.wav")()
-stereo_audio = AudioLoader(filename="mozart_c_major_30sec.wav")()[0]
+audio = MonoLoader(filename="../audio/mozart_c_major_30sec.wav")()
+stereo_audio = AudioLoader(filename="../audio/mozart_c_major_30sec.wav")()[0]
 
 
 def test_compute_energy(benchmark):
