@@ -28,30 +28,30 @@ if (process.argv[2] !== undefined){
 };
 
 // create ModelWrapper instance
-const musicnnWrapper = new ModelsWrapper('musicnn', EssentiaWASM);
+const vggishWrapper = new ModelsWrapper('vggish', EssentiaWASM);
  // tfjs needs `file://` otherwise thinks it's a relative path
-const modelPath = 'file://' + path.join(__dirname, '..', '..', 'models/msd-musicnn-1/model.json');
+const modelPath = 'file://' + path.join(__dirname, '..', '..', 'models/mood_happy-vggish-audioset-1/model.json');
 
 console.info("Loading audio and model...");
-Promise.all( [readFile(audioFilePath), musicnnWrapper.loadModel(modelPath)] ).then((responses) => {
+Promise.all( [readFile(audioFilePath), vggishWrapper.loadModel(modelPath)] ).then((responses) => {
     const audioFileBuffer = responses[0];
-    const suite = new Benchmark.Suite('AUTOTAGGING_MUSICNN');
+    const suite = new Benchmark.Suite('MOOD_HAPPY_VGGISH');
 
     // monomix, downsample
     const preprocessedAudio = modelsAudioPreprocess(audioFileBuffer);
 
     console.info("Loading done, running feature extraction...");
-    musicnnWrapper.extractFeatures(preprocessedAudio);
+    vggishWrapper.extractFeatures(preprocessedAudio);
     
     console.info("Features computed, setting up inference test");
     // add tests
-    suite.add('autotagging-musicnn#inference', async function (deferred) {
-        await musicnnWrapper.makePrediction();
+    suite.add('mood-happy-vggish#inference', async function (deferred) {
+        await vggishWrapper.makePrediction();
         deferred.resolve();
     }, options)
-    .add('autotagging-musicnn#endtoend', async function (deferred) {
-        musicnnWrapper.extractFeatures(preprocessedAudio);
-        await musicnnWrapper.makePrediction();
+    .add('mood-happy-vggish#endtoend', async function (deferred) {
+        vggishWrapper.extractFeatures(preprocessedAudio);
+        await vggishWrapper.makePrediction();
         deferred.resolve();
     }, options)
     // add listeners
@@ -63,7 +63,7 @@ Promise.all( [readFile(audioFilePath), musicnnWrapper.loadModel(modelPath)] ).th
         console.log(this);
         console.log('Fastest is ' + this.filter('fastest').map('name'));
 
-        musicnnWrapper.freeMemory();
+        vggishWrapper.freeMemory();
 
         const resultsObj = {
             "inference": {
@@ -101,13 +101,13 @@ Promise.all( [readFile(audioFilePath), musicnnWrapper.loadModel(modelPath)] ).th
         }
 
         var json = JSON.stringify(resultsObj);
-        fs.writeFile('autotagging_musicnn.json', json, 'utf8', function (err) {
+        fs.writeFile('mood_happy_vggish.json', json, 'utf8', function (err) {
             if (err) {
-                console.log("An error occured while writing autotagging_musicnn JSON Object to File.");
+                console.log("An error occured while writing mood_happy_vggish JSON Object to File.");
                 return console.log(err);
             }
 
-            console.log("autotagging_musicnn JSON file has been saved.");
+            console.log("mood_happy_vggish JSON file has been saved.");
         });
     })
     // run async

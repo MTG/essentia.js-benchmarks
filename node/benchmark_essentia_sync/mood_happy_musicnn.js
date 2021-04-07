@@ -30,12 +30,12 @@ if (process.argv[2] !== undefined){
 // create ModelWrapper instance
 const musicnnWrapper = new ModelsWrapper('musicnn', EssentiaWASM);
  // tfjs needs `file://` otherwise thinks it's a relative path
-const modelPath = 'file://' + path.join(__dirname, '..', '..', 'models/msd-musicnn-1/model.json');
+const modelPath = 'file://' + path.join(__dirname, '..', '..', 'models/mood_happy-musicnn-msd-2/model.json');
 
 console.info("Loading audio and model...");
 Promise.all( [readFile(audioFilePath), musicnnWrapper.loadModel(modelPath)] ).then((responses) => {
     const audioFileBuffer = responses[0];
-    const suite = new Benchmark.Suite('AUTOTAGGING_MUSICNN');
+    const suite = new Benchmark.Suite('MOOD_HAPPY_MUSICNN');
 
     // monomix, downsample
     const preprocessedAudio = modelsAudioPreprocess(audioFileBuffer);
@@ -45,11 +45,11 @@ Promise.all( [readFile(audioFilePath), musicnnWrapper.loadModel(modelPath)] ).th
     
     console.info("Features computed, setting up inference test");
     // add tests
-    suite.add('autotagging-musicnn#inference', async function (deferred) {
+    suite.add('mood-happy-musicnn#inference', async function (deferred) {
         await musicnnWrapper.makePrediction();
         deferred.resolve();
     }, options)
-    .add('autotagging-musicnn#endtoend', async function (deferred) {
+    .add('mood-happy-musicnn#endtoend', async function (deferred) {
         musicnnWrapper.extractFeatures(preprocessedAudio);
         await musicnnWrapper.makePrediction();
         deferred.resolve();
@@ -101,13 +101,13 @@ Promise.all( [readFile(audioFilePath), musicnnWrapper.loadModel(modelPath)] ).th
         }
 
         var json = JSON.stringify(resultsObj);
-        fs.writeFile('autotagging_musicnn.json', json, 'utf8', function (err) {
+        fs.writeFile('mood_happy_musicnn.json', json, 'utf8', function (err) {
             if (err) {
-                console.log("An error occured while writing autotagging_musicnn JSON Object to File.");
+                console.log("An error occured while writing mood_happy_musicnn JSON Object to File.");
                 return console.log(err);
             }
 
-            console.log("autotagging_musicnn JSON file has been saved.");
+            console.log("mood_happy_musicnn JSON file has been saved.");
         });
     })
     // run async
