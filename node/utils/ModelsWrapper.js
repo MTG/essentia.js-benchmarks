@@ -1,8 +1,8 @@
-import * as EssentiaModel from '../../dist/essentia/essentia.js-model.es';
+import * as EssentiaModel from '../../dist/essentia/essentia.js-model.es.js';
 import tf from "@tensorflow/tfjs-node";
 
 class ModelsWrapper {
-    constructor(arch, EssentiaWASM, /*EssentiaModel*/) { 
+    constructor(arch, EssentiaWASM /*, EssentiaModel*/) { 
         this.architecture = arch;
         this.engine = null;
         this.features = {
@@ -44,7 +44,7 @@ class ModelsWrapper {
                 break;
         }
         await this.engine.initialize();
-        console.info("inside wrapper loadModel");
+        // console.info("inside wrapper loadModel"); 
         return true;
     }
 

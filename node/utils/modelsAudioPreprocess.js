@@ -1,12 +1,12 @@
 import wav from "node-wav";
 
-export default function preprocess (audioBuffer) {
-    if (audioBuffer instanceof Buffer) {
+export default function preprocess (buffer) {
+    if (buffer instanceof Buffer) {
         // decode buffer of binary data
-        const decodedAudio = wav.decode(audioBuffer);
-        const mono = monomix(decodedAudio);
+        const audioBuffer = wav.decode(buffer);
+        const mono = monomix(audioBuffer);
         // downmix to mono, and downsample to 16kHz sr for essentia tensorflow models
-        return downsampleArray(mono, decodedAudio.sampleRate, 16000);
+        return downsampleArray(mono, audioBuffer.sampleRate, 16000);
     } else {
         throw new TypeError("Input to models audio preprocessing is not of type Buffer");
     }
