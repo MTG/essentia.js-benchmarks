@@ -1,0 +1,394 @@
+{
+    "mtt-musicnn-1": {
+        "path": "./models-protobuf/autotagging/mtt/mtt-musicnn-1.pb",
+        "input_layer": "model/Placeholder",
+        "output_layer": "model/Sigmoid",
+        "task": "autotagging",
+        "dataset": "mtt",
+        "arch": "musicnn"
+    },
+    "mtt-vgg-1": {
+        "path": "./models-protobuf/autotagging/mtt/mtt-vgg-1.pb",
+        "input_layer": "model/Placeholder",
+        "output_layer": "model/Sigmoid",
+        "task": "autotagging",
+        "dataset": "mtt",
+        "arch": "vgg"
+    },
+    "msd-vgg-1": {
+        "path": "./models-protobuf/autotagging/msd/msd-vgg-1.pb",
+        "input_layer": "model/Placeholder",
+        "output_layer": "model/Sigmoid",
+        "task": "autotagging",
+        "dataset": "msd",
+        "arch": "vgg"
+    },
+    "msd-musicnn-1": {
+        "path": "./models-protobuf/autotagging/msd/msd-musicnn-1.pb",
+        "input_layer": "model/Placeholder",
+        "output_layer": "model/Sigmoid",
+        "task": "autotagging",
+        "dataset": "msd",
+        "arch": "musicnn"
+    },
+    "mood_electronic-vggish-audioset-1": {
+        "path": "./models-protobuf/classifiers/mood_electronic/mood_electronic-vggish-audioset-1.pb",
+        "input_layer": "model/Placeholder",
+        "output_layer": "model/Sigmoid",
+        "task": "classifiers",
+        "dataset": "mood_electronic",
+        "arch": "vggish"
+    },
+    "mood_electronic-musicnn-mtt-2": {
+        "path": "./models-protobuf/classifiers/mood_electronic/mood_electronic-musicnn-mtt-2.pb",
+        "input_layer": "model/Placeholder",
+        "output_layer": "model/Sigmoid",
+        "task": "classifiers",
+        "dataset": "mood_electronic",
+        "arch": "musicnn"
+    },
+    "mood_electronic-musicnn-msd-2": {
+        "path": "./models-protobuf/classifiers/mood_electronic/mood_electronic-musicnn-msd-2.pb",
+        "input_layer": "model/Placeholder",
+        "output_layer": "model/Sigmoid",
+        "task": "classifiers",
+        "dataset": "mood_electronic",
+        "arch": "musicnn"
+    },
+    "genre_dortmund-vggish-audioset-1": {
+        "path": "./models-protobuf/classifiers/genre_dortmund/genre_dortmund-vggish-audioset-1.pb",
+        "input_layer": "model/Placeholder",
+        "output_layer": "model/Sigmoid",
+        "task": "classifiers",
+        "dataset": "genre_dortmund",
+        "arch": "vggish"
+    },
+    "genre_dortmund-musicnn-msd-2": {
+        "path": "./models-protobuf/classifiers/genre_dortmund/genre_dortmund-musicnn-msd-2.pb",
+        "input_layer": "model/Placeholder",
+        "output_layer": "model/Sigmoid",
+        "task": "classifiers",
+        "dataset": "genre_dortmund",
+        "arch": "musicnn"
+    },
+    "genre_dortmund-musicnn-mtt-2": {
+        "path": "./models-protobuf/classifiers/genre_dortmund/genre_dortmund-musicnn-mtt-2.pb",
+        "input_layer": "model/Placeholder",
+        "output_layer": "model/Sigmoid",
+        "task": "classifiers",
+        "dataset": "genre_dortmund",
+        "arch": "musicnn"
+    },
+    "gender-musicnn-mtt-2": {
+        "path": "./models-protobuf/classifiers/gender/gender-musicnn-mtt-2.pb",
+        "input_layer": "model/Placeholder",
+        "output_layer": "model/Sigmoid",
+        "task": "classifiers",
+        "dataset": "gender",
+        "arch": "musicnn"
+    },
+    "gender-musicnn-msd-2": {
+        "path": "./models-protobuf/classifiers/gender/gender-musicnn-msd-2.pb",
+        "input_layer": "model/Placeholder",
+        "output_layer": "model/Sigmoid",
+        "task": "classifiers",
+        "dataset": "gender",
+        "arch": "musicnn"
+    },
+    "gender-vggish-audioset-1": {
+        "path": "./models-protobuf/classifiers/gender/gender-vggish-audioset-1.pb",
+        "input_layer": "model/Placeholder",
+        "output_layer": "model/Sigmoid",
+        "task": "classifiers",
+        "dataset": "gender",
+        "arch": "vggish"
+    },
+    "tonal_atonal-musicnn-msd-2": {
+        "path": "./models-protobuf/classifiers/tonal_atonal/tonal_atonal-musicnn-msd-2.pb",
+        "input_layer": "model/Placeholder",
+        "output_layer": "model/Sigmoid",
+        "task": "classifiers",
+        "dataset": "tonal_atonal",
+        "arch": "musicnn"
+    },
+    "tonal_atonal-vggish-audioset-1": {
+        "path": "./models-protobuf/classifiers/tonal_atonal/tonal_atonal-vggish-audioset-1.pb",
+        "input_layer": "model/Placeholder",
+        "output_layer": "model/Sigmoid",
+        "task": "classifiers",
+        "dataset": "tonal_atonal",
+        "arch": "vggish"
+    },
+    "tonal_atonal-musicnn-mtt-2": {
+        "path": "./models-protobuf/classifiers/tonal_atonal/tonal_atonal-musicnn-mtt-2.pb",
+        "input_layer": "model/Placeholder",
+        "output_layer": "model/Sigmoid",
+        "task": "classifiers",
+        "dataset": "tonal_atonal",
+        "arch": "musicnn"
+    },
+    "danceability-vggish-audioset-1": {
+        "path": "./models-protobuf/classifiers/danceability/danceability-vggish-audioset-1.pb",
+        "input_layer": "model/Placeholder",
+        "output_layer": "model/Sigmoid",
+        "task": "classifiers",
+        "dataset": "danceability",
+        "arch": "vggish"
+    },
+    "danceability-musicnn-mtt-2": {
+        "path": "./models-protobuf/classifiers/danceability/danceability-musicnn-mtt-2.pb",
+        "input_layer": "model/Placeholder",
+        "output_layer": "model/Sigmoid",
+        "task": "classifiers",
+        "dataset": "danceability",
+        "arch": "musicnn"
+    },
+    "danceability-musicnn-msd-2": {
+        "path": "./models-protobuf/classifiers/danceability/danceability-musicnn-msd-2.pb",
+        "input_layer": "model/Placeholder",
+        "output_layer": "model/Sigmoid",
+        "task": "classifiers",
+        "dataset": "danceability",
+        "arch": "musicnn"
+    },
+    "genre_tzanetakis-musicnn-msd-2": {
+        "path": "./models-protobuf/classifiers/genre_tzanetakis/genre_tzanetakis-musicnn-msd-2.pb",
+        "input_layer": "model/Placeholder",
+        "output_layer": "model/Sigmoid",
+        "task": "classifiers",
+        "dataset": "genre_tzanetakis",
+        "arch": "musicnn"
+    },
+    "genre_tzanetakis-vggish-audioset-1": {
+        "path": "./models-protobuf/classifiers/genre_tzanetakis/genre_tzanetakis-vggish-audioset-1.pb",
+        "input_layer": "model/Placeholder",
+        "output_layer": "model/Sigmoid",
+        "task": "classifiers",
+        "dataset": "genre_tzanetakis",
+        "arch": "vggish"
+    },
+    "genre_tzanetakis-musicnn-mtt-2": {
+        "path": "./models-protobuf/classifiers/genre_tzanetakis/genre_tzanetakis-musicnn-mtt-2.pb",
+        "input_layer": "model/Placeholder",
+        "output_layer": "model/Sigmoid",
+        "task": "classifiers",
+        "dataset": "genre_tzanetakis",
+        "arch": "musicnn"
+    },
+    "mood_relaxed-musicnn-msd-2": {
+        "path": "./models-protobuf/classifiers/mood_relaxed/mood_relaxed-musicnn-msd-2.pb",
+        "input_layer": "model/Placeholder",
+        "output_layer": "model/Sigmoid",
+        "task": "classifiers",
+        "dataset": "mood_relaxed",
+        "arch": "musicnn"
+    },
+    "mood_relaxed-vggish-audioset-1": {
+        "path": "./models-protobuf/classifiers/mood_relaxed/mood_relaxed-vggish-audioset-1.pb",
+        "input_layer": "model/Placeholder",
+        "output_layer": "model/Sigmoid",
+        "task": "classifiers",
+        "dataset": "mood_relaxed",
+        "arch": "vggish"
+    },
+    "mood_relaxed-musicnn-mtt-2": {
+        "path": "./models-protobuf/classifiers/mood_relaxed/mood_relaxed-musicnn-mtt-2.pb",
+        "input_layer": "model/Placeholder",
+        "output_layer": "model/Sigmoid",
+        "task": "classifiers",
+        "dataset": "mood_relaxed",
+        "arch": "musicnn"
+    },
+    "genre_rosamerica-vggish-audioset-1": {
+        "path": "./models-protobuf/classifiers/genre_rosamerica/genre_rosamerica-vggish-audioset-1.pb",
+        "input_layer": "model/Placeholder",
+        "output_layer": "model/Sigmoid",
+        "task": "classifiers",
+        "dataset": "genre_rosamerica",
+        "arch": "vggish"
+    },
+    "genre_rosamerica-musicnn-msd-2": {
+        "path": "./models-protobuf/classifiers/genre_rosamerica/genre_rosamerica-musicnn-msd-2.pb",
+        "input_layer": "model/Placeholder",
+        "output_layer": "model/Sigmoid",
+        "task": "classifiers",
+        "dataset": "genre_rosamerica",
+        "arch": "musicnn"
+    },
+    "genre_rosamerica-musicnn-mtt-2": {
+        "path": "./models-protobuf/classifiers/genre_rosamerica/genre_rosamerica-musicnn-mtt-2.pb",
+        "input_layer": "model/Placeholder",
+        "output_layer": "model/Sigmoid",
+        "task": "classifiers",
+        "dataset": "genre_rosamerica",
+        "arch": "musicnn"
+    },
+    "genre_electronic-vggish-audioset-1": {
+        "path": "./models-protobuf/classifiers/genre_electronic/genre_electronic-vggish-audioset-1.pb",
+        "input_layer": "model/Placeholder",
+        "output_layer": "model/Sigmoid",
+        "task": "classifiers",
+        "dataset": "genre_electronic",
+        "arch": "vggish"
+    },
+    "genre_electronic-musicnn-msd-2": {
+        "path": "./models-protobuf/classifiers/genre_electronic/genre_electronic-musicnn-msd-2.pb",
+        "input_layer": "model/Placeholder",
+        "output_layer": "model/Sigmoid",
+        "task": "classifiers",
+        "dataset": "genre_electronic",
+        "arch": "musicnn"
+    },
+    "genre_electronic-musicnn-mtt-2": {
+        "path": "./models-protobuf/classifiers/genre_electronic/genre_electronic-musicnn-mtt-2.pb",
+        "input_layer": "model/Placeholder",
+        "output_layer": "model/Sigmoid",
+        "task": "classifiers",
+        "dataset": "genre_electronic",
+        "arch": "musicnn"
+    },
+    "mood_aggressive-vggish-audioset-1": {
+        "path": "./models-protobuf/classifiers/mood_aggressive/mood_aggressive-vggish-audioset-1.pb",
+        "input_layer": "model/Placeholder",
+        "output_layer": "model/Sigmoid",
+        "task": "classifiers",
+        "dataset": "mood_aggressive",
+        "arch": "vggish"
+    },
+    "mood_aggressive-musicnn-mtt-2": {
+        "path": "./models-protobuf/classifiers/mood_aggressive/mood_aggressive-musicnn-mtt-2.pb",
+        "input_layer": "model/Placeholder",
+        "output_layer": "model/Sigmoid",
+        "task": "classifiers",
+        "dataset": "mood_aggressive",
+        "arch": "musicnn"
+    },
+    "mood_aggressive-musicnn-msd-2": {
+        "path": "./models-protobuf/classifiers/mood_aggressive/mood_aggressive-musicnn-msd-2.pb",
+        "input_layer": "model/Placeholder",
+        "output_layer": "model/Sigmoid",
+        "task": "classifiers",
+        "dataset": "mood_aggressive",
+        "arch": "musicnn"
+    },
+    "voice_instrumental-vggish-audioset-1": {
+        "path": "./models-protobuf/classifiers/voice_instrumental/voice_instrumental-vggish-audioset-1.pb",
+        "input_layer": "model/Placeholder",
+        "output_layer": "model/Sigmoid",
+        "task": "classifiers",
+        "dataset": "voice_instrumental",
+        "arch": "vggish"
+    },
+    "voice_instrumental-musicnn-mtt-2": {
+        "path": "./models-protobuf/classifiers/voice_instrumental/voice_instrumental-musicnn-mtt-2.pb",
+        "input_layer": "model/Placeholder",
+        "output_layer": "model/Sigmoid",
+        "task": "classifiers",
+        "dataset": "voice_instrumental",
+        "arch": "musicnn"
+    },
+    "voice_instrumental-musicnn-msd-2": {
+        "path": "./models-protobuf/classifiers/voice_instrumental/voice_instrumental-musicnn-msd-2.pb",
+        "input_layer": "model/Placeholder",
+        "output_layer": "model/Sigmoid",
+        "task": "classifiers",
+        "dataset": "voice_instrumental",
+        "arch": "musicnn"
+    },
+    "mood_acoustic-musicnn-msd-2": {
+        "path": "./models-protobuf/classifiers/mood_acoustic/mood_acoustic-musicnn-msd-2.pb",
+        "input_layer": "model/Placeholder",
+        "output_layer": "model/Sigmoid",
+        "task": "classifiers",
+        "dataset": "mood_acoustic",
+        "arch": "musicnn"
+    },
+    "mood_acoustic-musicnn-mtt-2": {
+        "path": "./models-protobuf/classifiers/mood_acoustic/mood_acoustic-musicnn-mtt-2.pb",
+        "input_layer": "model/Placeholder",
+        "output_layer": "model/Sigmoid",
+        "task": "classifiers",
+        "dataset": "mood_acoustic",
+        "arch": "musicnn"
+    },
+    "mood_acoustic-vggish-audioset-1": {
+        "path": "./models-protobuf/classifiers/mood_acoustic/mood_acoustic-vggish-audioset-1.pb",
+        "input_layer": "model/Placeholder",
+        "output_layer": "model/Sigmoid",
+        "task": "classifiers",
+        "dataset": "mood_acoustic",
+        "arch": "vggish"
+    },
+    "mood_party-musicnn-mtt-2": {
+        "path": "./models-protobuf/classifiers/mood_party/mood_party-musicnn-mtt-2.pb",
+        "input_layer": "model/Placeholder",
+        "output_layer": "model/Sigmoid",
+        "task": "classifiers",
+        "dataset": "mood_party",
+        "arch": "musicnn"
+    },
+    "mood_party-musicnn-msd-2": {
+        "path": "./models-protobuf/classifiers/mood_party/mood_party-musicnn-msd-2.pb",
+        "input_layer": "model/Placeholder",
+        "output_layer": "model/Sigmoid",
+        "task": "classifiers",
+        "dataset": "mood_party",
+        "arch": "musicnn"
+    },
+    "mood_party-vggish-audioset-1": {
+        "path": "./models-protobuf/classifiers/mood_party/mood_party-vggish-audioset-1.pb",
+        "input_layer": "model/Placeholder",
+        "output_layer": "model/Sigmoid",
+        "task": "classifiers",
+        "dataset": "mood_party",
+        "arch": "vggish"
+    },
+    "mood_sad-musicnn-msd-2": {
+        "path": "./models-protobuf/classifiers/mood_sad/mood_sad-musicnn-msd-2.pb",
+        "input_layer": "model/Placeholder",
+        "output_layer": "model/Sigmoid",
+        "task": "classifiers",
+        "dataset": "mood_sad",
+        "arch": "musicnn"
+    },
+    "mood_sad-vggish-audioset-1": {
+        "path": "./models-protobuf/classifiers/mood_sad/mood_sad-vggish-audioset-1.pb",
+        "input_layer": "model/Placeholder",
+        "output_layer": "model/Sigmoid",
+        "task": "classifiers",
+        "dataset": "mood_sad",
+        "arch": "vggish"
+    },
+    "mood_sad-musicnn-mtt-2": {
+        "path": "./models-protobuf/classifiers/mood_sad/mood_sad-musicnn-mtt-2.pb",
+        "input_layer": "model/Placeholder",
+        "output_layer": "model/Sigmoid",
+        "task": "classifiers",
+        "dataset": "mood_sad",
+        "arch": "musicnn"
+    },
+    "mood_happy-musicnn-mtt-2": {
+        "path": "./models-protobuf/classifiers/mood_happy/mood_happy-musicnn-mtt-2.pb",
+        "input_layer": "model/Placeholder",
+        "output_layer": "model/Sigmoid",
+        "task": "classifiers",
+        "dataset": "mood_happy",
+        "arch": "musicnn"
+    },
+    "mood_happy-musicnn-msd-2": {
+        "path": "./models-protobuf/classifiers/mood_happy/mood_happy-musicnn-msd-2.pb",
+        "input_layer": "model/Placeholder",
+        "output_layer": "model/Sigmoid",
+        "task": "classifiers",
+        "dataset": "mood_happy",
+        "arch": "musicnn"
+    },
+    "mood_happy-vggish-audioset-1": {
+        "path": "./models-protobuf/classifiers/mood_happy/mood_happy-vggish-audioset-1.pb",
+        "input_layer": "model/Placeholder",
+        "output_layer": "model/Sigmoid",
+        "task": "classifiers",
+        "dataset": "mood_happy",
+        "arch": "vggish"
+    }
+}

@@ -3,3 +3,6 @@ node_modules
 audio
 .DS_Store
 python/__pycache__/
+python/*.sh
+python/.benchmarks
+models-protobuf
