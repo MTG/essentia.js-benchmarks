@@ -34,3 +34,4 @@ def endtoend_test_function(benchmark, model_name, wrapper, audio):
     benchmark(endtoend, audio, wrapper)
     # teardown
     wrapper.dispose()
+    
