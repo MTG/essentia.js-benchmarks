@@ -65,3 +65,4 @@ class ModelsWrapper:
         # clear model from memory
         self.predict = None
         self.in_layer = None
+        
