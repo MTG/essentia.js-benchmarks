@@ -62,3 +62,4 @@ def test_inference_mood_happy_vggish(benchmark):
 
 def test_endtoend_mood_happy_vggish(benchmark):
     endtoend_test_function(benchmark, 'mood_happy-vggish-audioset-1', vggish_wrapper, audio)
+    
