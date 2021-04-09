@@ -89,6 +89,8 @@ const Button20s = document.querySelector('.button#audio20s');
 const Button30s = document.querySelector('.button#audio30s');
 const DownloadResults = document.querySelector('#downloadResults');
 const FrameMode = document.querySelector('#frameMode');
+const tfjsBackendWebGL = document.querySelector('#tfjs-backend-webgl');
+const tfjsBackendWASM = document.querySelector('#tfjs-backend-wasm');
 
 //Custom Variables
 let essentia;
@@ -163,6 +165,8 @@ Button20s.addEventListener('click', (e) => selectAudio(e));
 Button30s.addEventListener('click', (e) => selectAudio(e));
 DownloadResults.addEventListener('change', (e) => manageResults(e));
 FrameMode.addEventListener('change', (e) => manageFrameMode(e));
+tfjsBackendWebGL.addEventListener('click', (e) => changeTensorflowBackend(e));
+tfjsBackendWASM.addEventListener('click', (e) => changeTensorflowBackend(e));
 
 function selectAudio(e, audioURL) {
     const buttonsAudio = document.getElementsByClassName("audioButton");
@@ -200,6 +204,62 @@ function manageResults(e){
 function manageFrameMode(e) {
     window.frameMode = e.target.checked === true ? "essentia" : "vanilla";
 }
+
+function changeTensorflowBackend(e) {
+    switch (e.target.id) {
+        case "tfjs-backend-wasm":
+            toggleDisabledModelsButtons('disabled');
+            tf.setBackend('wasm');
+            tf.ready()
+                .then( () => { 
+                    console.info(`Tensorflow.js is now using: ${tf.getBackend()} backend`);
+                    toggleDisabledModelsButtons('enabled');
+                })
+                .catch( (e) => console.error(`tf.js couldn't load the WASM backend: \n ${e}`) );
+            break;
+    
+        case "tfjs-backend-webgl":
+            try {
+                tf.setBackend('webgl');
+            } catch (e) {
+                alert("Could NOT change Tensorflow.js backend to WebGL. Please select the WASM backend instead using the radio buttons provided under 'Essentia Tensorflow Models'.");
+            }
+            console.info(`Tensorflow.js is now using: ${tf.getBackend()} backend`);
+            break;
+    }
+}
+
+function toggleDisabledModelsButtons(state) {
+    const modelsButtons = [AutotaggingMusiCNNButton, AutotaggingVGGButton, GenreRosamericaMusiCNNButton, GenreRosamericaVGGishButton, MoodHappyMusiCNNButton, MoodHappyVGGishButton];
+    switch (state) {
+        case 'disabled':
+            modelsButtons.forEach((b) => b.disabled = true );
+            break;
+    
+        case 'enabled':
+            modelsButtons.forEach((b) => b.disabled = false );
+            break;
+    }
+}
+
+function check32bitTensorflow() {
+    if (!tf.ENV.getBool('WEBGL_RENDER_FLOAT32_CAPABLE')) {
+        alert("This device does NOT support 32 bit WebGL textures. Change the backend to WASM using the radio buttons provided under 'Essentia Tensorflow Models'. ");
+        toggleDisabledModelsButtons('disabled');
+    } else {
+        if (!tf.ENV.getBool('WEBGL_RENDER_FLOAT32_ENABLED')) {
+            try {
+                tf.ENV.set('WEBGL_RENDER_FLOAT32_ENABLED', true);
+            } catch (e) {
+                alert("Could NOT force enable 32 bit WebGL textures. This device defaults to 16 bit. Models benchmarks are disabled.");
+                toggleDisabledModelsButtons('disabled');
+                console.error(e);
+            }
+        }
+    }
+}
+
+check32bitTensorflow();
 
 function loadEssentia() {
     EssentiaWASM().then((EssentiaWasmModule) => {
