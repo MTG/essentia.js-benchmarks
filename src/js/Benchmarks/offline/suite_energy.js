@@ -79,7 +79,7 @@ export default function energy(essentia, Meyda, audioURL, audioContext) {
             EnergyButton.disable = true;
         })
         .on('complete', function() {
-            console.log(this);
+            //console.log(this);
             console.log('Fastest is ' + this.filter('fastest').map('name'));
             // TODO: Here attach to the DOM -> SPIKE
             p.textContent = 'Fastest is ' + this.filter('fastest').map('name');

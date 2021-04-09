@@ -5,7 +5,7 @@ function downloadJson(jsonObj, fileName, downElem){
     const os = window.navigator.platform;
     const separator = "-";
     const d = new Date();
-    const date = d.toString().split("GMT")[0].split("Thu")[1].replace(/ /gi, "");
+    const date = d.toString().split("GMT")[0].substring(4).replace(/ /gi, "");
     if (window.navigator.userAgent.includes("Chrome")){
         nav = "-Chrome-";
     }
