@@ -75,7 +75,7 @@ const YINFFTButton = document.querySelector('#yin_fft #start_offline');
 
 // addition: essentia tensorflow models
 const TensorflowInputMusiCNNButton = document.querySelector('#tensorflow-input-musicnn #start_offline');
-const TensorflowInputVGGishButton = document.querySelector('#tensorflow-input-musicnn #start_offline');
+const TensorflowInputVGGishButton = document.querySelector('#tensorflow-input-vggish #start_offline');
 const AutotaggingMusiCNNButton = document.querySelector('#autotagging-musicnn #start_offline');
 const AutotaggingVGGButton = document.querySelector('#autotagging-vgg #start_offline');
 const GenreRosamericaMusiCNNButton = document.querySelector('#genre-rosamerica-musicnn #start_offline');
