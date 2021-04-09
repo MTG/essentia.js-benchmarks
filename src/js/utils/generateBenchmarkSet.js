@@ -75,12 +75,20 @@ export default () => {
      * Main Loop
      */
     data.forEach(element => {
-        
         mainContainer
             .appendChild(
                 createHeaderElement('h3', element.title, 'title')
             );
-
+        if (element.title == "Essentia Tensorflow Models") {
+            const selectTensorflowBackend = document.createElement('div');
+            selectTensorflowBackend.innerHTML = `
+                <p>Select Tensorflow.js backend</p>
+                <label class="checkbox"><input id="tfjs-backend-webgl" type="radio" name="tfjs-backend" checked>WebGL backend</label>
+                <label class="checkbox"><input id="tfjs-backend-wasm" type="radio" name="tfjs-backend">WASM backend</label>
+            `;
+            selectTensorflowBackend.classList.add('control');
+            mainContainer.appendChild(selectTensorflowBackend);
+        }
         mainContainer
             .appendChild(
                 createNotificationBlocks(element)
