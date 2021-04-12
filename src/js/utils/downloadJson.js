@@ -1,5 +1,5 @@
 function downloadJson(jsonObj, fileName, downElem){
-    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(jsonObj));
+    const dataStr = URL.createObjectURL(new Blob([JSON.stringify(jsonObj)], {type: 'application/json'}));
     downElem.setAttribute("href", dataStr);
     let nav = "";
     const os = window.navigator.platform;
