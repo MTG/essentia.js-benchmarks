@@ -11,7 +11,7 @@ let columnsBlockTemplates = {
                 <button id="start_offline" class="button is-primary">Run Benchmark</button>
             </div>
             <p id="results"></p>
-            <a id="download_results" class="is-hidden"></a>
+            <a id="download_results">Download Results</a>
         </div>
         <div class="column" id="essentia_results">
             <h4 class="subtitle is-4">essentia.js results</h4>
