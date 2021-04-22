@@ -99,7 +99,7 @@ loadEssentia();
 
 window.downloadResults = false;
 window.frameMode = 'vanilla';
-window.audioURL = 'https://sonosuite-benchmark-audios.s3.amazonaws.com/mozart_c_major_30sec.wav';
+window.audioURL = './audio/mozart_c_major_30sec.wav';
 Button30s.classList.add("is-active");
 window.modelsBaseURL = window.location.href + '/models';
 
