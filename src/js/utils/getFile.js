@@ -1,7 +1,10 @@
 async function getFile(audioCtx, filepath) { 
-    const response = await fetch(filepath);
-    const arrayBuffer = await response.arrayBuffer();
-    const audioBuffer = await  audioCtx.decodeAudioData(arrayBuffer);
+    audioCtx.resume().then(() => {
+        const response = await fetch(filepath);
+        const arrayBuffer = await response.arrayBuffer();
+        const audioBuffer = await  audioCtx.decodeAudioData(arrayBuffer);
+        await audioCtx.suspend();
+    })
 
     return audioBuffer;
 }
